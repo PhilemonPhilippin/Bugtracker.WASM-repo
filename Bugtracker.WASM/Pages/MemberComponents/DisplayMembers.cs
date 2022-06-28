@@ -13,7 +13,6 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         protected override async Task OnInitializedAsync()
         {
             members = await Http.GetFromJsonAsync<List<MemberVm>>("https://localhost:7051/api/Member");
-            Console.WriteLine("On est entré dans la consommation d'API");
         }
     }
 }

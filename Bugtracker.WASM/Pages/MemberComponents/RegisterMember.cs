@@ -22,8 +22,8 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         }
         private async Task SubmitRegistration()
         {
-            // TODO : mettre à jour l'uri du post
-            using var response = await Http.PutAsJsonAsync("ChangeMyURIHere", _member);
+
+            using var response = await Http.PutAsJsonAsync("https://localhost:7051/api/Member", _member);
             MemberRegistrationVm responseMember = await response.Content.ReadFromJsonAsync<MemberRegistrationVm>();
         }
     }
