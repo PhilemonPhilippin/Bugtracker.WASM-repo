@@ -1,5 +1,20 @@
-﻿<h3>DisplayMembers</h3>
-
-@code {
-
+﻿
+<h3>DisplayMembers</h3>
+<ul>
+    @if (members.Count == 0)
+    {
+        <li>Chargement de la page...</li>
+    }
+    else {
+        <li>Liste déjà chargée</li>
+    }
+    @if (members.Count > 0)
+    {
+        @foreach (MemberVm member in members) {
+            <li>Member Id : @member.IdMember </li>
+            <li>Member Login : @member.Login </li>
+            <li>Member Password : @member.Password </li>
+            <li>Member Email Address : @member.EmailAddress </li>
+    }
 }
+</ul>
