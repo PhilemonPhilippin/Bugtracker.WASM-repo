@@ -1,0 +1,16 @@
+﻿<h3>Register Member</h3>
+
+<EditForm Model="MemberRegistrationVm" OnValidSubmit="SubmitRegistration">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <label for="Login">Login:</label>
+    <InputText id="Login" @bind-Value="MemberRegistrationVm.Login" class="form-control"></InputText>
+    <label for="EmailAddress">Email:</label>
+    <InputText id="EmailAddress" @bind-Value="MemberRegistrationVm.EmailAddress" class="form-control"></InputText>
+    <label for="Password">Password:</label>
+    <InputText id="Password" @bind-Value="MemberRegistrationVm.Password" class="form-control"></InputText>
+    <label for="ConfirmPassword">Confirm Password:</label>
+    <InputText id="ConfirmPassword" @bind-Value="MemberRegistrationVm.ConfirmPassword" class="form-control"></InputText>
+
+    <button type="submit" class="btn btn-primary">Confirm registration</button>
+    <ValidationSummary></ValidationSummary>
+</EditForm>
