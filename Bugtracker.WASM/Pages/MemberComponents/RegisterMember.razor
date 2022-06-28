@@ -11,6 +11,11 @@
     <label for="ConfirmPassword">Confirm Password:</label>
     <InputText id="ConfirmPassword" @bind-Value="MemberRegistrationVm.ConfirmPassword" class="form-control"></InputText>
 
+    <label for="Firstname">Firstname:</label>
+    <InputText id="Firstname" @bind-Value="MemberRegistrationVm.Firstname" class="form-control"></InputText>
+    <label for="Lastname">Lastname:</label>
+    <InputText id="Lastname" @bind-Value="MemberRegistrationVm.Lastname" class="form-control"></InputText>
+
     <button type="submit" class="btn btn-primary">Confirm registration</button>
     <ValidationSummary></ValidationSummary>
 </EditForm>
