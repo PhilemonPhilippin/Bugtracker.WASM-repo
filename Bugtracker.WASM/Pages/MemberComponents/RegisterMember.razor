@@ -1,21 +1,20 @@
 ﻿<h3>Register Member</h3>
 
-<EditForm Model="Member" OnValidSubmit="SubmitRegistration">
-    <DataAnnotationsValidator></DataAnnotationsValidator>
+<EditForm Model="@member" OnValidSubmit="@SubmitRegistration">
+    <DataAnnotationsValidator />
     <label for="Login">Login:</label>
-    <InputText id="Login" @bind-Value="MemberRegistrationVm.Login" class="form-control"></InputText>
+    <InputText id="Login" @bind-Value="@member.Login" class="form-control" />
     <label for="EmailAddress">Email:</label>
-    <InputText id="EmailAddress" @bind-Value="MemberRegistrationVm.EmailAddress" class="form-control"></InputText>
+    <InputText id="EmailAddress" @bind-Value="@member.EmailAddress" class="form-control" />
     <label for="Password">Password:</label>
-    <InputText id="Password" @bind-Value="MemberRegistrationVm.Password" class="form-control"></InputText>
+    <InputText id="Password" @bind-Value="@member.Password" class="form-control" />
     <label for="ConfirmPassword">Confirm Password:</label>
-    <InputText id="ConfirmPassword" @bind-Value="MemberRegistrationVm.ConfirmPassword" class="form-control"></InputText>
-
+    <InputText id="ConfirmPassword" @bind-Value="@member.ConfirmPassword" class="form-control" />
     <label for="Firstname">Firstname:</label>
-    <InputText id="Firstname" @bind-Value="MemberRegistrationVm.Firstname" class="form-control"></InputText>
+    <InputText id="Firstname" @bind-Value="@member.Firstname" class="form-control" />
     <label for="Lastname">Lastname:</label>
-    <InputText id="Lastname" @bind-Value="MemberRegistrationVm.Lastname" class="form-control"></InputText>
+    <InputText id="Lastname" @bind-Value="@member.Lastname" class="form-control" />
 
     <button type="submit" class="btn btn-primary">Confirm registration</button>
-    <ValidationSummary></ValidationSummary>
+    <ValidationSummary />
 </EditForm>
