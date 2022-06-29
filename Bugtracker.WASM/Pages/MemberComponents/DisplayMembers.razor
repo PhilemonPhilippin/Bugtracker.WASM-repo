@@ -1,17 +1,14 @@
 ﻿
-<h3>DisplayMembers</h3>
+<h5>DisplayMembers</h5>
 <ul>
     @if (members.Count == 0)
     {
-        <li>Chargement de la page...</li>
+        @:Chargement du composant affichant les membres...
     }
     else {
-        <li>Liste déjà chargée</li>
-    }
-    @if (members.Count > 0)
-    {
+
         @foreach (MemberVm member in members) {
-            <li>Member Id : @member.IdMember </li>
+            <li class="mt-4">Member Id : @member.IdMember </li>
             <li>Member Login : @member.Login </li>
             <li>Member Password : @member.Password </li>
             <li>Member Email Address : @member.EmailAddress </li>
