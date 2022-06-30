@@ -18,3 +18,10 @@
     <button type="submit" class="btn btn-primary">Confirm registration</button>
     <ValidationSummary/>
 </EditForm>
+
+@if (isLoginTaken) {
+    <p class="text-danger">This login is ALREADY taken.</p>
+}
+@if (isEmailTaken) {
+    <p class="text-danger">This email is ALREADY taken</p>
+}

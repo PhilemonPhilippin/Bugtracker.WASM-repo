@@ -21,6 +21,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             // if I ever need to get back the member that I posted :
             // MemberRegistrationVm responseMember = await response.Content.ReadFromJsonAsync<MemberRegistrationVm>();
             var responseObject = await response.Content.ReadFromJsonAsync<object?>();
+            bool isRegistrationCompleted = false;
             if (responseObject is not null)
             {
                 switch (responseObject)
@@ -48,14 +49,15 @@ namespace Bugtracker.WASM.Pages.MemberComponents
                         }
                         break;
                     case MemberRegistrationVm responseMember:
-                        // TODO : do i need to do something with the member i get back ?
+                        isRegistrationCompleted = true;
                         break;
                     default:
                         Console.WriteLine("Response object not as expected");
                         break;
                 }
             }
-            member = new MemberRegistrationVm();
+            if (isRegistrationCompleted)
+                member = new MemberRegistrationVm();
         }
     }
 }
