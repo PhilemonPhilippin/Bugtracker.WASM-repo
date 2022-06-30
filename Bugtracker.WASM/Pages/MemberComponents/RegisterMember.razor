@@ -3,18 +3,31 @@
 
 <EditForm Model="@member" OnValidSubmit="@SubmitRegistration">
     <DataAnnotationsValidator/>
-    <span>Login state : Login is taken = @isLoginTaken</span>
-    <label for="Login">Login:</label>
+    <label for="Login">
+        Login: @if (isLoginTaken)
+        {
+            <span class="text-danger">Login already taken</span>
+        }
+    </label>
     <InputText id="Login" @bind-Value="@member.Login" class="form-control"/>
-    <span>Email state : Email is taken = @isEmailTaken</span>
-    <label for="EmailAddress">Email:</label>
+
+     <label for="EmailAddress">
+        Email Address: @if (isEmailTaken)
+        {
+            <span class="text-danger">Email already taken</span>
+        }
+    </label>
     <InputText id="EmailAddress" @bind-Value="@member.EmailAddress" class="form-control"/>
+
     <label for="Password">Password:</label>
     <InputText id="Password" @bind-Value="@member.Password" class="form-control"/>
+
     <label for="ConfirmPassword">Confirm Password:</label>
     <InputText id="ConfirmPassword" @bind-Value="@member.ConfirmPassword" class="form-control"/>
+
     <label for="Firstname">Firstname:</label>
     <InputText id="Firstname" @bind-Value="@member.Firstname" class="form-control"/>
+
     <label for="Lastname">Lastname:</label>
     <InputText id="Lastname" @bind-Value="@member.Lastname" class="form-control"/>
 
