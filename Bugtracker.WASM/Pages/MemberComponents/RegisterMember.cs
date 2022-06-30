@@ -17,6 +17,8 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         }
         private async Task SubmitRegistration()
         {
+            isLoginTaken = false;
+            isEmailTaken = false;
             HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Member", member);
             // if I ever need to get back the member that I posted :
             // MemberRegistrationVm responseMember = await response.Content.ReadFromJsonAsync<MemberRegistrationVm>();
