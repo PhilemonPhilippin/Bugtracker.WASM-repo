@@ -1,9 +1,12 @@
-﻿<h5>Register Member</h5>
+﻿@inject NavigationManager navManager
+<h5>Register Member</h5>
 
 <EditForm Model="@member" OnValidSubmit="@SubmitRegistration">
     <DataAnnotationsValidator/>
+    <span>Login state : Login is taken = @isLoginTaken</span>
     <label for="Login">Login:</label>
     <InputText id="Login" @bind-Value="@member.Login" class="form-control"/>
+    <span>Email state : Email is taken = @isEmailTaken</span>
     <label for="EmailAddress">Email:</label>
     <InputText id="EmailAddress" @bind-Value="@member.EmailAddress" class="form-control"/>
     <label for="Password">Password:</label>
@@ -18,10 +21,3 @@
     <button type="submit" class="btn btn-primary">Confirm registration</button>
     <ValidationSummary/>
 </EditForm>
-
-@if (isLoginTaken) {
-    <p class="text-danger">This login is ALREADY taken.</p>
-}
-@if (isEmailTaken) {
-    <p class="text-danger">This email is ALREADY taken</p>
-}
