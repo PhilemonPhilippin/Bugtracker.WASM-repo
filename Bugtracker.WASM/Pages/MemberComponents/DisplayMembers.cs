@@ -14,5 +14,11 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         {
             members = await Http.GetFromJsonAsync<List<MemberVm>>("https://localhost:7051/api/Member");
         }
+        private async Task DeleteMember(int id)
+        {
+            HttpResponseMessage response = await Http.DeleteAsync($"https://localhost:7051/api/Member/{id}");
+           
+        }
+
     }
 }

@@ -11,6 +11,7 @@
             <li>Member Login : @member.Login </li>
             <li>Member Password : @member.Password </li>
             <li>Member Email Address : @member.EmailAddress </li>
+            <button @onclick="() => DeleteMember(member.IdMember)">Delete Member</button>
     }
 }
 </ul>
