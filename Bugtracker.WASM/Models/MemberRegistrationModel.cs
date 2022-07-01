@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Bugtracker.WASM.ViewModels
+namespace Bugtracker.WASM.Models
 {
-    public class MemberRegistrationVm
+    public class MemberRegistrationModel
     {
         [Required]
         public string Login { get; set; }

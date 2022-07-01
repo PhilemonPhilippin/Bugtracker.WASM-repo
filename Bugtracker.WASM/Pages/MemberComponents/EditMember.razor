@@ -1,0 +1,32 @@
+﻿<h5>EditMember</h5>
+
+<EditForm Model="@memberEdit" OnValidSubmit="@(() => SubmitEdit(memberEdit.IdMember))">
+    <DataAnnotationsValidator/>
+    <label for="Login">
+        Login: @if (isLoginTaken)
+        {
+            <span class="text-danger"> Login already taken</span>
+        }
+    </label>
+    <InputText id="Login" @bind-Value="@memberEdit.Login" class="form-control"/>
+
+     <label for="EmailAddress">
+        Email Address: @if (isEmailTaken)
+        {
+            <span class="text-danger"> Email already taken</span>
+        }
+    </label>
+    <InputText id="EmailAddress" @bind-Value="@memberEdit.EmailAddress" class="form-control"/>
+
+    <label for="Password">Password:</label>
+    <InputText id="Password" @bind-Value="@memberEdit.Password" class="form-control"/>
+
+    <label for="Firstname">Firstname:</label>
+    <InputText id="Firstname" @bind-Value="@memberEdit.Firstname" class="form-control"/>
+
+    <label for="Lastname">Lastname:</label>
+    <InputText id="Lastname" @bind-Value="@memberEdit.Lastname" class="form-control"/>
+
+    <button type="submit" class="btn btn-primary">Confirm edit</button>
+    <ValidationSummary/>
+</EditForm>

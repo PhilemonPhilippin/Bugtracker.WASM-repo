@@ -6,7 +6,7 @@
     <label for="Login">
         Login: @if (isLoginTaken)
         {
-            <span class="text-danger">Login already taken</span>
+            <span class="text-danger"> Login already taken</span>
         }
     </label>
     <InputText id="Login" @bind-Value="@member.Login" class="form-control"/>
@@ -14,7 +14,7 @@
      <label for="EmailAddress">
         Email Address: @if (isEmailTaken)
         {
-            <span class="text-danger">Email already taken</span>
+            <span class="text-danger"> Email already taken</span>
         }
     </label>
     <InputText id="EmailAddress" @bind-Value="@member.EmailAddress" class="form-control"/>

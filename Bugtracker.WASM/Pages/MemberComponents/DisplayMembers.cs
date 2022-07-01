@@ -1,4 +1,4 @@
-﻿using Bugtracker.WASM.ViewModels;
+﻿using Bugtracker.WASM.Models;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 
@@ -8,17 +8,23 @@ namespace Bugtracker.WASM.Pages.MemberComponents
     {
         [Inject]
         public HttpClient Http { get; set; }
-        public List<MemberVm> members { get; set; } = new List<MemberVm>();
+        public List<MemberModel> members { get; set; } = new List<MemberModel>();
 
+        public bool isEditMemberDisplayed = false;
+        public int idEditMemberDisplayed;
         protected override async Task OnInitializedAsync()
         {
-            members = await Http.GetFromJsonAsync<List<MemberVm>>("https://localhost:7051/api/Member");
+            members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
         }
         private async Task DeleteMember(int id)
         {
-            HttpResponseMessage response = await Http.DeleteAsync($"https://localhost:7051/api/Member/{id}");
+            await Http.DeleteAsync($"https://localhost:7051/api/Member/{id}");
            
         }
-
+        private void DisplayEditMember(int id)
+        {
+            isEditMemberDisplayed = true;
+            idEditMemberDisplayed = id;
+        }
     }
 }
