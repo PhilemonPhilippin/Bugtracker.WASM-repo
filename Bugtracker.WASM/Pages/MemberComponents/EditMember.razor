@@ -3,12 +3,18 @@
 <EditForm Model="@MemberEditModel" OnValidSubmit="@SubmitEdit">
     <DataAnnotationsValidator/>
     <label for="Pseudo">
-        Pseudo: 
+        Pseudo: @if (isPseudoTaken)
+        {
+            <span class="text-danger"> Pseudo already taken!</span>
+        }
     </label>
     <InputText id="Pseudo" @bind-Value="@MemberEditModel.Pseudo" class="form-control"/>
 
      <label for="Email">
-        Email: 
+        Email: @if (isEmailTaken)
+        {
+            <span class="text-danger"> Email already taken!</span>
+        }
     </label>
     <InputText id="Email" @bind-Value="@MemberEditModel.Email" class="form-control"/>
 
@@ -24,3 +30,8 @@
     <button type="submit" class="btn btn-primary">Confirm edit</button>
     <ValidationSummary/>
 </EditForm>
+@if (hasMemberBeenEdited)
+{
+    <span class="text-success">Edit has been successful!</span>
+}
+

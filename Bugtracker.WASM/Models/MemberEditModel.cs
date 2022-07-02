@@ -4,7 +4,6 @@ namespace Bugtracker.WASM.Models
 {
     public class MemberEditModel
     {
-        // Check si les Required sont nécessaires
         public int IdMember { get; set; }
         [Required]
         public string Pseudo { get; set; }

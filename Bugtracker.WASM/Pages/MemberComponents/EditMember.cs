@@ -8,17 +8,15 @@ namespace Bugtracker.WASM.Pages.MemberComponents
     {
         [Inject]
         public HttpClient Http { get; set; }
-        // Faut-il initialiser le MemberTarget?
-        // Ou faut-il faire une fonction async on initialize pour le MemberEditModel ?
         [Parameter]
         public int TargetId { get; set; }
         public MemberEditModel MemberEditModel { get; set; } = new MemberEditModel();
         public bool isPseudoTaken = false;
         public bool isEmailTaken = false;
+        public bool hasMemberBeenEdited = false;
 
         protected override async Task OnInitializedAsync()
         {
-            //MemberModel memberModel = await Http.GetFromJsonAsync<MemberModel>($"https://localhost:7051/api/Member/{TargetId}");
             HttpResponseMessage response = await Http.GetAsync($"https://localhost:7051/api/Member/{TargetId}");
             if (response.IsSuccessStatusCode)
             {
@@ -35,6 +33,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         {
             isPseudoTaken = false;
             isEmailTaken = false;
+            hasMemberBeenEdited = false;
             MemberModel memberModel = new MemberModel()
             {
                 IdMember = MemberEditModel.IdMember,
@@ -48,10 +47,14 @@ namespace Bugtracker.WASM.Pages.MemberComponents
 
             if (!response.IsSuccessStatusCode)
             {
-               
+                string errorMessage = await response.Content.ReadAsStringAsync();
+                if (errorMessage.Contains("Violation of UNIQUE KEY constraint 'UK_Member__Pseudo'."))
+                    isPseudoTaken = true;
+                else if (errorMessage.Contains("Violation of UNIQUE KEY constraint 'UK_Member__Email'."))
+                    isEmailTaken = true;
             }
             else
-                Console.WriteLine("Close the Edit member component");
+                hasMemberBeenEdited = true;
         }
     }
 }
