@@ -4,12 +4,18 @@
 <EditForm Model="@memberRegistrationModel" OnValidSubmit="@SubmitRegistration">
     <DataAnnotationsValidator/>
     <label for="Pseudo">
-        Pseudo:
+        Pseudo: @if (isPseudoTaken)
+        {
+            <span class="text-danger"> Pseudo already taken!</span>
+        }
     </label>
     <InputText id="Pseudo" @bind-Value="@memberRegistrationModel.Pseudo" class="form-control"/>
 
      <label for="Email">
-        Email:
+        Email: @if (isEmailTaken)
+        {
+            <span class="text-danger"> Email already taken!</span>
+        }
     </label>
     <InputText id="Email" @bind-Value="@memberRegistrationModel.Email" class="form-control"/>
 

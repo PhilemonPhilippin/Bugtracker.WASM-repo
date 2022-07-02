@@ -29,12 +29,13 @@ namespace Bugtracker.WASM.Pages.MemberComponents
                 Lastname = memberRegistrationModel.Lastname
             };
             HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Member", memberModel);
-            // if I ever need to get back the member that I posted :
-            // MemberRegistrationVm responseMember = await response.Content.ReadFromJsonAsync<MemberRegistrationVm>();
-            //object? responseObject = await response.Content.ReadFromJsonAsync<object?>();
             if (!response.IsSuccessStatusCode)
             {
-
+                string errorMessage = await response.Content.ReadAsStringAsync();
+                if (errorMessage.Contains("Violation of UNIQUE KEY constraint 'UK_Member__Pseudo'."))
+                    isPseudoTaken = true;
+                else if (errorMessage.Contains("Violation of UNIQUE KEY constraint 'UK_Member__Email'."))
+                    isEmailTaken = true;
             }
             else
                 navManager.NavigateTo("dashboard");
