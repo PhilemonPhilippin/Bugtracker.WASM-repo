@@ -8,41 +8,33 @@ namespace Bugtracker.WASM.Pages.MemberComponents
     {
         [Inject]
         public HttpClient Http { get; set; }
-        public bool isLoginTaken = false;
+        public bool isPseudoTaken = false;
         public bool isEmailTaken = false;
-        public MemberRegistrationModel member;
+        public MemberRegistrationModel memberRegistrationModel;
         public RegisterMember()
         {
-            member = new MemberRegistrationModel();
+            memberRegistrationModel = new MemberRegistrationModel();
         }
         private async Task SubmitRegistration()
         {
-            isLoginTaken = false;
+            isPseudoTaken = false;
             isEmailTaken = false;
-            HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Member", member);
+            MemberModel memberModel = new MemberModel()
+            {
+                IdMember = 0,
+                Pseudo = memberRegistrationModel.Pseudo,
+                Email = memberRegistrationModel.Email,
+                PswdHash = memberRegistrationModel.Password,
+                Firstname = memberRegistrationModel.Firstname,
+                Lastname = memberRegistrationModel.Lastname
+            };
+            HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Member", memberModel);
             // if I ever need to get back the member that I posted :
             // MemberRegistrationVm responseMember = await response.Content.ReadFromJsonAsync<MemberRegistrationVm>();
             //object? responseObject = await response.Content.ReadFromJsonAsync<object?>();
             if (!response.IsSuccessStatusCode)
             {
-                int responseNumber = await response.Content.ReadFromJsonAsync<int>();
-                switch (responseNumber)
-                {
-                    case -123:
-                        // TODO : deal with the state of isLoginTaken to show to the user that login is taken
-                        isLoginTaken = true;
-                        break;
-                    case -456:
-                        isEmailTaken = true;
-                        break;
-                    case -789:
-                        isLoginTaken = true;
-                        isEmailTaken = true;
-                        break;
-                    default:
-                        Console.WriteLine("Response number not as expected");
-                        break;
-                }
+
             }
             else
                 navManager.NavigateTo("dashboard");

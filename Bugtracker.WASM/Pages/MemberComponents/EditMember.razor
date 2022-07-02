@@ -2,21 +2,21 @@
 
 <EditForm Model="@memberEdit" OnValidSubmit="@(() => SubmitEdit(memberEdit.IdMember))">
     <DataAnnotationsValidator/>
-    <label for="Login">
-        Login: @if (isLoginTaken)
+    <label for="Pseudo">
+        Pseudo: @if (isPseudoTaken)
         {
-            <span class="text-danger"> Login already taken</span>
+            <span class="text-danger">Pseudo already taken</span>
         }
     </label>
-    <InputText id="Login" @bind-Value="@memberEdit.Login" class="form-control"/>
+    <InputText id="Pseudo" @bind-Value="@memberEdit.Pseudo" class="form-control"/>
 
-     <label for="EmailAddress">
-        Email Address: @if (isEmailTaken)
+     <label for="Email">
+        Email: @if (isEmailTaken)
         {
             <span class="text-danger"> Email already taken</span>
         }
     </label>
-    <InputText id="EmailAddress" @bind-Value="@memberEdit.EmailAddress" class="form-control"/>
+    <InputText id="Email" @bind-Value="@memberEdit.Email" class="form-control"/>
 
     <label for="Password">Password:</label>
     <InputText id="Password" @bind-Value="@memberEdit.Password" class="form-control"/>

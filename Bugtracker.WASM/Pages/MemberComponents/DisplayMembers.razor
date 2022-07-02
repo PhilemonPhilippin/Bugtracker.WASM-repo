@@ -8,9 +8,9 @@
     else {
         @foreach (MemberModel member in members) {
             <li class="mt-4">Member Id : @member.IdMember </li>
-            <li>Member Login : @member.Login </li>
-            <li>Member Password : @member.Password </li>
-            <li>Member Email Address : @member.EmailAddress </li>
+            <li>Member Pseudo : @member.Pseudo </li>
+            <li>Member Password : @member.PswdHash </li>
+            <li>Member Email : @member.Email </li>
             <button @onclick="() => DeleteMember(member.IdMember)">Delete Member</button>
             <button @onclick="() => DisplayEditMember(member.IdMember)">Edit Member</button>
             @if (isEditMemberDisplayed && member.IdMember == idEditMemberDisplayed)

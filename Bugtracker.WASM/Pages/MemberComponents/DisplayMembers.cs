@@ -19,7 +19,6 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         private async Task DeleteMember(int id)
         {
             await Http.DeleteAsync($"https://localhost:7051/api/Member/{id}");
-           
         }
         private void DisplayEditMember(int id)
         {

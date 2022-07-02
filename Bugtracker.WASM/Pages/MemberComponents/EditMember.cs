@@ -14,7 +14,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         public MemberModel MemberTarget { get; set; }
 
         public MemberEditModel memberEdit;
-        public bool isLoginTaken = false;
+        public bool isPseudoTaken = false;
         public bool isEmailTaken = false;
         public EditMember()
         {
@@ -22,17 +22,16 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             memberEdit = new MemberEditModel()
             {
                 IdMember = MemberTarget.IdMember,
-                Login = MemberTarget.Login,
-                Password = MemberTarget.Password,
-                EmailAddress = MemberTarget.EmailAddress,
+                Pseudo = MemberTarget.Pseudo,
+                Password = MemberTarget.PswdHash,
+                Email = MemberTarget.Email,
                 Firstname = MemberTarget.Firstname,
                 Lastname = MemberTarget.Lastname
             };
         }
-
         private async Task SubmitEdit(int id)
         {
-            isLoginTaken = false;
+            isPseudoTaken = false;
             isEmailTaken = false;
             // TODO : finir cette fonction et le formulaire qui va avec
             HttpResponseMessage response = await Http.PutAsJsonAsync($"https://localhost:7051/api/Member/{id}", memberEdit);
@@ -40,23 +39,6 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             if (!response.IsSuccessStatusCode)
             {
                 int responseNumber = await response.Content.ReadFromJsonAsync<int>();
-                switch (responseNumber)
-                {
-                    case -123:
-                        // TODO : deal with the state of isLoginTaken to show to the user that login is taken
-                        isLoginTaken = true;
-                        break;
-                    case -456:
-                        isEmailTaken = true;
-                        break;
-                    case -789:
-                        isLoginTaken = true;
-                        isEmailTaken = true;
-                        break;
-                    default:
-                        Console.WriteLine("Response number not as expected");
-                        break;
-                }
             }
             else
                 Console.WriteLine("Close the Edit member component");
