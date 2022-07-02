@@ -1,31 +1,25 @@
 ﻿<h5>EditMember</h5>
 
-<EditForm Model="@memberEdit" OnValidSubmit="@(() => SubmitEdit(memberEdit.IdMember))">
+<EditForm Model="@MemberEditModel" OnValidSubmit="@SubmitEdit">
     <DataAnnotationsValidator/>
     <label for="Pseudo">
-        Pseudo: @if (isPseudoTaken)
-        {
-            <span class="text-danger">Pseudo already taken</span>
-        }
+        Pseudo: 
     </label>
-    <InputText id="Pseudo" @bind-Value="@memberEdit.Pseudo" class="form-control"/>
+    <InputText id="Pseudo" @bind-Value="@MemberEditModel.Pseudo" class="form-control"/>
 
      <label for="Email">
-        Email: @if (isEmailTaken)
-        {
-            <span class="text-danger"> Email already taken</span>
-        }
+        Email: 
     </label>
-    <InputText id="Email" @bind-Value="@memberEdit.Email" class="form-control"/>
+    <InputText id="Email" @bind-Value="@MemberEditModel.Email" class="form-control"/>
 
     <label for="Password">Password:</label>
-    <InputText id="Password" @bind-Value="@memberEdit.Password" class="form-control"/>
+    <InputText id="Password" @bind-Value="@MemberEditModel.Password" class="form-control"/>
 
     <label for="Firstname">Firstname:</label>
-    <InputText id="Firstname" @bind-Value="@memberEdit.Firstname" class="form-control"/>
+    <InputText id="Firstname" @bind-Value="@MemberEditModel.Firstname" class="form-control"/>
 
     <label for="Lastname">Lastname:</label>
-    <InputText id="Lastname" @bind-Value="@memberEdit.Lastname" class="form-control"/>
+    <InputText id="Lastname" @bind-Value="@MemberEditModel.Lastname" class="form-control"/>
 
     <button type="submit" class="btn btn-primary">Confirm edit</button>
     <ValidationSummary/>

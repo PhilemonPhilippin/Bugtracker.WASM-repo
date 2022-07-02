@@ -15,7 +15,7 @@
             <button @onclick="() => DisplayEditMember(member.IdMember)">Edit Member</button>
             @if (isEditMemberDisplayed && member.IdMember == idEditMemberDisplayed)
             {
-                <EditMember MemberTarget="@member"/>
+                <EditMember TargetId="@member.IdMember"/>
             }
         }
 }
