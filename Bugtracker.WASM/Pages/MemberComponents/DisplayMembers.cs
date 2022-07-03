@@ -9,6 +9,8 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         [Inject]
         public HttpClient Http { get; set; }
         public List<MemberModel> members { get; set; } = new List<MemberModel>();
+        [Parameter]
+        public EventCallback OnListRefresh { get; set; }
 
         public bool isEditMemberDisplayed = false;
         public int idEditMemberDisplayed;
@@ -19,6 +21,8 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         private async Task DeleteMember(int id)
         {
             await Http.DeleteAsync($"https://localhost:7051/api/Member/{id}");
+            await RefreshDisplayMembers();
+            await OnListRefresh.InvokeAsync();
         }
         private void DisplayEditMemberDialog(int id)
         {
@@ -28,6 +32,17 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         private void CloseEditMemberDialog()
         {
             isEditMemberDisplayed = false;
+        }
+        private async Task ConfirmEditMember()
+        {
+            isEditMemberDisplayed = false;
+            await RefreshDisplayMembers();
+            await OnListRefresh.InvokeAsync();
+
+        }
+        private async Task RefreshDisplayMembers()
+        {
+            members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
         }
     }
 }

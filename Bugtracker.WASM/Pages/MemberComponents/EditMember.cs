@@ -12,6 +12,8 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         public int TargetId { get; set; }
         [Parameter]
         public EventCallback OnClose { get; set; }
+        [Parameter]
+        public EventCallback OnConfirm { get; set; }
         public MemberEditModel MemberEditModel { get; set; } = new MemberEditModel();
         public bool isPseudoTaken = false;
         public bool isEmailTaken = false;
