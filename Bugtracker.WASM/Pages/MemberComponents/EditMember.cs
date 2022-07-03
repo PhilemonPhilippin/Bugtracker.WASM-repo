@@ -56,7 +56,10 @@ namespace Bugtracker.WASM.Pages.MemberComponents
                     isEmailTaken = true;
             }
             else
+            {
                 hasMemberBeenEdited = true;
+                await OnClose.InvokeAsync();
+            }
         }
     }
 }
