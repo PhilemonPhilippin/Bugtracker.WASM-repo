@@ -28,10 +28,12 @@
     <InputText id="Lastname" @bind-Value="@MemberEditModel.Lastname" class="form-control"/>
 
     <button type="submit" class="btn btn-primary">Confirm edit</button>
+    <button @onclick="OnClose" class="btn btn-primary">Cancel edit</button>
     <ValidationSummary/>
 </EditForm>
 @if (hasMemberBeenEdited)
 {
     <span class="text-success">Edit has been successful!</span>
+    <button @onclick="OnClose" class="btn btn-primary">Close dialog</button>
 }
 

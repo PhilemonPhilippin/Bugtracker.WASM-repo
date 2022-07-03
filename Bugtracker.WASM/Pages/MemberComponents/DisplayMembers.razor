@@ -12,10 +12,10 @@
             <li>Member Password : @member.PswdHash </li>
             <li>Member Email : @member.Email </li>
             <button @onclick="() => DeleteMember(member.IdMember)">Delete Member</button>
-            <button @onclick="() => DisplayEditMember(member.IdMember)">Edit Member</button>
+            <button @onclick="() => DisplayEditMemberDialog(member.IdMember)">Edit Member</button>
             @if (isEditMemberDisplayed && member.IdMember == idEditMemberDisplayed)
             {
-                <EditMember TargetId="@member.IdMember"/>
+                <EditMember TargetId="@member.IdMember" OnClose="CloseEditMemberDialog" />
             }
         }
 }

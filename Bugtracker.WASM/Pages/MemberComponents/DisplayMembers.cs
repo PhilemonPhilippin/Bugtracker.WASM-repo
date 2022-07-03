@@ -20,10 +20,14 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         {
             await Http.DeleteAsync($"https://localhost:7051/api/Member/{id}");
         }
-        private void DisplayEditMember(int id)
+        private void DisplayEditMemberDialog(int id)
         {
             isEditMemberDisplayed = true;
             idEditMemberDisplayed = id;
+        }
+        private void CloseEditMemberDialog()
+        {
+            isEditMemberDisplayed = false;
         }
     }
 }
