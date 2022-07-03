@@ -60,7 +60,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             else
             {
                 hasMemberBeenEdited = true;
-                await OnClose.InvokeAsync();
+                await OnConfirm.InvokeAsync();
             }
         }
     }

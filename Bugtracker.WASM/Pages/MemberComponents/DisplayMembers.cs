@@ -38,7 +38,6 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             isEditMemberDisplayed = false;
             await RefreshDisplayMembers();
             await OnListRefresh.InvokeAsync();
-
         }
         private async Task RefreshDisplayMembers()
         {

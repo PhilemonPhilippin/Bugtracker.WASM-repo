@@ -4,7 +4,7 @@
     {
         public async Task RefreshComponent()
         {
-            await InvokeAsync(StateHasChanged);
+            await InvokeAsync(() => StateHasChanged());
         }
     }
 }
