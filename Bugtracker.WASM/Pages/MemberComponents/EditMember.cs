@@ -9,59 +9,55 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         [Inject]
         public HttpClient Http { get; set; }
         [Parameter]
-        public int TargetId { get; set; }
+        public int MemberEditId { get; set; }
         [Parameter]
-        public EventCallback OnClose { get; set; }
+        public EventCallback OnCancel { get; set; }
         [Parameter]
         public EventCallback OnConfirm { get; set; }
-        public MemberEditModel MemberEditModel { get; set; } = new MemberEditModel();
-        public bool isPseudoTaken = false;
-        public bool isEmailTaken = false;
-        public bool hasMemberBeenEdited = false;
+        private MemberEditModel _MemberEditModel { get; set; } = new MemberEditModel();
+        private bool _isPseudoTaken = false;
+        private bool _isEmailTaken = false;
 
         protected override async Task OnInitializedAsync()
         {
-            HttpResponseMessage response = await Http.GetAsync($"https://localhost:7051/api/Member/{TargetId}");
+            HttpResponseMessage response = await Http.GetAsync($"https://localhost:7051/api/Member/{MemberEditId}");
             if (response.IsSuccessStatusCode)
             {
                 MemberModel memberModel = await response.Content.ReadFromJsonAsync<MemberModel>();
-                MemberEditModel.IdMember = memberModel.IdMember;
-                MemberEditModel.Pseudo = memberModel.Pseudo;
-                MemberEditModel.Email = memberModel.Email;
-                MemberEditModel.Password = memberModel.PswdHash;
-                MemberEditModel.Firstname = memberModel.Firstname;
-                MemberEditModel.Lastname = memberModel.Lastname;
+                _MemberEditModel.IdMember = memberModel.IdMember;
+                _MemberEditModel.Pseudo = memberModel.Pseudo;
+                _MemberEditModel.Email = memberModel.Email;
+                _MemberEditModel.Password = memberModel.PswdHash;
+                _MemberEditModel.Firstname = memberModel.Firstname;
+                _MemberEditModel.Lastname = memberModel.Lastname;
             }
         }
         private async Task SubmitEdit()
         {
-            isPseudoTaken = false;
-            isEmailTaken = false;
-            hasMemberBeenEdited = false;
+            _isPseudoTaken = false;
+            _isEmailTaken = false;
             MemberModel memberModel = new MemberModel()
             {
-                IdMember = MemberEditModel.IdMember,
-                Pseudo = MemberEditModel.Pseudo,
-                Email = MemberEditModel.Email,
-                PswdHash = MemberEditModel.Password,
-                Firstname = MemberEditModel.Firstname,
-                Lastname = MemberEditModel.Lastname
+                IdMember = _MemberEditModel.IdMember,
+                Pseudo = _MemberEditModel.Pseudo,
+                Email = _MemberEditModel.Email,
+                PswdHash = _MemberEditModel.Password,
+                Firstname = _MemberEditModel.Firstname,
+                Lastname = _MemberEditModel.Lastname
             };
-            HttpResponseMessage response = await Http.PutAsJsonAsync($"https://localhost:7051/api/Member/{TargetId}", memberModel);
+            HttpResponseMessage response = await Http.PutAsJsonAsync($"https://localhost:7051/api/Member/{MemberEditId}", memberModel);
 
             if (!response.IsSuccessStatusCode)
             {
                 string errorMessage = await response.Content.ReadAsStringAsync();
                 if (errorMessage.Contains("Violation of UNIQUE KEY constraint 'UK_Member__Pseudo'."))
-                    isPseudoTaken = true;
+                    _isPseudoTaken = true;
                 else if (errorMessage.Contains("Violation of UNIQUE KEY constraint 'UK_Member__Email'."))
-                    isEmailTaken = true;
+                    _isEmailTaken = true;
             }
             else
-            {
-                hasMemberBeenEdited = true;
                 await OnConfirm.InvokeAsync();
-            }
+            
         }
     }
 }

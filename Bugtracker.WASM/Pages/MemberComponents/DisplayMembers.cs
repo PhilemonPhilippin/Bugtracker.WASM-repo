@@ -8,13 +8,13 @@ namespace Bugtracker.WASM.Pages.MemberComponents
     {
         [Inject]
         public HttpClient Http { get; set; }
-        public List<MemberModel> members { get; set; } = new List<MemberModel>();
+        private List<MemberModel> _Members { get; set; } = new List<MemberModel>();
 
-        public bool isEditMemberDisplayed = false;
-        public int idEditMemberDisplayed;
+        private bool _isEditMemberDialogOpen = false;
+        private int _memberEditId;
         protected override async Task OnInitializedAsync()
         {
-            members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
+            _Members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
         }
         private async Task DeleteMember(int id)
         {
@@ -23,21 +23,21 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         }
         private void DisplayEditMemberDialog(int id)
         {
-            isEditMemberDisplayed = true;
-            idEditMemberDisplayed = id;
+            _isEditMemberDialogOpen = true;
+            _memberEditId = id;
         }
         private void CloseEditMemberDialog()
         {
-            isEditMemberDisplayed = false;
+            _isEditMemberDialogOpen = false;
         }
-        private async Task ConfirmEditMember()
+        private async Task ConfirmMemberEdit()
         {
-            isEditMemberDisplayed = false;
+            _isEditMemberDialogOpen = false;
             await RefreshDisplayMembers();
         }
         private async Task RefreshDisplayMembers()
         {
-            members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
+            _Members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
         }
     }
 }

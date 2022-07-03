@@ -8,34 +8,34 @@ namespace Bugtracker.WASM.Pages.MemberComponents
     {
         [Inject]
         public HttpClient Http { get; set; }
-        public bool isPseudoTaken = false;
-        public bool isEmailTaken = false;
-        public MemberRegistrationModel memberRegistrationModel;
+        private bool _isPseudoTaken = false;
+        private bool _isEmailTaken = false;
+        private MemberRegistrationModel _MemberRegistrationModel;
         public RegisterMember()
         {
-            memberRegistrationModel = new MemberRegistrationModel();
+            _MemberRegistrationModel = new MemberRegistrationModel();
         }
         private async Task SubmitRegistration()
         {
-            isPseudoTaken = false;
-            isEmailTaken = false;
+            _isPseudoTaken = false;
+            _isEmailTaken = false;
             MemberModel memberModel = new MemberModel()
             {
                 IdMember = 0,
-                Pseudo = memberRegistrationModel.Pseudo,
-                Email = memberRegistrationModel.Email,
-                PswdHash = memberRegistrationModel.Password,
-                Firstname = memberRegistrationModel.Firstname,
-                Lastname = memberRegistrationModel.Lastname
+                Pseudo = _MemberRegistrationModel.Pseudo,
+                Email = _MemberRegistrationModel.Email,
+                PswdHash = _MemberRegistrationModel.Password,
+                Firstname = _MemberRegistrationModel.Firstname,
+                Lastname = _MemberRegistrationModel.Lastname
             };
             HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Member", memberModel);
             if (!response.IsSuccessStatusCode)
             {
                 string errorMessage = await response.Content.ReadAsStringAsync();
                 if (errorMessage.Contains("Violation of UNIQUE KEY constraint 'UK_Member__Pseudo'."))
-                    isPseudoTaken = true;
+                    _isPseudoTaken = true;
                 else if (errorMessage.Contains("Violation of UNIQUE KEY constraint 'UK_Member__Email'."))
-                    isEmailTaken = true;
+                    _isEmailTaken = true;
             }
             else
                 navManager.NavigateTo("dashboard");

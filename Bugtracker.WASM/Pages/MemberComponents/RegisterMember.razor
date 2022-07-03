@@ -1,35 +1,35 @@
 ﻿@inject NavigationManager navManager
 <h5>Register Member</h5>
 
-<EditForm Model="@memberRegistrationModel" OnValidSubmit="@SubmitRegistration">
+<EditForm Model="@_MemberRegistrationModel" OnValidSubmit="@SubmitRegistration">
     <DataAnnotationsValidator/>
     <label for="Pseudo">
-        Pseudo: @if (isPseudoTaken)
+        Pseudo: @if (_isPseudoTaken)
         {
             <span class="text-danger"> Pseudo already taken!</span>
         }
     </label>
-    <InputText id="Pseudo" @bind-Value="@memberRegistrationModel.Pseudo" class="form-control"/>
+    <InputText id="Pseudo" @bind-Value="@_MemberRegistrationModel.Pseudo" class="form-control"/>
 
      <label for="Email">
-        Email: @if (isEmailTaken)
+        Email: @if (_isEmailTaken)
         {
             <span class="text-danger"> Email already taken!</span>
         }
     </label>
-    <InputText id="Email" @bind-Value="@memberRegistrationModel.Email" class="form-control"/>
+    <InputText id="Email" @bind-Value="@_MemberRegistrationModel.Email" class="form-control"/>
 
     <label for="Password">Password:</label>
-    <InputText id="Password" @bind-Value="@memberRegistrationModel.Password" class="form-control"/>
+    <InputText id="Password" @bind-Value="@_MemberRegistrationModel.Password" class="form-control"/>
 
     <label for="ConfirmPassword">Confirm Password:</label>
-    <InputText id="ConfirmPassword" @bind-Value="@memberRegistrationModel.ConfirmPassword" class="form-control"/>
+    <InputText id="ConfirmPassword" @bind-Value="@_MemberRegistrationModel.ConfirmPassword" class="form-control"/>
 
     <label for="Firstname">Firstname:</label>
-    <InputText id="Firstname" @bind-Value="@memberRegistrationModel.Firstname" class="form-control"/>
+    <InputText id="Firstname" @bind-Value="@_MemberRegistrationModel.Firstname" class="form-control"/>
 
     <label for="Lastname">Lastname:</label>
-    <InputText id="Lastname" @bind-Value="@memberRegistrationModel.Lastname" class="form-control"/>
+    <InputText id="Lastname" @bind-Value="@_MemberRegistrationModel.Lastname" class="form-control"/>
 
     <button type="submit" class="btn btn-primary">Confirm registration</button>
     <ValidationSummary/>
