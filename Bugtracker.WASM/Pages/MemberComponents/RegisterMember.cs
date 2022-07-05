@@ -8,13 +8,11 @@ namespace Bugtracker.WASM.Pages.MemberComponents
     {
         [Inject]
         public HttpClient Http { get; set; }
+        [Inject]
+        public NavigationManager NavManager { get; set; }
         private bool _isPseudoTaken = false;
         private bool _isEmailTaken = false;
-        private MemberRegistrationModel _MemberRegistrationModel;
-        public RegisterMember()
-        {
-            _MemberRegistrationModel = new MemberRegistrationModel();
-        }
+        private MemberRegistrationModel _MemberRegistrationModel { get; set; } = new MemberRegistrationModel();
         private async Task SubmitRegistration()
         {
             _isPseudoTaken = false;
@@ -32,13 +30,18 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             if (!response.IsSuccessStatusCode)
             {
                 string errorMessage = await response.Content.ReadAsStringAsync();
-                if (errorMessage.Contains("Violation of UNIQUE KEY constraint 'UK_Member__Pseudo'."))
+                if (errorMessage.Contains("Pseudo and Email already exist."))
+                {
                     _isPseudoTaken = true;
-                else if (errorMessage.Contains("Violation of UNIQUE KEY constraint 'UK_Member__Email'."))
+                    _isEmailTaken = true;
+                }
+                else if (errorMessage.Contains("Pseudo already exists."))
+                    _isPseudoTaken = true;
+                else if (errorMessage.Contains("Email already exists."))
                     _isEmailTaken = true;
             }
             else
-                navManager.NavigateTo("dashboard");
+                NavManager.NavigateTo("dashboard");
         }
     }
 }

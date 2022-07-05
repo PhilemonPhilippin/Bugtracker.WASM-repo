@@ -1,0 +1,21 @@
+﻿<h5>LoginMember</h5>
+<EditForm Model="@_MemberLoginModel" OnValidSubmit="@SubmitLogin">
+    <DataAnnotationsValidator/>
+    <label for="Pseudo">Pseudo: @if (showPseudoNotFound)
+        {
+            <span class="text-danger"> Pseudo not found</span>
+        }
+    </label>
+    <InputText id="Pseudo" @bind-Value="@_MemberLoginModel.Pseudo" class="form-control"/>
+
+    <label for="Password">Password: @if (showPasswordIncorrect)
+        {
+            <span class="text-danger"> Incorrect Password</span>
+        }
+    </label>
+    <InputText id="Password" @bind-Value="@_MemberLoginModel.Password" class="form-control"/>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+    <ValidationSummary/>
+
+</EditForm>
