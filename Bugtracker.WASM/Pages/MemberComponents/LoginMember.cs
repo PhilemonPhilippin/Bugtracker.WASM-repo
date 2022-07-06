@@ -1,5 +1,6 @@
 ﻿using Bugtracker.WASM.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System.Net.Http.Json;
 
 namespace Bugtracker.WASM.Pages.MemberComponents
@@ -7,10 +8,13 @@ namespace Bugtracker.WASM.Pages.MemberComponents
     public partial class LoginMember
     {
         [Inject]
-        public HttpClient Http { get; set; }
+        private HttpClient _Http { get; set; }
         [Inject]
-        public NavigationManager NavManager { get; set; }
+        private NavigationManager _NavManager { get; set; }
+        [Inject]
+        private IJSRuntime _JsRuntime { get; set; }
         private MemberLoginModel _MemberLoginModel { get; set; } = new MemberLoginModel();
+        private ConnectedMemberModel _ConnectedMemberModel { get; set; } = new ConnectedMemberModel();
         private bool showPseudoNotFound;
         private bool showPasswordIncorrect;
 
@@ -18,7 +22,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         {
             showPseudoNotFound = false;
             showPasswordIncorrect = false;
-            HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Member/login", _MemberLoginModel);
+            HttpResponseMessage response = await _Http.PostAsJsonAsync("https://localhost:7051/api/Member/login", _MemberLoginModel);
             if (!response.IsSuccessStatusCode)
             {
                 string errorMessage = await response.Content.ReadAsStringAsync();
@@ -28,7 +32,12 @@ namespace Bugtracker.WASM.Pages.MemberComponents
                     showPasswordIncorrect = true;
             }
             else
-                NavManager.NavigateTo("dashboard");
+            {
+                _ConnectedMemberModel = await response.Content.ReadFromJsonAsync<ConnectedMemberModel>();
+                // TODO : réussir à stoker le membre ou token dans le local storage.
+                await _JsRuntime.InvokeAsync<string>("Hello", "hello world");
+                //_NavManager.NavigateTo("dashboard");
+            }
         }
     }
 }
