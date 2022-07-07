@@ -11,7 +11,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         [Inject]
         private HttpClient Http { get; set; }
         [Inject]
-        private NavigationManager _NavManager { get; set; }
+        private NavigationManager NavManager { get; set; }
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         private MemberLoginModel MemberLogin { get; set; } = new MemberLoginModel();
@@ -37,7 +37,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             {
                 ConnectedMember = await response.Content.ReadFromJsonAsync<ConnectedMemberModel>();
                 await LocalStorage.SetToken(ConnectedMember.Token);
-                _NavManager.NavigateTo("dashboard");
+                NavManager.NavigateTo("dashboard");
             }
         }
     }
