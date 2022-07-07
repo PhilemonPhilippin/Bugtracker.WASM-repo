@@ -24,7 +24,6 @@ namespace Bugtracker.WASM.Pages.MemberComponents
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _Token);
                 _Members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
             }
-
         }
         private async Task DeleteMember(int id)
         {
@@ -47,7 +46,12 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         }
         private async Task RefreshDisplayMembers()
         {
-            _Members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
+            _Token = await _LocalStorage.GetToken();
+            if (_Token is not null)
+            {
+                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _Token);
+                _Members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
+            }
         }
     }
 }
