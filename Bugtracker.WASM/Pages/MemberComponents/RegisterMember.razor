@@ -7,17 +7,17 @@
 <EditForm Model="@MemberRegistration" OnValidSubmit="@SubmitRegistration">
     <DataAnnotationsValidator/>
     <label for="Pseudo">
-        Pseudo: @if (_isPseudoTaken)
+        Pseudo: @if (_displayPseudoTaken)
         {
-            <span class="text-danger"> /!\ This pseudo is already taken</span>
+            <span class="text-danger"> /!\ This pseudo is already taken.</span>
         }
     </label>
     <InputText id="Pseudo" @bind-Value="@MemberRegistration.Pseudo" class="form-control"/>
 
      <label for="Email">
-        Email: @if (_isEmailTaken)
+        Email: @if (_displayEmailTaken)
         {
-            <span class="text-danger"> /!\ This email is already taken</span>
+            <span class="text-danger"> /!\ This email is already taken.</span>
         }
     </label>
     <InputText id="Email" @bind-Value="@MemberRegistration.Email" class="form-control"/>

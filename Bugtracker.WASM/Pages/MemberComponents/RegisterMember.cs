@@ -9,15 +9,16 @@ namespace Bugtracker.WASM.Pages.MemberComponents
     {
         [Inject]
         private HttpClient Http { get; set; }
-        private bool _isPseudoTaken;
-        private bool _isEmailTaken;
+        private bool _displayPseudoTaken;
+        private bool _displayEmailTaken;
         private bool _isRegistrationValid;
         private MemberRegistrationModel MemberRegistration { get; set; } = new MemberRegistrationModel();
+
         private async Task SubmitRegistration()
         {
             _isRegistrationValid = false;
-            _isPseudoTaken = false;
-            _isEmailTaken = false;
+            _displayPseudoTaken = false;
+            _displayEmailTaken = false;
 
             MemberModel memberModel = MemberRegistration.ToModel();
             HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Member", memberModel);
@@ -32,19 +33,20 @@ namespace Bugtracker.WASM.Pages.MemberComponents
                 MemberRegistration = new MemberRegistrationModel();
             }
         }
+
         private void HandleErrorMessage(string errorMessage)
         {
             if (errorMessage.Contains("Pseudo and Email already exist."))
             {
-                _isPseudoTaken = true;
-                _isEmailTaken = true;
+                _displayPseudoTaken = true;
+                _displayEmailTaken = true;
             }
 
             else if (errorMessage.Contains("Pseudo already exists."))
-                _isPseudoTaken = true;
+                _displayPseudoTaken = true;
 
             else if (errorMessage.Contains("Email already exists."))
-                _isEmailTaken = true;
+                _displayEmailTaken = true;
         }
     }
 }
