@@ -1,4 +1,5 @@
 ﻿using Bugtracker.WASM.Models;
+using Bugtracker.WASM.Tools;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -9,18 +10,21 @@ namespace Bugtracker.WASM.Pages.MemberComponents
     {
         [Inject]
         public HttpClient Http { get; set; }
-        [Parameter]
-        public string Token { get; set; }
+        [Inject]
+        private IMemberLocalStorage _LocalStorage { get; set; }
         private List<MemberModel> _Members { get; set; } = new List<MemberModel>();
-
+        private string _Token { get; set; }
         private bool _isEditMemberDialogOpen = false;
         private int _memberEditId;
         protected override async Task OnInitializedAsync()
         {
-            if (Token is not null)
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+            _Token = await _LocalStorage.GetToken();
+            if (_Token is not null)
+            {
+                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _Token);
+                _Members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
+            }
 
-            _Members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
         }
         private async Task DeleteMember(int id)
         {
