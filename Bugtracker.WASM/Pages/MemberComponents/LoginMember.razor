@@ -14,7 +14,7 @@
             <span class="text-danger"> /!\ Incorrect Password.</span>
         }
     </label>
-    <InputText id="Password" @bind-Value="@MemberLogin.Password" class="form-control"/>
+    <InputText type="password" id="Password" @bind-Value="@MemberLogin.Password" class="form-control"/>
 
     <button type="submit" class="btn btn-primary">Login</button>
     <ValidationSummary/>
