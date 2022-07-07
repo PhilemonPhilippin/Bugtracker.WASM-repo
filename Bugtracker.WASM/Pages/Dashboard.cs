@@ -7,13 +7,14 @@ namespace Bugtracker.WASM.Pages
     {
         [Inject]
         private IMemberLocalStorage _LocalStorage { get; set; }
+        private string _Token { get; set; }
 
         private bool _isMemberConnected = false;
 
         protected override async Task OnInitializedAsync()
         {
-            string token = await _LocalStorage.GetToken();
-            if (token is null)
+            _Token = await _LocalStorage.GetToken();
+            if (_Token is null)
                 _isMemberConnected = false;
             else
                 _isMemberConnected = true;
