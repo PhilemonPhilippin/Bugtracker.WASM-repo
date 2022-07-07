@@ -1,17 +1,15 @@
-﻿<h5>DisplayMembers</h5>
+﻿<h3>Members list</h3>
 <ul>
-    @if (_Members.Count == 0)
+    @if (_members.Count == 0)
     {
         @:Chargement du composant affichant les membres...
     }
     else {
-        @foreach (MemberModel member in _Members) {
-            <li class="mt-4">Member Id : @member.IdMember </li>
-            <li>Member Pseudo : @member.Pseudo </li>
-            <li>Member Password : @member.PswdHash </li>
+        @foreach (MemberModel member in _members) {
+            <li class="mt-4">Member Pseudo : @member.Pseudo </li>
             <li>Member Email : @member.Email </li>
-            <button @onclick="() => DeleteMember(member.IdMember)">Delete Member</button>
-            <button @onclick="() => DisplayEditMemberDialog(member.IdMember)">Edit Member</button>
+            <button @onclick="() => DeleteMember(member.IdMember)">Delete</button>
+            <button @onclick="() => DisplayEditMemberDialog(member.IdMember)">Edit</button>
             @if (_isEditMemberDialogOpen && member.IdMember == _memberEditId)
             {
                 <EditMember MemberEditId="@_memberEditId" OnCancel="CloseEditMemberDialog" OnConfirm="ConfirmMemberEdit"/>

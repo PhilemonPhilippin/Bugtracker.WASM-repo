@@ -11,24 +11,24 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         [Inject]
         public HttpClient Http { get; set; }
         [Inject]
-        private IMemberLocalStorage _LocalStorage { get; set; }
-        private List<MemberModel> _Members { get; set; } = new List<MemberModel>();
-        private string _Token { get; set; }
-        private bool _isEditMemberDialogOpen = false;
+        private IMemberLocalStorage LocalStorage { get; set; }
+        private List<MemberModel> _members = new List<MemberModel>();
+        private string _token;
+        private bool _isEditMemberDialogOpen;
         private int _memberEditId;
         protected override async Task OnInitializedAsync()
         {
-            _Token = await _LocalStorage.GetToken();
-            if (_Token is not null)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _Token);
-                _Members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
+                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
             }
         }
         private async Task DeleteMember(int id)
         {
             await Http.DeleteAsync($"https://localhost:7051/api/Member/{id}");
-            await RefreshDisplayMembers();
+            await RefreshMembersList();
         }
         private void DisplayEditMemberDialog(int id)
         {
@@ -42,15 +42,15 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         private async Task ConfirmMemberEdit()
         {
             _isEditMemberDialogOpen = false;
-            await RefreshDisplayMembers();
+            await RefreshMembersList();
         }
-        private async Task RefreshDisplayMembers()
+        private async Task RefreshMembersList()
         {
-            _Token = await _LocalStorage.GetToken();
-            if (_Token is not null)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _Token);
-                _Members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
+                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
             }
         }
     }
