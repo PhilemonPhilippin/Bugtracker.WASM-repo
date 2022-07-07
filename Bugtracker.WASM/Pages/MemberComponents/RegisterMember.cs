@@ -12,9 +12,11 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         public NavigationManager NavManager { get; set; }
         private bool _isPseudoTaken = false;
         private bool _isEmailTaken = false;
+        private bool _isRegistrationValid = false;
         private MemberRegistrationModel _MemberRegistrationModel { get; set; } = new MemberRegistrationModel();
         private async Task SubmitRegistration()
         {
+            _isRegistrationValid = false;
             _isPseudoTaken = false;
             _isEmailTaken = false;
             MemberModel memberModel = new MemberModel()
@@ -41,7 +43,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
                     _isEmailTaken = true;
             }
             else
-                NavManager.NavigateTo("dashboard");
+                _isRegistrationValid = true;
         }
     }
 }

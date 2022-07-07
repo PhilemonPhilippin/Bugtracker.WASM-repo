@@ -4,5 +4,6 @@
     {
 
         Task SetToken(string jwtoken);
+        Task<string> GetToken();
     }
 }

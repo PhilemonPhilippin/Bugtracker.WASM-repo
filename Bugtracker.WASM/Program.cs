@@ -9,7 +9,7 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 
-builder.Services.AddTransient<IMemberLocalStorage, MemberLocalStorage>();
+builder.Services.AddScoped<IMemberLocalStorage, MemberLocalStorage>();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7051/api/") });
 
 

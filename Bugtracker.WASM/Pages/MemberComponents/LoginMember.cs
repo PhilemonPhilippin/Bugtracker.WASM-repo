@@ -36,9 +36,8 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             else
             {
                 _ConnectedMemberModel = await response.Content.ReadFromJsonAsync<ConnectedMemberModel>();
-                // TODO : réussir à stoker le membre ou token dans le local storage.
                 await _LocalStorage.SetToken(_ConnectedMemberModel.Token);
-                //_NavManager.NavigateTo("dashboard");
+                _NavManager.NavigateTo("dashboard");
             }
         }
     }
