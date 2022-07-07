@@ -42,8 +42,6 @@ namespace Bugtracker.WASM.Pages.MemberComponents
                     _MemberEditModel.Lastname = memberModel.Lastname;
                 }
             }
-
-           
         }
         private async Task SubmitEdit()
         {
