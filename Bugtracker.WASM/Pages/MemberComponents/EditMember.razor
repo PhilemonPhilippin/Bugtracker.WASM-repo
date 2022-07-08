@@ -1,31 +1,32 @@
 ﻿<h3>Edit form</h3>
 
 <EditForm Model="@MemberEdited" OnValidSubmit="@SubmitEdit">
-    <DataAnnotationsValidator/>
+    <DataAnnotationsValidator />
     <label for="Pseudo">
         Pseudo: @if (_displayPseudoTaken)
         {
             <span class="text-danger"> Pseudo already taken!</span>
         }
     </label>
-    <InputText id="Pseudo" @bind-Value="@MemberEdited.Pseudo" class="form-control"/>
+    <InputText id="Pseudo" @bind-Value="@MemberEdited.Pseudo" class="form-control" />
 
-     <label for="Email">
+    <label for="Email">
         Email: @if (_displayEmailTaken)
         {
             <span class="text-danger"> Email already taken!</span>
         }
     </label>
-    <InputText id="Email" @bind-Value="@MemberEdited.Email" class="form-control"/>
+    <InputText id="Email" @bind-Value="@MemberEdited.Email" class="form-control" />
 
     <label for="Firstname">Firstname:</label>
-    <InputText id="Firstname" @bind-Value="@MemberEdited.Firstname" class="form-control"/>
+    <InputText id="Firstname" @bind-Value="@MemberEdited.Firstname" class="form-control" />
 
     <label for="Lastname">Lastname:</label>
-    <InputText id="Lastname" @bind-Value="@MemberEdited.Lastname" class="form-control"/>
+    <InputText id="Lastname" @bind-Value="@MemberEdited.Lastname" class="form-control" />
 
     <button type="submit" class="btn btn-primary">Confirm edit</button>
     <button @onclick="OnCancel" class="btn btn-primary">Cancel</button>
-    <ValidationSummary/>
+    <ValidationSummary />
 </EditForm>
 
+<p>Is my member connected ? Is token found and validated ? @_isMemberConnected </p>

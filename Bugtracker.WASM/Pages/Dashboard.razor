@@ -1,15 +1,15 @@
 ﻿@page "/dashboard"
 <h3>Dashboard</h3>
 
-@if (!_isMemberConnected)
+
+<h4>Welcome on the Bug tracker app</h4>
+<p>You are logged in ! Do you want to see the list of all members ?</p>
+<button class="btn btn-primary" @onclick="() => _displayMembers = true">List of members</button>
+
+@if (_displayMembers)
 {
-    <h4>You are not connected. Please, login first.</h4>
-}
-else
-{
-    <h4>Welcome on the Bug tracker app</h4>
-     @:You are logged in!
     <DisplayMembers />
 }
+
 
 
