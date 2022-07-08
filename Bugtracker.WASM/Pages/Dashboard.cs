@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using static System.Net.WebRequestMethods;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using Bugtracker.WASM.Models;
 
 namespace Bugtracker.WASM.Pages
 {
@@ -18,33 +19,26 @@ namespace Bugtracker.WASM.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            await AskTokenValidation();
+        }
+        private async Task AskTokenValidation()
+        {
             _token = await LocalStorage.GetToken();
             if (_token is null)
                 _isMemberConnected = false;
-            
             else
             {
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Member/token", _token);
+                HttpResponseMessage response = await Http.GetAsync("https://localhost:7051/api/Member/token");
                 if (!response.IsSuccessStatusCode)
                     _isMemberConnected = false;
                 else
+                {
+                    ConnectedMemberModel connectedMember = await response.Content.ReadFromJsonAsync<ConnectedMemberModel>();
+                    await LocalStorage.SetToken(connectedMember.Token);
                     _isMemberConnected = true;
+                }
             }
-        //private async Task AskTokenValidation()
-        //{
-            //_token = await LocalStorage.GetToken();
-            //if (_token is null)
-            //    _isMemberConnected = false;
-            //else
-            //{
-            //    Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-            //    HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Member/token", _token);
-            //    if (!response.IsSuccessStatusCode)
-            //        _isMemberConnected = false;
-            //    else
-            //        _isMemberConnected = true;
-            //}
         }
     }
 }

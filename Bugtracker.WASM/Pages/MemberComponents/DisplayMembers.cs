@@ -62,11 +62,15 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             else
             {
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                HttpResponseMessage response = await Http.GetFromJsonAsync<HttpResponseMessage>("https://localhost:7051/api/Member/token");
+                HttpResponseMessage response = await Http.GetAsync("https://localhost:7051/api/Member/token");
                 if (!response.IsSuccessStatusCode)
                     _isMemberConnected = false;
                 else
+                {
+                    ConnectedMemberModel connectedMember = await response.Content.ReadFromJsonAsync<ConnectedMemberModel>();
+                    await LocalStorage.SetToken(connectedMember.Token);
                     _isMemberConnected = true;
+                }
             }
         }
     }
