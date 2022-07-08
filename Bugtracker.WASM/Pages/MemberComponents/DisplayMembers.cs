@@ -19,8 +19,14 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         private int _memberEditId;
         protected override async Task OnInitializedAsync()
         {
-            await AskTokenValidation();
-            if (_isMemberConnected)
+            //await AskTokenValidation();
+            _token = await LocalStorage.GetToken();
+            if (_token is null)
+                _isMemberConnected = false;
+            else
+                _isMemberConnected = true;
+
+        if (_isMemberConnected)
             {
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
@@ -47,31 +53,37 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         }
         private async Task RefreshMembersList()
         {
-            await AskTokenValidation();
+            //await AskTokenValidation();
+            _token = await LocalStorage.GetToken();
+            if (_token is null)
+                _isMemberConnected = false;
+            else
+                _isMemberConnected = true;
+
             if (_isMemberConnected)
             {
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
             }
         }
-        private async Task AskTokenValidation()
-        {
-            _token = await LocalStorage.GetToken();
-            if (_token is null)
-                _isMemberConnected = false;
-            else
-            {
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                HttpResponseMessage response = await Http.GetAsync("https://localhost:7051/api/Member/token");
-                if (!response.IsSuccessStatusCode)
-                    _isMemberConnected = false;
-                else
-                {
-                    ConnectedMemberModel connectedMember = await response.Content.ReadFromJsonAsync<ConnectedMemberModel>();
-                    await LocalStorage.SetToken(connectedMember.Token);
-                    _isMemberConnected = true;
-                }
-            }
-        }
+        //private async Task AskTokenValidation()
+        //{
+        //    _token = await LocalStorage.GetToken();
+        //    if (_token is null)
+        //        _isMemberConnected = false;
+        //    else
+        //    {
+        //        Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+        //        HttpResponseMessage response = await Http.GetAsync("https://localhost:7051/api/Member/token");
+        //        if (!response.IsSuccessStatusCode)
+        //            _isMemberConnected = false;
+        //        else
+        //        {
+        //            ConnectedMemberModel connectedMember = await response.Content.ReadFromJsonAsync<ConnectedMemberModel>();
+        //            await LocalStorage.SetToken(connectedMember.Token);
+        //            _isMemberConnected = true;
+        //        }
+        //    }
+        //}
     }
 }
