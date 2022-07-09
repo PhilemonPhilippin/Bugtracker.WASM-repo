@@ -1,18 +1,8 @@
-﻿@page "/logout"
+﻿
+
 <h3>Logout</h3>
-
-<span>Are you sure you want to Logout ?</span>
-
-@if (_isMemberConnected)
-{
-    <div class="mt-2">
-    <button @onclick="ToDashboard" class="btn btn-primary me-2">Back to Dashboard</button>
-    <button @onclick="ConfirmLogout" class="btn btn-warning">Logout</button>
-    </div>
-}
-@if (!_isMemberConnected)
-{
-    <span class="text-success">Logout successful.</span>
-    <span>Do you want to login again ?</span>
-    <button class="btn btn-primary" @onclick="ToLogin">Back to Login</button>
-}
+<span>Do you want to Logout ?</span>
+<div class="mt-2">
+<button @onclick="ToDashboard" class="btn btn-primary me-2">Back to Dashboard</button>
+<button @onclick="ConfirmLogout" class="btn btn-warning">Logout</button>
+</div>

@@ -37,7 +37,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             {
                 ConnectedMember = await response.Content.ReadFromJsonAsync<ConnectedMemberModel>();
                 await LocalStorage.SetToken(ConnectedMember.Token);
-                NavManager.NavigateTo("dashboard");
+                NavManager.NavigateTo("/");
             }
         }
     }

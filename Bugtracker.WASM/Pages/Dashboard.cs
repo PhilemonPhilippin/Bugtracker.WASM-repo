@@ -13,6 +13,9 @@ namespace Bugtracker.WASM.Pages
         private HttpClient Http { get; set; }
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
+        [Inject]
+        NavigationManager NavManager { get; set; }
+
         private string _token;
         private bool _isMemberConnected;
         private bool _displayMembersComponent;
@@ -22,11 +25,18 @@ namespace Bugtracker.WASM.Pages
             //await AskTokenValidation();
             _token = await LocalStorage.GetToken();
             if (_token is null)
+            {
                 _isMemberConnected = false;
+                ToAccount();
+            }
             else
                 _isMemberConnected = true;
-        }
 
+        }
+        private void ToAccount()
+        {
+            NavManager.NavigateTo("/account");
+        }
         private void DisplayMembersComponent()
         {
             if (_displayMembersComponent)

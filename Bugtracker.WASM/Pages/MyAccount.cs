@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bugtracker.WASM.Pages
 {
-    public partial class Index
+    public partial class MyAccount
     {
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
@@ -33,7 +33,6 @@ namespace Bugtracker.WASM.Pages
             _displayLogin = false;
             _displayRegistration = true;
         }
-
-
+        
     }
 }

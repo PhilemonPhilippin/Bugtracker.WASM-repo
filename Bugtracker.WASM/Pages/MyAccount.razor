@@ -1,11 +1,8 @@
-﻿
-<PageTitle>Index</PageTitle>
-@if (_isMemberConnected)
+﻿@page "/account"
+
+<h1>Hello and welcome</h1>
+@if (!_isMemberConnected)
 {
-}
-else
-{
-    <h1>Hello and welcome</h1>
     <p>
         In order to access the Bug tracker application, you must be logged in first. <br />
         Do you want to login or create a new account ?
@@ -21,4 +18,8 @@ else
     {
         <LoginMember />
     }
+}
+else
+{
+    <Logout OnConfirm=@(()=> _isMemberConnected = false)/>
 }
