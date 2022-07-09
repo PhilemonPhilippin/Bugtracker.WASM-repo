@@ -13,7 +13,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         [Parameter]
-        public int MemberEditId { get; set; }
+        public MemberModel MemberTarget { get; set; }
         [Parameter]
         public EventCallback OnCancel { get; set; }
         [Parameter]
@@ -26,56 +26,44 @@ namespace Bugtracker.WASM.Pages.MemberComponents
 
         protected override async Task OnInitializedAsync()
         {
-            //await AskTokenValidation();
-            _token = await LocalStorage.GetToken();
-            if (_token is null)
-                _isMemberConnected = false;
-            else
-                _isMemberConnected = true;
-
-            Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-            HttpResponseMessage response = await Http.GetAsync($"https://localhost:7051/api/Member/{MemberEditId}");
-
-            if (response.IsSuccessStatusCode)
-            {
-                MemberModel memberModel = await response.Content.ReadFromJsonAsync<MemberModel>();
-                MemberEdited.IdMember = memberModel.IdMember;
-                MemberEdited.Pseudo = memberModel.Pseudo;
-                MemberEdited.Email = memberModel.Email;
-                MemberEdited.Firstname = memberModel.Firstname;
-                MemberEdited.Lastname = memberModel.Lastname;
-            }
+            MemberEdited.IdMember = MemberTarget.IdMember;
+            MemberEdited.Pseudo = MemberTarget.Pseudo;
+            MemberEdited.Email = MemberTarget.Email;
+            MemberEdited.Firstname = MemberTarget.Firstname;
+            MemberEdited.Lastname = MemberTarget.Lastname;
         }
         private async Task SubmitEdit()
         {
             _displayPseudoTaken = false;
             _displayEmailTaken = false;
 
-            //await AskTokenValidation();
             _token = await LocalStorage.GetToken();
             if (_token is null)
                 _isMemberConnected = false;
             else
                 _isMemberConnected = true;
 
-            Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-            HttpResponseMessage response = await Http.PutAsJsonAsync($"https://localhost:7051/api/Member/{MemberEditId}", MemberEdited);
-
-            if (!response.IsSuccessStatusCode)
+            if (_isMemberConnected)
             {
-                string errorMessage = await response.Content.ReadAsStringAsync();
-                if (errorMessage.Contains("Pseudo and Email already exist."))
+                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                HttpResponseMessage response = await Http.PutAsJsonAsync($"https://localhost:7051/api/Member/{MemberEdited.IdMember}", MemberEdited);
+
+                if (!response.IsSuccessStatusCode)
                 {
-                    _displayPseudoTaken = true;
-                    _displayEmailTaken = true;
+                    string errorMessage = await response.Content.ReadAsStringAsync();
+                    if (errorMessage.Contains("Pseudo and Email already exist."))
+                    {
+                        _displayPseudoTaken = true;
+                        _displayEmailTaken = true;
+                    }
+                    else if (errorMessage.Contains("Pseudo already exists."))
+                        _displayPseudoTaken = true;
+                    else if (errorMessage.Contains("Email already exists."))
+                        _displayEmailTaken = true;
                 }
-                else if (errorMessage.Contains("Pseudo already exists."))
-                    _displayPseudoTaken = true;
-                else if (errorMessage.Contains("Email already exists."))
-                    _displayEmailTaken = true;
+                else
+                    await OnConfirm.InvokeAsync();
             }
-            else
-                await OnConfirm.InvokeAsync();
         }
         //private async Task AskTokenValidation()
         //{

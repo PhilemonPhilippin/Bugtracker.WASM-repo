@@ -1,41 +1,62 @@
 ﻿<h3 class="mt-2">Members list</h3>
 
-<ul>
-    @if (_members.Count == 0)
-    {
-        <p>Loading members list...</p>
-    }
-    else
-    {
+@if (_members.Count == 0)
+{
+    <span>Loading members list...</span>
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="table-primary">
+            <tr>
+                <th>
+                    Pseudo
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+
+        </thead>
+        <tbody>
         @foreach (MemberModel member in _members)
         {
-            <li class="mt-4">Member Pseudo : @member.Pseudo </li>
-            <li>Member Email : @member.Email </li>
-
-            <button class="btn btn-primary" @onclick="() => DisplayMemberDetailsDialog(member.IdMember)">
-                <img src="/custom-icons/arrows-angle-expand.svg" alt="Member Details"/>
-                </button>
-
-             <button class="btn btn-warning" @onclick="() => DisplayMemberEditDialog(member.IdMember)">
-                <img src="/custom-icons/pen.svg" alt="Edit Member"/>
-                </button>
-
-            <button class="btn btn-danger" @onclick="() => DeleteMember(member.IdMember)">
-                <img src="/custom-icons/trash3.svg" alt="Delete Member" />
-                </button>
-           @if (_displayMemberDetailsDialog && member.IdMember == _memberTargetId)
-            {
-                <DetailsMember MemberTarget="@member" OnCancel="CloseDetailsDialog"/>
-            }
-
-            @*Essayer de passer un membre plutôt qu'un id*@
-            @if (_displayMemberEditDialog && member.IdMember == _memberTargetId)
-            {
-                <EditMember MemberEditId="@_memberTargetId" OnCancel="CloseMemberEditDialog" OnConfirm="ConfirmMemberEdit" />
-            }
+            <tr>
+                <td>
+                    @member.Pseudo
+                </td>
+                <td>
+                    @member.Email
+                </td>
+                <td>
+                    <button class="btn btn-primary" @onclick="() => DisplayMemberDetailsDialog(member)">
+                        <img src="/custom-icons/arrows-angle-expand.svg" alt="Member Details" />
+                    </button>
+                    <button class="btn btn-warning ms-1" @onclick="() => DisplayMemberEditDialog(member)">
+                        <img src="/custom-icons/pen.svg" alt="Edit Member" />
+                    </button>
+                    <button class="btn btn-danger ms-1" @onclick="() => DeleteMember(member.IdMember)">
+                        <img src="/custom-icons/trash3.svg" alt="Delete Member" />
+                    </button>
+                </td>
+            </tr>
         }
+        </tbody>
+    </table>
+    @if (_displayMemberDetailsDialog)
+    {
+        <DetailsMember MemberTarget="@_memberTarget" OnCancel="CloseDetailsDialog" />
     }
-</ul>
+
+    @if (_displayMemberEditDialog)
+    {
+        <EditMember MemberTarget="@_memberTarget" OnCancel="CloseMemberEditDialog" OnConfirm="ConfirmMemberEdit" />
+    }
+}
+
 
 
 

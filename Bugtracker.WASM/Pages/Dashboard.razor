@@ -8,8 +8,14 @@
 
 @if (_displayMembers)
 {
-    <DisplayMembers />
+    if (!_isMemberConnected)
+    {
+        <span class="text-danger">You are not connected</span>
+    }
+    else
+    {
+        <DisplayMembers />
+    }
 }
-
 
 

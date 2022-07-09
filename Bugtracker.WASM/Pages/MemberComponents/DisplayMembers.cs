@@ -13,6 +13,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         private List<MemberModel> _members = new List<MemberModel>();
+        private MemberModel _memberTarget;
         private string _token;
         private bool _displayMemberEditDialog;
         private bool _displayMemberDetailsDialog;
@@ -27,7 +28,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             else
                 _isMemberConnected = true;
 
-        if (_isMemberConnected)
+            if (_isMemberConnected)
             {
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
@@ -39,19 +40,19 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             await RefreshMembersList();
         }
 
-        private void DisplayMemberDetailsDialog(int id)
+        private void DisplayMemberDetailsDialog(MemberModel member)
         {
             _displayMemberDetailsDialog = true;
-            _memberTargetId = id;
+            _memberTarget = member;
         }
         private void CloseDetailsDialog()
         {
             _displayMemberDetailsDialog = false;
         }
-        private void DisplayMemberEditDialog(int id)
+        private void DisplayMemberEditDialog(MemberModel member)
         {
             _displayMemberEditDialog = true;
-            _memberTargetId = id;
+            _memberTarget= member;
         }
         private void CloseMemberEditDialog()
         {
