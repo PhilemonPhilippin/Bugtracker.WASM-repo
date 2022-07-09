@@ -7,13 +7,27 @@
 }
 else
 {
-    <ul>
-        <li>Id member: @MemberTarget.IdMember</li>
-        <li>Pseudo: @MemberTarget.Pseudo</li>
-        <li>Email: @MemberTarget.Email</li>
-        <li>Firstname: @MemberTarget.Firstname</li>
-        <li>Lastnam: @MemberTarget.Lastname</li>
-    </ul>
+    <table class="table table-secondary">
+        <thead class="table-primary">
+            <tr>
+                <th>Id member</th>
+                <th>Pseudo</th>
+                <th>Email</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>@MemberTarget.IdMember</th>
+                <th>@MemberTarget.Pseudo</th>
+                <th>@MemberTarget.Email</th>
+                <th>@MemberTarget.Firstname</th>
+                <th>@MemberTarget.Lastname</th>
+            </tr>
+        </tbody>
+    </table>
+
     <button @onclick="OnCancel" class="btn btn-primary">Close</button>
     
 }

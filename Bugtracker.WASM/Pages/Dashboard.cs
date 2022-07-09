@@ -15,7 +15,7 @@ namespace Bugtracker.WASM.Pages
         private IMemberLocalStorage LocalStorage { get; set; }
         private string _token;
         private bool _isMemberConnected;
-        private bool _displayMembers;
+        private bool _displayMembersComponent;
 
         protected override async Task OnInitializedAsync()
         {
@@ -25,6 +25,14 @@ namespace Bugtracker.WASM.Pages
                 _isMemberConnected = false;
             else
                 _isMemberConnected = true;
+        }
+
+        private void DisplayMembersComponent()
+        {
+            if (_displayMembersComponent)
+                _displayMembersComponent = false;
+            else
+                _displayMembersComponent = true;
         }
         //private async Task AskTokenValidation()
         //{

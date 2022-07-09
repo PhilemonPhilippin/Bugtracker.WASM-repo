@@ -4,9 +4,9 @@
 
 <h4>Welcome on the Bug tracker app</h4>
 <p>You are logged in ! Do you want to see the list of all members ?</p>
-<button class="btn btn-primary" @onclick="() => _displayMembers = true">List of members</button>
+<button class="btn btn-primary" @onclick="DisplayMembersComponent">List of members</button>
 
-@if (_displayMembers)
+@if (_displayMembersComponent)
 {
     if (!_isMemberConnected)
     {

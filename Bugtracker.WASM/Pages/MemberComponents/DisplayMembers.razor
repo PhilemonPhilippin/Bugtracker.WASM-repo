@@ -50,8 +50,7 @@ else
     {
         <DetailsMember MemberTarget="@_memberTarget" OnCancel="CloseDetailsDialog" />
     }
-
-    @if (_displayMemberEditDialog)
+    else if (_displayMemberEditDialog)
     {
         <EditMember MemberTarget="@_memberTarget" OnCancel="CloseMemberEditDialog" OnConfirm="ConfirmMemberEdit" />
     }

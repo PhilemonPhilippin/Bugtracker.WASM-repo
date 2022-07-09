@@ -42,8 +42,14 @@ namespace Bugtracker.WASM.Pages.MemberComponents
 
         private void DisplayMemberDetailsDialog(MemberModel member)
         {
-            _displayMemberDetailsDialog = true;
-            _memberTarget = member;
+            if (_displayMemberDetailsDialog)
+                _displayMemberDetailsDialog = false;
+            else
+            {
+                _displayMemberEditDialog = false;
+                _displayMemberDetailsDialog = true;
+                _memberTarget = member;
+            }
         }
         private void CloseDetailsDialog()
         {
@@ -51,8 +57,15 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         }
         private void DisplayMemberEditDialog(MemberModel member)
         {
-            _displayMemberEditDialog = true;
-            _memberTarget= member;
+            if (_displayMemberEditDialog)
+                _displayMemberEditDialog = false;
+            else
+            {
+                _displayMemberDetailsDialog = false;
+                _displayMemberEditDialog = true;
+                _memberTarget = member;
+
+            }
         }
         private void CloseMemberEditDialog()
         {
