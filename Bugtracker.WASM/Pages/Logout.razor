@@ -1,0 +1,11 @@
+﻿@page "/logout"
+<h3>Logout</h3>
+
+Are you sure you want to Logout ?
+<button @onclick="ConfirmLogout">Confirm logout</button>
+<button @onclick="ToDashboard">Back to Dashboard</button>
+
+@if (!_isMemberConnected)
+{
+    <span class="text-success">Logout successful.</span>
+}

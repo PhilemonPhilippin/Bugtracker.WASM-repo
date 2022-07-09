@@ -24,5 +24,9 @@ namespace Bugtracker.WASM.Tools
             else
                 return JsonSerializer.Deserialize<string>(token);
         }
+        public async Task RemoveToken()
+        {
+            await _JsRuntime.InvokeVoidAsync("localStorage.removeItem", "token");
+        }
     }
 }
