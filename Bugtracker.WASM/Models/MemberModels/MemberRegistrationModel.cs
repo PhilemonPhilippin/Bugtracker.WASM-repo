@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Bugtracker.WASM.Models
+namespace Bugtracker.WASM.Models.MemberModels
 {
     public class MemberRegistrationModel
     {
@@ -16,7 +16,7 @@ namespace Bugtracker.WASM.Models
         [DataType(DataType.Password)]
         [Compare(nameof(Password))]
         public string ConfirmPassword { get; set; }
-        
+
         public string? Firstname { get; set; }
         public string? Lastname { get; set; }
     }

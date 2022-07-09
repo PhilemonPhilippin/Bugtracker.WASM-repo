@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Bugtracker.WASM.Models
+namespace Bugtracker.WASM.Models.MemberModels
 {
     public class MemberLoginModel
     {

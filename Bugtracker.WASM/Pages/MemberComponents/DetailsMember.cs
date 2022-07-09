@@ -1,4 +1,4 @@
-﻿using Bugtracker.WASM.Models;
+﻿using Bugtracker.WASM.Models.MemberModels;
 using Microsoft.AspNetCore.Components;
 
 namespace Bugtracker.WASM.Pages.MemberComponents

@@ -1,5 +1,5 @@
 ﻿using Bugtracker.WASM.Mappers;
-using Bugtracker.WASM.Models;
+using Bugtracker.WASM.Models.MemberModels;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 

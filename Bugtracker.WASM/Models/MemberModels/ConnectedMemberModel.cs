@@ -1,4 +1,4 @@
-﻿namespace Bugtracker.WASM.Models
+﻿namespace Bugtracker.WASM.Models.MemberModels
 {
     public class ConnectedMemberModel : MemberModel
     {

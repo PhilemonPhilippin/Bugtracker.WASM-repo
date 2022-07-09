@@ -1,4 +1,4 @@
-﻿using Bugtracker.WASM.Models;
+﻿using Bugtracker.WASM.Models.MemberModels;
 
 namespace Bugtracker.WASM.Mappers
 {

@@ -1,7 +1,7 @@
 ﻿using Bugtracker.WASM.Tools;
 using Microsoft.AspNetCore.Components;
 
-namespace Bugtracker.WASM.Pages
+namespace Bugtracker.WASM.Pages.MemberComponents
 {
     public partial class Logout
     {

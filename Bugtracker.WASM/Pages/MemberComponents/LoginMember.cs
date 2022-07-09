@@ -1,4 +1,4 @@
-﻿using Bugtracker.WASM.Models;
+﻿using Bugtracker.WASM.Models.MemberModels;
 using Bugtracker.WASM.Tools;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
