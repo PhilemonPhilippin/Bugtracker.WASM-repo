@@ -9,17 +9,29 @@ namespace Bugtracker.WASM.Pages
         private IMemberLocalStorage LocalStorage { get; set; }
         [Inject]
         private NavigationManager NavManager { get; set; }
-        bool _isMemberConnected = true;
+        private bool _isMemberConnected;
+        private string _token;
 
-
-        public async Task ConfirmLogout()
+        protected override async Task OnInitializedAsync()
+        {
+            _token = await LocalStorage.GetToken();
+            if (_token is null)
+                _isMemberConnected = false;
+            else
+                _isMemberConnected = true;
+        }
+        private async Task ConfirmLogout()
         {
             await LocalStorage.RemoveToken();
             _isMemberConnected = false;
         }
-        public void ToDashboard()
+        private void ToDashboard()
         {
             NavManager.NavigateTo("dashboard");
+        }
+        private void ToLogin()
+        {
+            NavManager.NavigateTo("/");
         }
     }
 }

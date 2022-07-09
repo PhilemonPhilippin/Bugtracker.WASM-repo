@@ -14,9 +14,10 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         private IMemberLocalStorage LocalStorage { get; set; }
         private List<MemberModel> _members = new List<MemberModel>();
         private string _token;
-        private bool _displayEditMemberDialog;
+        private bool _displayMemberEditDialog;
+        private bool _displayMemberDetailsDialog;
         private bool _isMemberConnected;
-        private int _memberEditId;
+        private int _memberTargetId;
         protected override async Task OnInitializedAsync()
         {
             //await AskTokenValidation();
@@ -37,18 +38,28 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             await Http.DeleteAsync($"https://localhost:7051/api/Member/{id}");
             await RefreshMembersList();
         }
-        private void DisplayEditMemberDialog(int id)
+
+        private void DisplayMemberDetailsDialog(int id)
         {
-            _displayEditMemberDialog = true;
-            _memberEditId = id;
+            _displayMemberDetailsDialog = true;
+            _memberTargetId = id;
         }
-        private void CloseEditMemberDialog()
+        private void CloseDetailsDialog()
         {
-            _displayEditMemberDialog = false;
+            _displayMemberDetailsDialog = false;
+        }
+        private void DisplayMemberEditDialog(int id)
+        {
+            _displayMemberEditDialog = true;
+            _memberTargetId = id;
+        }
+        private void CloseMemberEditDialog()
+        {
+            _displayMemberEditDialog = false;
         }
         private async Task ConfirmMemberEdit()
         {
-            _displayEditMemberDialog = false;
+            _displayMemberEditDialog = false;
             await RefreshMembersList();
         }
         private async Task RefreshMembersList()

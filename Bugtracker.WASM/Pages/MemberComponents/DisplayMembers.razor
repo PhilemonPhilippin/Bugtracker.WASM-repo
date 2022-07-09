@@ -1,9 +1,9 @@
-﻿<h3>Members list</h3>
+﻿<h3 class="mt-2">Members list</h3>
 
 <ul>
     @if (_members.Count == 0)
     {
-        @:Chargement du composant affichant les membres...
+        <p>Loading members list...</p>
     }
     else
     {
@@ -11,17 +11,32 @@
         {
             <li class="mt-4">Member Pseudo : @member.Pseudo </li>
             <li>Member Email : @member.Email </li>
-            <button @onclick="() => DeleteMember(member.IdMember)">Delete</button>
-            <button @onclick="() => DisplayEditMemberDialog(member.IdMember)">Edit</button>
-            @if (_displayEditMemberDialog && member.IdMember == _memberEditId)
+
+            <button class="btn btn-primary" @onclick="() => DisplayMemberDetailsDialog(member.IdMember)">
+                <img src="/custom-icons/arrows-angle-expand.svg" alt="Member Details"/>
+                </button>
+
+             <button class="btn btn-warning" @onclick="() => DisplayMemberEditDialog(member.IdMember)">
+                <img src="/custom-icons/pen.svg" alt="Edit Member"/>
+                </button>
+
+            <button class="btn btn-danger" @onclick="() => DeleteMember(member.IdMember)">
+                <img src="/custom-icons/trash3.svg" alt="Delete Member" />
+                </button>
+           @if (_displayMemberDetailsDialog && member.IdMember == _memberTargetId)
             {
-                <EditMember MemberEditId="@_memberEditId" OnCancel="CloseEditMemberDialog" OnConfirm="ConfirmMemberEdit" />
+                <DetailsMember MemberTarget="@member" OnCancel="CloseDetailsDialog"/>
+            }
+
+            @*Essayer de passer un membre plutôt qu'un id*@
+            @if (_displayMemberEditDialog && member.IdMember == _memberTargetId)
+            {
+                <EditMember MemberEditId="@_memberTargetId" OnCancel="CloseMemberEditDialog" OnConfirm="ConfirmMemberEdit" />
             }
         }
     }
 </ul>
 
-<p>Is my member connected ? Is token found and validated ? @_isMemberConnected </p>
 
 
 

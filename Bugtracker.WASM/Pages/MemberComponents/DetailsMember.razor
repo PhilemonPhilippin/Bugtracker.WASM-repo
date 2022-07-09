@@ -1,0 +1,19 @@
+﻿
+<h3 class="mt-2">Member details</h3>
+
+@if (MemberTarget is null)
+{
+    <p>Loading member...</p>
+}
+else
+{
+    <ul>
+        <li>Id member: @MemberTarget.IdMember</li>
+        <li>Pseudo: @MemberTarget.Pseudo</li>
+        <li>Email: @MemberTarget.Email</li>
+        <li>Firstname: @MemberTarget.Firstname</li>
+        <li>Lastnam: @MemberTarget.Lastname</li>
+    </ul>
+    <button @onclick="OnCancel" class="btn btn-primary">Close</button>
+    
+}
