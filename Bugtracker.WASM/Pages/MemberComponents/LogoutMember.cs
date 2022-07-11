@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bugtracker.WASM.Pages.MemberComponents
 {
-    public partial class Logout
+    public partial class LogoutMember
     {
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
