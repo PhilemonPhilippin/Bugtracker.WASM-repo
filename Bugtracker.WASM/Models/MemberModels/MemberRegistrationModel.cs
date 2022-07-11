@@ -5,8 +5,10 @@ namespace Bugtracker.WASM.Models.MemberModels
     public class MemberRegistrationModel
     {
         [Required]
+        [MaxLength(50)]
         public string Pseudo { get; set; }
         [Required]
+        [MaxLength(250)]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         [Required]
@@ -16,8 +18,9 @@ namespace Bugtracker.WASM.Models.MemberModels
         [DataType(DataType.Password)]
         [Compare(nameof(Password))]
         public string ConfirmPassword { get; set; }
-
+        [MaxLength(50)]
         public string? Firstname { get; set; }
+        [MaxLength(50)]
         public string? Lastname { get; set; }
     }
 }
