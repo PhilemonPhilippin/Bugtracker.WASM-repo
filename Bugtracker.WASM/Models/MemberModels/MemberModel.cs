@@ -17,4 +17,8 @@ namespace Bugtracker.WASM.Models.MemberModels
         [MaxLength(50)]
         public string? Lastname { get; set; }
     }
+    public class ConnectedMemberModel : MemberModel
+    {
+        public string Token { get; set; }
+    }
 }
