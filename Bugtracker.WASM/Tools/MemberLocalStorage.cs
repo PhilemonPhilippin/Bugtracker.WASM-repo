@@ -14,11 +14,11 @@ namespace Bugtracker.WASM.Tools
 
         public async Task SetToken(string jwtoken)
         {
-            await _JsRuntime.InvokeVoidAsync("localStorage.setItem","token", JsonSerializer.Serialize(jwtoken));
+            await _JsRuntime.InvokeVoidAsync("localStorage.setItem","bugtrackertoken", JsonSerializer.Serialize(jwtoken));
         }
         public async Task<string> GetToken()
         {
-            string token = await _JsRuntime.InvokeAsync<string>("localStorage.getItem", "token");
+            string token = await _JsRuntime.InvokeAsync<string>("localStorage.getItem", "bugtrackertoken");
             if (token is null)
                 return null;
             else
@@ -26,7 +26,7 @@ namespace Bugtracker.WASM.Tools
         }
         public async Task RemoveToken()
         {
-            await _JsRuntime.InvokeVoidAsync("localStorage.removeItem", "token");
+            await _JsRuntime.InvokeVoidAsync("localStorage.removeItem", "bugtrackertoken");
         }
     }
 }
