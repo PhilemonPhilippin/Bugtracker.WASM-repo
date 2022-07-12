@@ -18,7 +18,6 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         private bool _displayMemberEditDialog;
         private bool _displayMemberDetailsDialog;
         private bool _isMemberConnected;
-        private int _memberTargetId;
         protected override async Task OnInitializedAsync()
         {
             //await AskTokenValidation();
@@ -78,7 +77,6 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         }
         private async Task RefreshMembersList()
         {
-            //await AskTokenValidation();
             _token = await LocalStorage.GetToken();
             if (_token is null)
                 _isMemberConnected = false;

@@ -22,7 +22,6 @@ namespace Bugtracker.WASM.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            //await AskTokenValidation();
             _token = await LocalStorage.GetToken();
             if (_token is null)
             {
@@ -44,24 +43,5 @@ namespace Bugtracker.WASM.Pages
             else
                 _displayMembersComponent = true;
         }
-        //private async Task AskTokenValidation()
-        //{
-        //    _token = await LocalStorage.GetToken();
-        //    if (_token is null)
-        //        _isMemberConnected = false;
-        //    else
-        //    {
-        //        Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-        //        HttpResponseMessage response = await Http.GetAsync("https://localhost:7051/api/Member/token");
-        //        if (!response.IsSuccessStatusCode)
-        //            _isMemberConnected = false;
-        //        else
-        //        {
-        //            ConnectedMemberModel connectedMember = await response.Content.ReadFromJsonAsync<ConnectedMemberModel>();
-        //            await LocalStorage.SetToken(connectedMember.Token);
-        //            _isMemberConnected = true;
-        //        }
-        //    }
-        //}
     }
 }
