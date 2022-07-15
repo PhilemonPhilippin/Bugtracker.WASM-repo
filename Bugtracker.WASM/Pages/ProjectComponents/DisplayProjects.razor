@@ -1,5 +1,27 @@
-﻿<h3>DisplayProjects</h3>
+﻿
+<h2 class="mt-2">Projects List</h2>
 
-@code {
-
+@if (_projects.Count == 0)
+{
+    <span>Loading projects list...</span>
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="table-primary">
+            <tr>
+                <th>Name</th>
+                <th>Manager</th>
+            </tr>
+        </thead>
+        <tbody>
+           @foreach (ProjectModel project in _projects)
+            {
+                <tr>
+                    <th>@project.Name</th>
+                    <th>@project.Manager</th>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
