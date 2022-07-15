@@ -12,16 +12,36 @@ else
             <tr>
                 <th>Name</th>
                 <th>Manager</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
            @foreach (ProjectModel project in _projects)
             {
                 <tr>
-                    <th>@project.Name</th>
-                    <th>@project.Manager</th>
+                    <td>@project.Name</td>
+                    <td>@project.Manager</td>
+                    <td>
+                         <button class="btn btn-primary" @onclick="() => DisplayProjectDetailsDialog(project)">
+                            <img src="/custom-icons/arrows-angle-expand.svg" alt="Project Details" />
+                        </button>
+                        <button class="btn btn-warning ms-1" @onclick="() => DisplayProjectEditDialog(project)">
+                            <img src="/custom-icons/pen.svg" alt="Edit Member" />
+                        </button>
+                        <button class="btn btn-danger ms-1" @onclick="() => DeleteProject(project.IdProject)">
+                            <img src="/custom-icons/trash3.svg" alt="Delete Project" />
+                        </button>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
+     @if (_displayProjectDetailsDialog)
+    {
+        <DetailsProject OnCancel="CloseDetailsDialog" ProjectTarget="@_projectTarget"/>
+    }
+    else if (_displayProjectEditDialog)
+    {
+        
+    }
 }
