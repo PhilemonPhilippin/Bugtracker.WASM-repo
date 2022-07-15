@@ -1,0 +1,18 @@
+﻿@page "/members"
+<PageTitle>Members |Bugtracker</PageTitle>
+<h3>Members</h3>
+
+@if (!_isMemberConnected)
+{
+    <span class="text-danger">You are not connected. Click below to go to login page</span>
+    <button class="btn btn-primary" @onclick="ToAccount">Login page</button>
+}
+else
+{
+    <p>You are logged in ! Do you want to see the list of all members ?</p>
+    <button class="btn btn-primary" @onclick="DisplayMembersComponent">List of members</button>
+    @if (_displayMembersComponent)
+    {
+        <DisplayMembers />
+    }
+}
