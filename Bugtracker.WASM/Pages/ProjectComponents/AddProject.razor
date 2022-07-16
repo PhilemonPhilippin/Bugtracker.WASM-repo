@@ -1,0 +1,28 @@
+﻿<h3>Add a project</h3>
+
+<EditForm Model="@AddedProject" OnValidSubmit="@SubmitAdd">
+    <DataAnnotationsValidator/>
+
+    <label for="Name">
+        Name: @if (_displayNameTaken)
+        {
+            <span class="text-danger"> /!\ This name is already taken.</span>
+        }
+    </label>
+    <InputText id="Name" @bind-Value="@AddedProject.Name" class="form-control"/>
+
+    <label for="Description">
+        Description: 
+    </label>
+    <InputText id="Description" @bind-Value="@AddedProject.Description" class="form-control"/>
+
+    <label for="Manager">
+        Manager: 
+    </label>
+    <InputNumber id="Manager" @bind-Value="@AddedProject.Manager" class="form-control"/>
+    
+     <button type="submit" class="btn btn-primary">Confirm add</button>
+     <button @onclick="OnCancel" class="btn btn-primary">Cancel</button>
+     <ValidationSummary/>
+
+</EditForm>

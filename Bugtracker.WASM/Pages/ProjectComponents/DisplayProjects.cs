@@ -17,8 +17,9 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         private List<ProjectModel> _projects = new List<ProjectModel>();
         private ProjectModel _projectTarget;
         private bool _displayProjectDetailsDialog;
-        private bool _displayProjectEditDialog;
+        private bool _displayEditProjectDialog;
         private bool _isMemberConnected;
+        private bool _displayAddProjectDialog;
         private string _token;
 
         protected override async Task OnInitializedAsync()
@@ -60,19 +61,21 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
                 _displayProjectDetailsDialog = false;
             else
             {
-                _displayProjectEditDialog = false;
+                _displayAddProjectDialog = false;
+                _displayEditProjectDialog = false;
                 _displayProjectDetailsDialog = true;
                 _projectTarget = project;
             }
         }
         private void DisplayProjectEditDialog(ProjectModel project)
         {
-            if (_displayProjectEditDialog)
-                _displayProjectEditDialog = false;
+            if (_displayEditProjectDialog)
+                _displayEditProjectDialog = false;
             else
             {
+                _displayAddProjectDialog = false;
                 _displayProjectDetailsDialog = false;
-                _displayProjectEditDialog = true;
+                _displayEditProjectDialog = true;
                 _projectTarget = project;
             }
         }
@@ -80,5 +83,21 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         {
             _displayProjectDetailsDialog = false;
         }
+        private void CloseAddDialog()
+        {
+            _displayAddProjectDialog = false;
+        }
+        private void DisplayAddProjectDialog()
+        {
+            if (_displayAddProjectDialog)
+                _displayAddProjectDialog = false;
+            else
+            {
+                _displayEditProjectDialog = false;
+                _displayProjectDetailsDialog = false;
+                _displayAddProjectDialog = true;
+            }
+        }
+       
     }
 }
