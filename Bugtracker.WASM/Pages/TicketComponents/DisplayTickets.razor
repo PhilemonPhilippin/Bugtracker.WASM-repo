@@ -1,0 +1,34 @@
+﻿<h2 class="mt-2">Display tickets</h2>
+
+@if (_tickets.Count == 0)
+{
+    <span class="mt-2">Loading tickets list...</span>
+}
+else
+{
+    <table class="table table-striped mt-2">
+        <thead class="table-primary">
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Submit time</th>
+                <th>Project</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (TicketModel ticket in _tickets)
+            {
+                <tr>
+                    <td>@ticket.Title </td>
+                    <td>@ticket.Status</td>
+                    <td>@ticket.Priority</td>
+                    <td>@ticket.SubmitTime</td>
+                    <td>@ticket.Project</td>
+                    <td>Buttons</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

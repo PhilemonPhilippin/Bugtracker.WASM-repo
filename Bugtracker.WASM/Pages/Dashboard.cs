@@ -19,6 +19,7 @@ namespace Bugtracker.WASM.Pages
         private string _token;
         private bool _isMemberConnected;
         private bool _displayProjectsComponent;
+        private bool _displayTicketsComponent;
 
         protected override async Task OnInitializedAsync()
         {
@@ -42,6 +43,13 @@ namespace Bugtracker.WASM.Pages
                 _displayProjectsComponent = false;
             else
                 _displayProjectsComponent = true;
+        }
+        private void DisplayTicketsComponent()
+        {
+            if (_displayTicketsComponent)
+                _displayTicketsComponent = false;
+            else
+                _displayTicketsComponent = true;
         }
     }
 }
