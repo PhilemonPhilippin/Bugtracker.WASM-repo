@@ -96,5 +96,14 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _ticketTarget = ticket;
             }
         }
+        private void CloseEditDialog()
+        {
+            _displayEditTicketDialog = false;
+        }
+        private async Task ConfirmTicketEdit()
+        {
+            await RefreshTicketsList();
+            _displayEditTicketDialog = false;
+        }
     }
 }

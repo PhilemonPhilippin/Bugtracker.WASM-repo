@@ -20,5 +20,21 @@ namespace Bugtracker.WASM.Mappers
                 Project = formModel.Project,
             };
         }
+        public static TicketFormModel ToFormModel(this TicketModel ticketModel)
+        {
+            return new TicketFormModel()
+            {
+                IdTicket = ticketModel.IdTicket,
+                Title = ticketModel.Title,
+                Status = ticketModel.Status,
+                Priority = ticketModel.Priority,
+                Type = ticketModel.Type,
+                Description = ticketModel.Description,
+                SubmitTime = ticketModel.SubmitTime,
+                SubmitMember = ticketModel.SubmitMember,
+                AssignedMember = ticketModel.AssignedMember,
+                Project = ticketModel.Project,
+            };
+        }
     }
 }

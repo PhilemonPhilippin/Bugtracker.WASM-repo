@@ -56,3 +56,7 @@ else if (_displayAddTicketDialog)
 {
     <AddTicket OnCancel="@CloseAddDialog" OnConfirm="@RefreshTicketsList"/>
 }
+else if (_displayEditTicketDialog)
+{
+    <EditTicket OnCancel="@CloseEditDialog" OnConfirm="@ConfirmTicketEdit" TicketTarget="@_ticketTarget"/>
+}
