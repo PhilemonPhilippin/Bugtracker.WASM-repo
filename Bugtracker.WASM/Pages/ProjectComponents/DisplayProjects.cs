@@ -87,6 +87,11 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         {
             _displayAddProjectDialog = false;
         }
+        private void CloseEditDialog()
+        {
+            _displayEditProjectDialog = false;
+        }
+
         private void DisplayAddProjectDialog()
         {
             if (_displayAddProjectDialog)
@@ -98,6 +103,10 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
                 _displayAddProjectDialog = true;
             }
         }
-       
+       private async Task ConfirmProjectEdit()
+        {
+            await RefreshProjectsList();
+            _displayEditProjectDialog = false;
+        }
     }
 }

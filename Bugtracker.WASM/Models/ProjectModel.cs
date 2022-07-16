@@ -11,7 +11,7 @@ namespace Bugtracker.WASM.Models
         public string Description { get; set; }
         public int Manager { get; set; }
     }
-    public class ProjectAddModel
+    public class ProjectFormModel
     {
         public int IdProject { get; set; }
         [Required]

@@ -28,7 +28,7 @@ else
                             <img src="/custom-icons/arrows-angle-expand.svg" alt="Project Details" />
                         </button>
                         <button class="btn btn-warning ms-1" @onclick="() => DisplayProjectEditDialog(project)">
-                            <img src="/custom-icons/pen.svg" alt="Edit Member" />
+                            <img src="/custom-icons/pen.svg" alt="Edit Project" />
                         </button>
                         <button class="btn btn-danger ms-1" @onclick="() => DeleteProject(project.IdProject)">
                             <img src="/custom-icons/trash3.svg" alt="Delete Project" />
@@ -48,6 +48,6 @@ else
     }
     else if (_displayEditProjectDialog)
     {
-        
+        <EditProject OnCancel="@CloseEditDialog" OnConfirm="@ConfirmProjectEdit" ProjectTarget="@_projectTarget"/>
     }
 }

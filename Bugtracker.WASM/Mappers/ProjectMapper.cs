@@ -4,14 +4,14 @@ namespace Bugtracker.WASM.Mappers
 {
     internal static class ProjectMapper
     {
-        public static ProjectModel ToModel(this ProjectAddModel addModel)
+        public static ProjectModel ToModel(this ProjectFormModel formModel)
         {
             return new ProjectModel()
             {
-                IdProject = 0,
-                Name = addModel.Name,
-                Description = addModel.Description,
-                Manager = addModel.Manager
+                IdProject = (formModel.IdProject == 0) ? 0 : formModel.IdProject,
+                Name = formModel.Name,
+                Description = formModel.Description,
+                Manager = formModel.Manager
             };
         }
     }
