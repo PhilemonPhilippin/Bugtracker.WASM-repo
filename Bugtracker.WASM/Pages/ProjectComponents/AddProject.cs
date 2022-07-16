@@ -17,10 +17,11 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         public EventCallback OnCancel { get; set; }
         [Parameter]
         public EventCallback OnConfirm { get; set; }
-        private ProjectFormModel AddedProject { get; set; } = new ProjectFormModel() {IdProject = default};
+        private ProjectFormModel AddedProject { get; set; } = new ProjectFormModel() { IdProject = default };
 
         private bool _displayNameTaken;
         private bool _isMemberConnected;
+        private bool _isProjectAdded;
         private string _token;
         private async Task SubmitAdd()
         {
@@ -33,7 +34,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
             if (_isMemberConnected)
             {
                 _displayNameTaken = false;
-
+                _isProjectAdded = false;
                 ProjectModel projectModel = AddedProject.ToModel();
 
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
@@ -47,6 +48,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
                 }
                 else
                 {
+                    _isProjectAdded = true;
                     await OnConfirm.InvokeAsync();
                     AddedProject = new ProjectFormModel();
                 }

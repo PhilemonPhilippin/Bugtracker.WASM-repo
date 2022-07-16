@@ -48,13 +48,13 @@ else
         </tbody>
     </table>
 }
-@if (_displayTicketDetailsDialog)
-{
-    <DetailsTicket OnCancel="@CloseDetailsDialog" TicketTarget="@_ticketTarget"/>
-}
-else if (_displayAddTicketDialog)
+@if (_displayAddTicketDialog)
 {
     <AddTicket OnCancel="@CloseAddDialog" OnConfirm="@RefreshTicketsList"/>
+}
+else if (_displayTicketDetailsDialog)
+{
+    <DetailsTicket OnCancel="@CloseDetailsDialog" TicketTarget="@_ticketTarget"/>
 }
 else if (_displayEditTicketDialog)
 {

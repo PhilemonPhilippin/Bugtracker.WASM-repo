@@ -22,6 +22,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private string _token;
         private bool _isMemberConnected;
         private bool _displayTitleTaken;
+        private bool _isTicketAdded;
 
         private async Task SubmitAdd()
         {
@@ -34,7 +35,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
             if (_isMemberConnected)
             {
                 _displayTitleTaken = false;
-
+                _isTicketAdded = false;
                 TicketModel ticketModel = AddedTicket.ToModel();
 
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
@@ -46,11 +47,12 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                     if (message.Contains("Title already exists."))
                         _displayTitleTaken = true;
                 }
-            }
-            else
-            {
-                await OnConfirm.InvokeAsync();
-                AddedTicket = new TicketFormModel();
+                else
+                {
+                    _isTicketAdded = true;
+                    await OnConfirm.InvokeAsync();
+                    AddedTicket = new TicketFormModel();
+                }
             }
         }
     }

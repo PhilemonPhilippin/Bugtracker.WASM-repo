@@ -1,5 +1,9 @@
 ﻿<h3>Add a project</h3>
-
+@if (_isProjectAdded)
+{
+    <span class="text-success">Project added successfully !</span>
+    
+}
 <EditForm Model="@AddedProject" OnValidSubmit="@SubmitAdd">
     <DataAnnotationsValidator/>
 
