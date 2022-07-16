@@ -12,9 +12,7 @@ namespace Bugtracker.WASM.Mappers
                 IdMember = 0,
                 Pseudo = memberRegistration.Pseudo,
                 Email = memberRegistration.Email,
-                PswdHash = memberRegistration.Password,
-                Firstname = memberRegistration.Firstname,
-                Lastname = memberRegistration.Lastname
+                PswdHash = memberRegistration.Password
             };
         }
     }

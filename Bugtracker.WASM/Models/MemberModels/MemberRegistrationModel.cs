@@ -18,9 +18,5 @@ namespace Bugtracker.WASM.Models.MemberModels
         [DataType(DataType.Password)]
         [Compare(nameof(Password))]
         public string ConfirmPassword { get; set; }
-        [MaxLength(50)]
-        public string? Firstname { get; set; }
-        [MaxLength(50)]
-        public string? Lastname { get; set; }
     }
 }
