@@ -36,13 +36,11 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 Project = await Http.GetFromJsonAsync<ProjectModel>($"https://localhost:7051/api/Project/{TicketTarget.Project}");
 
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 SubmittingMember = await Http.GetFromJsonAsync<MemberModel>($"https://localhost:7051/api/Member/{TicketTarget.SubmitMember}");
 
                 if (TicketTarget.AssignedMember is not null)
                 {
                     int memberAssignedId = (int)TicketTarget.AssignedMember;
-                    Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                     MemberAssigned = await Http.GetFromJsonAsync<MemberModel>($"https://localhost:7051/api/Member/{memberAssignedId}");
                 }
             }
