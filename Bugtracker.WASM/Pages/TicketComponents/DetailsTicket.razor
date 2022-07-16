@@ -1,0 +1,40 @@
+﻿<h3>DetailsTicket</h3>
+
+@if (TicketTarget is null)
+{
+    <span>Loading ticket...</span>
+}
+else
+{
+    <table class="table table-secondary">
+        <thead class="table-primary">
+            <tr>
+                <th>Id ticket</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Submit time</th>
+                <th>Submit member</th>
+                <th>Assigned member</th>
+                <th>Project</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@TicketTarget.IdTicket</td>
+                <td>@TicketTarget.Title</td>
+                <td>@TicketTarget.Status</td>
+                <td>@TicketTarget.Priority</td>
+                <td>@TicketTarget.Type</td>
+                <td>@TicketTarget.Description</td>
+                <td>@TicketTarget.SubmitTime</td>
+                <td>@TicketTarget.SubmitMember</td>
+                <td>@TicketTarget.AssignedMember</td>
+                <td>@TicketTarget.Project</td>
+            </tr>
+        </tbody>
+    </table>
+    <button @onclick="OnCancel" class="btn btn-primary">Close</button>
+}

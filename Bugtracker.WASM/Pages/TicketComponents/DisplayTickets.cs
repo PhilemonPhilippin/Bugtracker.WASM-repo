@@ -13,7 +13,9 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         [Inject]
         IMemberLocalStorage LocalStorage { get; set; }
         private List<TicketModel> _tickets = new List<TicketModel>();
+        private TicketModel _ticketTarget;
         private bool _isMemberConnected;
+        private bool _displayTicketDetailsDialog;
         private string _token;
 
         protected override async Task OnInitializedAsync()
@@ -48,6 +50,22 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _tickets = await Http.GetFromJsonAsync<List<TicketModel>>("https://localhost:7051/api/Ticket");
             }
+        }
+        private void DisplayTicketDetailsDialog(TicketModel ticket)
+        {
+            if (_displayTicketDetailsDialog)
+                _displayTicketDetailsDialog = false;
+            else
+            {
+                //_displayAddTicketDialog = false;
+                //_displayEditTicketDialog = false;
+                _displayTicketDetailsDialog = true;
+                _ticketTarget = ticket;
+            }
+        }
+        private void CloseDetailsDialog()
+        {
+            _displayTicketDetailsDialog = false;
         }
     }
 }

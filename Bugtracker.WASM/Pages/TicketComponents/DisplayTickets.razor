@@ -27,6 +27,9 @@ else
                     <td>@ticket.SubmitTime</td>
                     <td>@ticket.Project</td>
                     <td>
+                        <button class="btn btn-primary" @onclick="() => DisplayTicketDetailsDialog(ticket)">
+                            <img src="/custom-icons/arrows-angle-expand.svg" alt="Project Details" />
+                        </button>
                          <button class="btn btn-danger ms-1" @onclick="() => DeleteTicket(ticket.IdTicket)">
                             <img src="/custom-icons/trash3.svg" alt="Delete Ticket" />
                         </button>
@@ -36,4 +39,8 @@ else
             }
         </tbody>
     </table>
+}
+@if (_displayTicketDetailsDialog)
+{
+    <DetailsTicket OnCancel="@CloseDetailsDialog" TicketTarget="@_ticketTarget"/>
 }
