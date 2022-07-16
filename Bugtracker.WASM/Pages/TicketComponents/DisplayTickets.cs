@@ -30,5 +30,24 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _tickets = await Http.GetFromJsonAsync<List<TicketModel>>("https://localhost:7051/api/Ticket");
             }
         }
+        private async Task DeleteTicket(int id)
+        {
+            await Http.DeleteAsync($"https://localhost:7051/api/Ticket/{id}");
+            await RefreshTicketsList();
+        }
+        private async Task RefreshTicketsList()
+        {
+            _token = await LocalStorage.GetToken();
+            if (_token is null)
+                _isMemberConnected = false;
+            else
+                _isMemberConnected = true;
+
+            if (_isMemberConnected)
+            {
+                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                _tickets = await Http.GetFromJsonAsync<List<TicketModel>>("https://localhost:7051/api/Ticket");
+            }
+        }
     }
 }

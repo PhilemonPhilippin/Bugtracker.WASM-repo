@@ -26,7 +26,12 @@ else
                     <td>@ticket.Priority</td>
                     <td>@ticket.SubmitTime</td>
                     <td>@ticket.Project</td>
-                    <td>Buttons</td>
+                    <td>
+                         <button class="btn btn-danger ms-1" @onclick="() => DeleteTicket(ticket.IdTicket)">
+                            <img src="/custom-icons/trash3.svg" alt="Delete Ticket" />
+                        </button>
+
+                    </td>
                 </tr>
             }
         </tbody>
