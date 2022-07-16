@@ -30,9 +30,14 @@ else
                 <td>@TicketTarget.Type</td>
                 <td>@TicketTarget.Description</td>
                 <td>@TicketTarget.SubmitTime</td>
-                <td>@TicketTarget.SubmitMember</td>
-                <td>@TicketTarget.AssignedMember</td>
-                <td>@TicketTarget.Project</td>
+                <td>@SubmittingMember.Pseudo</td>
+                <td>
+                    @if (TicketTarget.AssignedMember is not null)
+                    {
+                        @MemberAssigned.Pseudo
+                    }
+                </td>
+                <td>@Project.Name</td>
             </tr>
         </tbody>
     </table>
