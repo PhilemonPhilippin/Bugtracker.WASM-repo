@@ -33,6 +33,11 @@ else
                         <button class="btn btn-primary" @onclick="() => DisplayTicketDetailsDialog(ticket)">
                             <img src="/custom-icons/arrows-angle-expand.svg" alt="Project Details" />
                         </button>
+
+                        <button class="btn btn-warning ms-1" @onclick="() => DisplayTicketEditDialog(ticket)">
+                            <img src="/custom-icons/pen.svg" alt="Edit Ticket" />
+                        </button>
+
                          <button class="btn btn-danger ms-1" @onclick="() => DeleteTicket(ticket.IdTicket)">
                             <img src="/custom-icons/trash3.svg" alt="Delete Ticket" />
                         </button>

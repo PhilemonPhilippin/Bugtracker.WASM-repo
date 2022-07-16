@@ -20,7 +20,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         public EventCallback OnConfirm { get; set; }
         [Parameter]
         public ProjectModel ProjectTarget { get; set; }
-        public ProjectFormModel EditedProject { get; set; } = new ProjectFormModel();
+        private ProjectFormModel EditedProject { get; set; } = new ProjectFormModel();
         private bool _isMemberConnected;
         private bool _displayNameTaken;
         private string _token;

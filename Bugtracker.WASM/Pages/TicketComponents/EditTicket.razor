@@ -1,0 +1,11 @@
+﻿<h3>Edit a ticket</h3>
+
+<EditForm Model="@EditedTicket" OnValidSubmit="@SubmitEdit">
+    <DataAnnotationsValidator/>
+
+
+    
+     <button type="submit" class="btn btn-warning">Confirm edit</button>
+     <button @onclick="OnCancel" class="btn btn-primary">Cancel</button>
+     <ValidationSummary/>
+</EditForm>

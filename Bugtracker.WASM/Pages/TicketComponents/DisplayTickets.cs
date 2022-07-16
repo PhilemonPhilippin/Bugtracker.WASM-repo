@@ -17,6 +17,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private bool _isMemberConnected;
         private bool _displayTicketDetailsDialog;
         private bool _displayAddTicketDialog;
+        private bool _displayEditTicketDialog;
         private string _token;
 
         protected override async Task OnInitializedAsync()
@@ -58,8 +59,8 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _displayTicketDetailsDialog = false;
             else
             {
-                //_displayAddTicketDialog = false;
-                //_displayEditTicketDialog = false;
+                _displayAddTicketDialog = false;
+                _displayEditTicketDialog = false;
                 _displayTicketDetailsDialog = true;
                 _ticketTarget = ticket;
             }
@@ -74,7 +75,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _displayAddTicketDialog = false;
             else
             {
-                //_displayEditTicketDialog = false;
+                _displayEditTicketDialog = false;
                 _displayTicketDetailsDialog = false;
                 _displayAddTicketDialog = true;
             }
@@ -82,6 +83,18 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private void CloseAddDialog()
         {
             _displayAddTicketDialog = false;
+        }
+        private void DisplayTicketEditDialog(TicketModel ticket)
+        {
+            if (_displayEditTicketDialog)
+                _displayEditTicketDialog = false;
+            else
+            {
+                _displayAddTicketDialog = false;
+                _displayTicketDetailsDialog = false;
+                _displayEditTicketDialog = true;
+                _ticketTarget = ticket;
+            }
         }
     }
 }
