@@ -40,7 +40,7 @@ else
     </table>
     @if (_displayAddProjectDialog)
     {
-        <AddProject OnCancel="@CloseAddDialog" OnConfirm="RefreshProjectsList"/>
+        <AddProject OnCancel="@CloseAddDialog" OnConfirm="@RefreshProjectsList"/>
     }
     else if (_displayProjectDetailsDialog)
     {

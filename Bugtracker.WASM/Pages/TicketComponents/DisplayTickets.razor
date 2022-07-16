@@ -1,5 +1,8 @@
 ﻿<h2 class="mt-2">Display tickets</h2>
 
+
+
+<button @onclick="DisplayAddTicketDialog" class="btn btn-primary">Add Ticket</button>
 @if (_tickets.Count == 0)
 {
     <span class="mt-2">Loading tickets list...</span>
@@ -43,4 +46,8 @@ else
 @if (_displayTicketDetailsDialog)
 {
     <DetailsTicket OnCancel="@CloseDetailsDialog" TicketTarget="@_ticketTarget"/>
+}
+else if (_displayAddTicketDialog)
+{
+    <AddTicket OnCancel="@CloseAddDialog" OnConfirm="@RefreshTicketsList"/>
 }
