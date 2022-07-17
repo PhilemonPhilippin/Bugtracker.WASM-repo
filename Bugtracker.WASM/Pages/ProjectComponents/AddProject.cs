@@ -1,5 +1,6 @@
 ﻿using Bugtracker.WASM.Mappers;
 using Bugtracker.WASM.Models;
+using Bugtracker.WASM.Models.MemberModels;
 using Bugtracker.WASM.Tools;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Headers;
@@ -17,12 +18,29 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         public EventCallback OnCancel { get; set; }
         [Parameter]
         public EventCallback OnConfirm { get; set; }
+        private List<MemberModel> _members = new List<MemberModel>();
         private ProjectFormModel AddedProject { get; set; } = new ProjectFormModel() { IdProject = default };
 
         private bool _displayNameTaken;
         private bool _isMemberConnected;
         private bool _isProjectAdded;
         private string _token;
+
+        protected override async Task OnInitializedAsync()
+        {
+            _token = await LocalStorage.GetToken();
+            if (_token is null)
+                _isMemberConnected = false;
+            else
+                _isMemberConnected = true;
+
+            if (_isMemberConnected)
+            {
+                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
+            }
+        }
+
         private async Task SubmitAdd()
         {
             _token = await LocalStorage.GetToken();
