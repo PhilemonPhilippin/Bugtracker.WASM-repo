@@ -14,7 +14,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         IMemberLocalStorage LocalStorage { get; set; }
         private List<TicketModel> _tickets = new List<TicketModel>();
         private List<ProjectModel> _projects = new List<ProjectModel>();
-        private TicketModel _ticketTarget;
+        private TicketModel _ticketTarget = new TicketModel() { IdTicket = 0 };
         private bool _isMemberConnected;
         private bool _displayTicketDetailsDialog;
         private bool _displayAddTicketDialog;

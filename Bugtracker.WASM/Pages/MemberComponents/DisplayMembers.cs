@@ -13,7 +13,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         private List<MemberModel> _members = new List<MemberModel>();
-        private MemberModel _memberTarget;
+        private MemberModel _memberTarget = new MemberModel() { IdMember = 0 };
         private string _token;
         private bool _displayMemberEditDialog;
         private bool _displayMemberDetailsDialog;

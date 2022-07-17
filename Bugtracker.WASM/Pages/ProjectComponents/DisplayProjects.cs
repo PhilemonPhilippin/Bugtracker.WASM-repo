@@ -17,7 +17,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         IMemberLocalStorage LocalStorage { get; set; }
         private List<ProjectModel> _projects = new List<ProjectModel>();
         private List<MemberModel> _members = new List<MemberModel>();
-        private ProjectModel _projectTarget;
+        private ProjectModel _projectTarget = new ProjectModel() {IdProject = 0 };
         private bool _displayProjectDetailsDialog;
         private bool _displayEditProjectDialog;
         private bool _isMemberConnected;

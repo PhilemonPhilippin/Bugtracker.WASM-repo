@@ -35,18 +35,19 @@ else
                         }
                     </td>
                     <td>
-                        <button class="btn btn-primary" @onclick="() => DisplayTicketDetailsDialog(ticket)">
+                        <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayTicketDetailsDialog) ? "btn-secondary":"btn-primary")"
+                        @onclick="() => DisplayTicketDetailsDialog(ticket)">
                             <img src="/custom-icons/arrows-angle-expand.svg" alt="Project Details" />
                         </button>
 
-                        <button class="btn btn-warning ms-1" @onclick="() => DisplayTicketEditDialog(ticket)">
+                        <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayEditTicketDialog) ? "btn-secondary":"btn-warning") ms-1"
+                        @onclick="() => DisplayTicketEditDialog(ticket)">
                             <img src="/custom-icons/pen.svg" alt="Edit Ticket" />
                         </button>
 
-                         <button class="btn btn-danger ms-1" @onclick="() => DeleteTicket(ticket.IdTicket)">
+                        <button class="btn btn-danger ms-1" @onclick="() => DeleteTicket(ticket.IdTicket)">
                             <img src="/custom-icons/trash3.svg" alt="Delete Ticket" />
                         </button>
-
                     </td>
                 </tr>
             }
@@ -55,13 +56,13 @@ else
 }
 @if (_displayAddTicketDialog)
 {
-    <AddTicket OnCancel="@CloseAddDialog" OnConfirm="@RefreshTicketsList"/>
+    <AddTicket OnCancel="@CloseAddDialog" OnConfirm="@RefreshTicketsList" />
 }
 else if (_displayTicketDetailsDialog)
 {
-    <DetailsTicket OnCancel="@CloseDetailsDialog" TicketTarget="@_ticketTarget"/>
+    <DetailsTicket OnCancel="@CloseDetailsDialog" TicketTarget="@_ticketTarget" />
 }
 else if (_displayEditTicketDialog)
 {
-    <EditTicket OnCancel="@CloseEditDialog" OnConfirm="@ConfirmTicketEdit" TicketTarget="@_ticketTarget"/>
+    <EditTicket OnCancel="@CloseEditDialog" OnConfirm="@ConfirmTicketEdit" TicketTarget="@_ticketTarget" />
 }
