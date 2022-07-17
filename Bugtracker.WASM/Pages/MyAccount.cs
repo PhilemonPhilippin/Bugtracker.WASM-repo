@@ -13,15 +13,10 @@ namespace Bugtracker.WASM.Pages
         private bool _displayLogin;
         private bool _displayRegistration;
         private bool _isMemberConnected;
-        private string _token;
 
         protected async override Task OnInitializedAsync()
         {
-            _token = await LocalStorage.GetToken();
-            if (_token is null)
-                _isMemberConnected = false;
-            else
-                _isMemberConnected = true;
+            _isMemberConnected = await LocalStorage.HasToken();
         }
         private void DisplayLogin()
         {

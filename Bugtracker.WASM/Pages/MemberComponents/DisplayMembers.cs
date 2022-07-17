@@ -20,23 +20,24 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         private bool _isMemberConnected;
         protected override async Task OnInitializedAsync()
         {
-            //await AskTokenValidation();
-            _token = await LocalStorage.GetToken();
-            if (_token is null)
-                _isMemberConnected = false;
-            else
-                _isMemberConnected = true;
-
+            _isMemberConnected = await LocalStorage.HasToken();
             if (_isMemberConnected)
             {
+                _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
             }
         }
         private async Task DeleteMember(int id)
         {
-            await Http.DeleteAsync($"https://localhost:7051/api/Member/{id}");
-            await RefreshMembersList();
+            _isMemberConnected = await LocalStorage.HasToken();
+            if (_isMemberConnected)
+            {
+                _token = await LocalStorage.GetToken();
+                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                await Http.DeleteAsync($"https://localhost:7051/api/Member/{id}");
+                await RefreshMembersList();
+            }
         }
 
         private void DisplayMemberDetailsDialog(MemberModel member)
@@ -77,14 +78,10 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         }
         private async Task RefreshMembersList()
         {
-            _token = await LocalStorage.GetToken();
-            if (_token is null)
-                _isMemberConnected = false;
-            else
-                _isMemberConnected = true;
-
+            _isMemberConnected = await LocalStorage.HasToken();
             if (_isMemberConnected)
             {
+                _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
             }

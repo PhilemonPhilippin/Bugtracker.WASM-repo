@@ -24,14 +24,10 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
 
         protected override async Task OnInitializedAsync()
         {
-            _token = await LocalStorage.GetToken();
-            if (_token is null)
-                _isMemberConnected = false;
-            else
-                _isMemberConnected = true;
-
+            _isMemberConnected = await LocalStorage.HasToken();
             if (_isMemberConnected)
             {
+                _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 manager = await Http.GetFromJsonAsync<MemberModel>($"https://localhost:7051/api/Member/{ProjectTarget.Manager}");
             }

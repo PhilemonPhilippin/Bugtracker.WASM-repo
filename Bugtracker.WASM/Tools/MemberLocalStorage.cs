@@ -28,5 +28,10 @@ namespace Bugtracker.WASM.Tools
         {
             await _JsRuntime.InvokeVoidAsync("localStorage.removeItem", "bugtrackertoken");
         }
+        public async Task<bool> HasToken()
+        {
+            string token = await GetToken();
+            return (token is null) ? false : true;
+        }
     }
 }

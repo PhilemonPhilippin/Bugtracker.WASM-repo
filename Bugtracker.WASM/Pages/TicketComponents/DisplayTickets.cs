@@ -23,14 +23,10 @@ namespace Bugtracker.WASM.Pages.TicketComponents
 
         protected override async Task OnInitializedAsync()
         {
-            _token = await LocalStorage.GetToken();
-            if (_token is null)
-                _isMemberConnected = false;
-            else
-                _isMemberConnected = true;
-
+            _isMemberConnected = await LocalStorage.HasToken();
             if (_isMemberConnected)
             {
+                _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _tickets = await Http.GetFromJsonAsync<List<TicketModel>>("https://localhost:7051/api/Ticket");
                 _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
@@ -38,19 +34,20 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         }
         private async Task DeleteTicket(int id)
         {
-            await Http.DeleteAsync($"https://localhost:7051/api/Ticket/{id}");
-            await RefreshTicketsList();
+            _isMemberConnected = await LocalStorage.HasToken();
+            if (_isMemberConnected)
+            {
+                _token = await LocalStorage.GetToken();
+                await Http.DeleteAsync($"https://localhost:7051/api/Ticket/{id}");
+                await RefreshTicketsList();
+            }
         }
         private async Task RefreshTicketsList()
         {
-            _token = await LocalStorage.GetToken();
-            if (_token is null)
-                _isMemberConnected = false;
-            else
-                _isMemberConnected = true;
-
+            _isMemberConnected = await LocalStorage.HasToken();
             if (_isMemberConnected)
             {
+                _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _tickets = await Http.GetFromJsonAsync<List<TicketModel>>("https://localhost:7051/api/Ticket");
             }

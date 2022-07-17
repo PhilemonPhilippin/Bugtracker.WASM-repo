@@ -16,22 +16,13 @@ namespace Bugtracker.WASM.Pages
         [Inject]
         NavigationManager NavManager { get; set; }
 
-        private string _token;
         private bool _isMemberConnected;
         private bool _displayProjectsComponent;
         private bool _displayTicketsComponent;
 
         protected override async Task OnInitializedAsync()
         {
-            _token = await LocalStorage.GetToken();
-            if (_token is null)
-            {
-                _isMemberConnected = false;
-                ToAccount();
-            }
-            else
-                _isMemberConnected = true;
-
+            _isMemberConnected = await LocalStorage.HasToken();
         }
         private void ToAccount()
         {

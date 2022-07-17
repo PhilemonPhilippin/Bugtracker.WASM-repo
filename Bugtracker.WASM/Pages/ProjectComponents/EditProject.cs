@@ -35,14 +35,10 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
             EditedProject.Description = ProjectTarget.Description;
             EditedProject.Manager = ProjectTarget.Manager;
 
-            _token = await LocalStorage.GetToken();
-            if (_token is null)
-                _isMemberConnected = false;
-            else
-                _isMemberConnected = true;
-
+            _isMemberConnected = await LocalStorage.HasToken();
             if (_isMemberConnected)
             {
+                _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
             }
@@ -50,18 +46,13 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
 
         private async Task SubmitEdit()
         {
-            _token = await LocalStorage.GetToken();
-            if (_token is null)
-                _isMemberConnected = false;
-            else
-                _isMemberConnected = true;
-
+            _isMemberConnected = await LocalStorage.HasToken();
             if (_isMemberConnected)
             {
                 _displayNameTaken = false;
-
                 ProjectModel projectModel = EditedProject.ToModel();
 
+                _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 HttpResponseMessage response = await Http.PutAsJsonAsync("https://localhost:7051/api/Project", projectModel);
                 if (!response.IsSuccessStatusCode)
@@ -71,9 +62,8 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
                         _displayNameTaken = true;
                 }
                 else
-                {
                     await OnConfirm.InvokeAsync();
-                }
+           
             }
         }
     }

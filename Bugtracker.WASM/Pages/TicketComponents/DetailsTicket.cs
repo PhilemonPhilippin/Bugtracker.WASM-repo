@@ -25,14 +25,10 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private bool _isMemberConnected;
         protected override async Task OnInitializedAsync()
         {
-            _token = await LocalStorage.GetToken();
-            if (_token is null)
-                _isMemberConnected = false;
-            else
-                _isMemberConnected = true;
-
+            _isMemberConnected = await LocalStorage.HasToken();
             if (_isMemberConnected)
             {
+                _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 Project = await Http.GetFromJsonAsync<ProjectModel>($"https://localhost:7051/api/Project/{TicketTarget.Project}");
 

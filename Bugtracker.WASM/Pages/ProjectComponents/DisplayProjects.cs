@@ -26,14 +26,10 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
 
         protected override async Task OnInitializedAsync()
         {
-            _token = await LocalStorage.GetToken();
-            if (_token is null)
-                _isMemberConnected = false;
-            else
-                _isMemberConnected = true;
-
+            _isMemberConnected = await LocalStorage.HasToken();
             if (_isMemberConnected)
             {
+                _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
                 _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
@@ -41,19 +37,22 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         }
         private async Task DeleteProject(int id)
         {
-            await Http.DeleteAsync($"https://localhost:7051/api/Project/{id}");
-            await RefreshProjectsList();
+            _isMemberConnected = await LocalStorage.HasToken();
+            if (_isMemberConnected)
+            {
+                _token = await LocalStorage.GetToken();
+                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                await Http.DeleteAsync($"https://localhost:7051/api/Project/{id}");
+                await RefreshProjectsList();
+            }
+            
         }
         private async Task RefreshProjectsList()
         {
-            _token = await LocalStorage.GetToken();
-            if (_token is null)
-                _isMemberConnected = false;
-            else
-                _isMemberConnected = true;
-
+            _isMemberConnected = await LocalStorage.HasToken();
             if (_isMemberConnected)
             {
+                _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
             }

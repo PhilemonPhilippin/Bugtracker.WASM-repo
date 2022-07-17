@@ -33,13 +33,11 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         protected override async Task OnInitializedAsync()
         {
             EditedTicket = TicketTarget.ToFormModel();
-            _token = await LocalStorage.GetToken();
-            if (_token is null)
-                _isMemberConnected = false;
-            else
-                _isMemberConnected = true;
+            _isMemberConnected = await LocalStorage.HasToken();
+
             if (_isMemberConnected)
             {
+                _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
                 _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
@@ -47,17 +45,13 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         }
         private async Task SubmitEdit()
         {
-            _token = await LocalStorage.GetToken();
-            if (_token is null)
-                _isMemberConnected = false;
-            else
-                _isMemberConnected = true;
+            _isMemberConnected = await LocalStorage.HasToken();
             if (_isMemberConnected)
             {
                 _displayTitleTaken = false;
-
                 TicketModel ticketModel = EditedTicket.ToModel();
 
+                _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 HttpResponseMessage response = await Http.PutAsJsonAsync("https://localhost:7051/api/Ticket", ticketModel);
                 if (!response.IsSuccessStatusCode)
@@ -67,9 +61,8 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                         _displayTitleTaken = true;
                 }
                 else
-                {
                     await OnConfirm.InvokeAsync();
-                }
+                
             }
         }
 
