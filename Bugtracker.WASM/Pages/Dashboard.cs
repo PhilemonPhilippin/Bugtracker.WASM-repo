@@ -41,6 +41,8 @@ namespace Bugtracker.WASM.Pages
                 _displayTicketsComponent = false;
             else
                 _displayTicketsComponent = true;
+
+            
         }
     }
 }

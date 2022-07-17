@@ -2,7 +2,7 @@
 
 
 
-<button @onclick="DisplayAddTicketDialog" class="btn btn-success">Add Ticket</button>
+<button @onclick="DisplayAddTicketDialog" class="btn @((_displayAddTicketDialog) ? "btn-secondary" : "btn-success")">Add Ticket</button>
 @if (_tickets.Count == 0)
 {
     <span class="mt-2">Loading tickets list...</span>

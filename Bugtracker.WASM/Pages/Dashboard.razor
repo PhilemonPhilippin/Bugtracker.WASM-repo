@@ -11,8 +11,8 @@
 else
 {
     <p>You are logged in ! Do you want to see the list of all projects ?</p>
-    <button class="btn btn-primary" @onclick="DisplayProjectsComponent">List of projects</button>
-    <button class="btn btn-primary" @onclick="DisplayTicketsComponent">List of tickets</button>
+    <button class="btn @((_displayProjectsComponent) ? "btn-secondary" : "btn-primary")" @onclick="DisplayProjectsComponent">List of projects</button>
+    <button class="btn @((_displayTicketsComponent) ? "btn-secondary" : "btn-primary")" @onclick="DisplayTicketsComponent">List of tickets</button>
     @if (_displayProjectsComponent)
     {
        <DisplayProjects />
