@@ -9,11 +9,9 @@ namespace Bugtracker.WASM.Pages
         private IMemberLocalStorage LocalStorage { get; set; }
         [Inject]
         private NavigationManager NavManager { get; set; }
-
         private bool _displayLogin;
         private bool _displayRegistration;
         private bool _isMemberConnected;
-
         protected async override Task OnInitializedAsync()
         {
             _isMemberConnected = await LocalStorage.HasToken();
@@ -28,6 +26,5 @@ namespace Bugtracker.WASM.Pages
             _displayLogin = false;
             _displayRegistration = true;
         }
-        
     }
 }

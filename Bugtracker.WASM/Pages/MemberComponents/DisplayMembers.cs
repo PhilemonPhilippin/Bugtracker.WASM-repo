@@ -39,7 +39,6 @@ namespace Bugtracker.WASM.Pages.MemberComponents
                 await RefreshMembersList();
             }
         }
-
         private void DisplayMemberDetailsDialog(MemberModel member)
         {
             if (_displayMemberDetailsDialog)

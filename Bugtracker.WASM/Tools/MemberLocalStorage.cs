@@ -11,10 +11,9 @@ namespace Bugtracker.WASM.Tools
         {
             _JsRuntime = jsRuntime;
         }
-
         public async Task SetToken(string jwtoken)
         {
-            await _JsRuntime.InvokeVoidAsync("localStorage.setItem","bugtrackertoken", JsonSerializer.Serialize(jwtoken));
+            await _JsRuntime.InvokeVoidAsync("localStorage.setItem", "bugtrackertoken", JsonSerializer.Serialize(jwtoken));
         }
         public async Task<string> GetToken()
         {

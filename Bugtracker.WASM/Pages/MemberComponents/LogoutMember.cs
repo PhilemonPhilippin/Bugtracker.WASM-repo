@@ -20,6 +20,5 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         {
             NavManager.NavigateTo("/");
         }
-        
     }
 }

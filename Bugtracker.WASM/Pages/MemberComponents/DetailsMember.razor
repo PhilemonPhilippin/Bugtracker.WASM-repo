@@ -1,6 +1,4 @@
-﻿
-<h3 class="mt-2">Member details</h3>
-
+﻿<h3 class="mt-2">Member details</h3>
 @if (MemberTarget is null)
 {
     <span>Loading member...</span>
@@ -37,7 +35,5 @@ else
             </tr>
         </tbody>
     </table>
-
     <button @onclick="OnCancel" class="btn btn-primary">Close</button>
-
 }

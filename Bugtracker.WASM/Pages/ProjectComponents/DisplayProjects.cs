@@ -17,7 +17,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         IMemberLocalStorage LocalStorage { get; set; }
         private List<ProjectModel> _projects = new List<ProjectModel>();
         private List<MemberModel> _members = new List<MemberModel>();
-        private ProjectModel _projectTarget = new ProjectModel() {IdProject = 0 };
+        private ProjectModel _projectTarget = new ProjectModel() { IdProject = 0 };
         private bool _displayProjectDetailsDialog;
         private bool _displayEditProjectDialog;
         private bool _isMemberConnected;
@@ -45,7 +45,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
                 await Http.DeleteAsync($"https://localhost:7051/api/Project/{id}");
                 await RefreshProjectsList();
             }
-            
+
         }
         private async Task RefreshProjectsList()
         {
@@ -93,7 +93,6 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         {
             _displayEditProjectDialog = false;
         }
-
         private void DisplayAddProjectDialog()
         {
             if (_displayAddProjectDialog)
@@ -105,7 +104,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
                 _displayAddProjectDialog = true;
             }
         }
-       private async Task ConfirmProjectEdit()
+        private async Task ConfirmProjectEdit()
         {
             await RefreshProjectsList();
             _displayEditProjectDialog = false;

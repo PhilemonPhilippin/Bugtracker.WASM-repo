@@ -21,7 +21,6 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         private MemberModel manager = new MemberModel();
         private bool _isMemberConnected;
         private string _token;
-
         protected override async Task OnInitializedAsync()
         {
             _isMemberConnected = await LocalStorage.HasToken();

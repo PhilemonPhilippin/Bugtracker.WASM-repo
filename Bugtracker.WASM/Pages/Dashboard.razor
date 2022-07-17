@@ -15,13 +15,12 @@ else
     <button class="btn @((_displayTicketsComponent) ? "btn-secondary" : "btn-primary")" @onclick="DisplayTicketsComponent">List of tickets</button>
     @if (_displayProjectsComponent)
     {
-       <DisplayProjects />
+        <DisplayProjects />
     }
     @if (_displayTicketsComponent)
     {
         <DisplayTickets />
     }
-
 }
 
 

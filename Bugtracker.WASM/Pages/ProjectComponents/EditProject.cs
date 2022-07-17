@@ -26,8 +26,6 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         private bool _isMemberConnected;
         private bool _displayNameTaken;
         private string _token;
-
-
         protected override async Task OnInitializedAsync()
         {
             EditedProject.IdProject = ProjectTarget.IdProject;
@@ -43,7 +41,6 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
                 _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
             }
         }
-
         private async Task SubmitEdit()
         {
             _isMemberConnected = await LocalStorage.HasToken();
@@ -63,7 +60,6 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
                 }
                 else
                     await OnConfirm.InvokeAsync();
-           
             }
         }
     }

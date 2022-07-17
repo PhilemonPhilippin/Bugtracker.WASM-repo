@@ -20,7 +20,6 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private bool _displayAddTicketDialog;
         private bool _displayEditTicketDialog;
         private string _token;
-
         protected override async Task OnInitializedAsync()
         {
             _isMemberConnected = await LocalStorage.HasToken();

@@ -24,7 +24,6 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private bool _isMemberConnected;
         private bool _displayTitleTaken;
         private bool _isTicketAdded;
-
         protected override async Task OnInitializedAsync()
         {
             _isMemberConnected = await LocalStorage.HasToken();
@@ -35,7 +34,6 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
             }
         }
-
         private async Task SubmitAdd()
         {
             _isMemberConnected = await LocalStorage.HasToken();

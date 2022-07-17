@@ -23,7 +23,6 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         private bool _displayPseudoTaken;
         private bool _displayEmailTaken;
         private bool _isMemberConnected;
-
         protected override async Task OnInitializedAsync()
         {
             MemberEdited.IdMember = MemberTarget.IdMember;

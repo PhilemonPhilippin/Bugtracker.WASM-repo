@@ -1,23 +1,22 @@
 ﻿<h3>Edit a project</h3>
 
 <EditForm Model="@EditedProject" OnValidSubmit="@SubmitEdit">
-    <DataAnnotationsValidator/>
-
+    <DataAnnotationsValidator />
     <label for="Name">
         Name: @if (_displayNameTaken)
         {
             <span class="text-danger"> /!\ This name is already taken.</span>
         }
     </label>
-    <InputText id="Name" @bind-Value="@EditedProject.Name" class="form-control"/>
+    <InputText id="Name" @bind-Value="@EditedProject.Name" class="form-control" />
 
     <label for="Description">
-        Description: 
+        Description:
     </label>
-    <InputText id="Description" @bind-Value="@EditedProject.Description" class="form-control"/>
+    <InputText id="Description" @bind-Value="@EditedProject.Description" class="form-control" />
 
     <label for="Manager">
-        Manager: 
+        Manager:
     </label>
     <InputSelect id="Manager" @bind-Value="@EditedProject.Manager" class="form-control">
         @if (_members.Count != 0)
@@ -28,9 +27,7 @@
             }
         }
     </InputSelect>
-    
-     <button type="submit" class="btn btn-warning">Confirm edit</button>
-     <button @onclick="OnCancel" class="btn btn-primary">Cancel</button>
-     <ValidationSummary/>
-
+    <button type="submit" class="btn btn-warning">Confirm edit</button>
+    <button @onclick="OnCancel" class="btn btn-primary">Cancel</button>
+    <ValidationSummary />
 </EditForm>

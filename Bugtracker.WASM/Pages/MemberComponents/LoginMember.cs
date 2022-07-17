@@ -16,10 +16,8 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         private IMemberLocalStorage LocalStorage { get; set; }
         private MemberLoginModel MemberLogin { get; set; } = new MemberLoginModel();
         private ConnectedMemberModel ConnectedMember { get; set; } = new ConnectedMemberModel();
-       
         private bool _displayPseudoNotFound;
         private bool _displayIncorrectPassword;
-
         private async Task SubmitLogin()
         {
             _displayPseudoNotFound = false;

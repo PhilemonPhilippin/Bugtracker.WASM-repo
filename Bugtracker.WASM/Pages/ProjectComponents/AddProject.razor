@@ -2,10 +2,10 @@
 @if (_isProjectAdded)
 {
     <span class="text-success">Project added successfully !</span>
-    
+
 }
 <EditForm Model="@AddedProject" OnValidSubmit="@SubmitAdd">
-    <DataAnnotationsValidator/>
+    <DataAnnotationsValidator />
 
     <label for="Name">
         Name: @if (_displayNameTaken)
@@ -13,15 +13,15 @@
             <span class="text-danger"> /!\ This name is already taken.</span>
         }
     </label>
-    <InputText id="Name" @bind-Value="@AddedProject.Name" class="form-control"/>
+    <InputText id="Name" @bind-Value="@AddedProject.Name" class="form-control" />
 
     <label for="Description">
-        Description: 
+        Description:
     </label>
-    <InputText id="Description" @bind-Value="@AddedProject.Description" class="form-control"/>
+    <InputText id="Description" @bind-Value="@AddedProject.Description" class="form-control" />
 
     <label for="Manager">
-        Manager: 
+        Manager:
     </label>
     <InputSelect id="Manager" @bind-Value="@AddedProject.Manager" class="form-control">
         @if (_members.Count != 0)
@@ -32,9 +32,7 @@
             }
         }
     </InputSelect>
-    
-     <button type="submit" class="btn btn-success">Confirm add</button>
-     <button @onclick="OnCancel" class="btn btn-primary">Cancel</button>
-     <ValidationSummary/>
-
+    <button type="submit" class="btn btn-success">Confirm add</button>
+    <button @onclick="OnCancel" class="btn btn-primary">Cancel</button>
+    <ValidationSummary />
 </EditForm>

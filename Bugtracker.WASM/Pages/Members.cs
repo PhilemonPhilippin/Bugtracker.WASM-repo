@@ -26,6 +26,5 @@ namespace Bugtracker.WASM.Pages
             else
                 _displayMembersComponent = true;
         }
-
     }
 }

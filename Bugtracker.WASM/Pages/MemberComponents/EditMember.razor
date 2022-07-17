@@ -1,5 +1,4 @@
 ﻿<h3 class="mt-2">Edit a member</h3>
-
 <EditForm Model="@MemberEdited" OnValidSubmit="@SubmitEdit">
     <DataAnnotationsValidator />
     <label for="Pseudo">
@@ -28,7 +27,6 @@
         <button type="submit" class="btn btn-warning">Edit</button>
         <button @onclick="OnCancel" class="btn btn-primary">Cancel</button>
     </div>
-
     <ValidationSummary />
 </EditForm>
 

@@ -1,33 +1,32 @@
-﻿
-<h3>Registration form :</h3>
-@if (_isRegistrationValid) 
+﻿<h3>Registration form :</h3>
+@if (_isRegistrationValid)
 {
     <span class="text-success">Registration completed! Please login above to access the application.</span>
 }
 <EditForm Model="@MemberRegistration" OnValidSubmit="@SubmitRegistration">
-    <DataAnnotationsValidator/>
+    <DataAnnotationsValidator />
     <label for="Pseudo">
         Pseudo: @if (_displayPseudoTaken)
         {
             <span class="text-danger"> /!\ This pseudo is already taken.</span>
         }
     </label>
-    <InputText id="Pseudo" @bind-Value="@MemberRegistration.Pseudo" class="form-control"/>
+    <InputText id="Pseudo" @bind-Value="@MemberRegistration.Pseudo" class="form-control" />
 
-     <label for="Email">
+    <label for="Email">
         Email: @if (_displayEmailTaken)
         {
             <span class="text-danger"> /!\ This email is already taken.</span>
         }
     </label>
-    <InputText id="Email" @bind-Value="@MemberRegistration.Email" class="form-control"/>
+    <InputText id="Email" @bind-Value="@MemberRegistration.Email" class="form-control" />
 
     <label for="Password">Password:</label>
-    <InputText type="password" id="Password" @bind-Value="@MemberRegistration.Password" class="form-control"/>
+    <InputText type="password" id="Password" @bind-Value="@MemberRegistration.Password" class="form-control" />
 
     <label for="ConfirmPassword">Confirm Password:</label>
-    <InputText type="password" id="ConfirmPassword" @bind-Value="@MemberRegistration.ConfirmPassword" class="form-control"/>
+    <InputText type="password" id="ConfirmPassword" @bind-Value="@MemberRegistration.ConfirmPassword" class="form-control" />
 
     <button type="submit" class="btn btn-primary">Confirm registration</button>
-    <ValidationSummary/>
+    <ValidationSummary />
 </EditForm>

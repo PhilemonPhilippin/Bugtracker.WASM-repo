@@ -29,7 +29,6 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private string _token;
         private bool _isMemberConnected;
         private bool _displayTitleTaken;
-
         protected override async Task OnInitializedAsync()
         {
             EditedTicket = TicketTarget.ToFormModel();
@@ -50,7 +49,6 @@ namespace Bugtracker.WASM.Pages.TicketComponents
             {
                 _displayTitleTaken = false;
                 TicketModel ticketModel = EditedTicket.ToModel();
-
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 HttpResponseMessage response = await Http.PutAsJsonAsync("https://localhost:7051/api/Ticket", ticketModel);
@@ -62,9 +60,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 }
                 else
                     await OnConfirm.InvokeAsync();
-                
             }
         }
-
     }
 }

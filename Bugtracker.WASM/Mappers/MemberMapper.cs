@@ -4,7 +4,6 @@ namespace Bugtracker.WASM.Mappers
 {
     internal static class MemberMapper
     {
-
         public static MemberModel ToModel(this MemberRegistrationModel memberRegistration)
         {
             return new MemberModel()
