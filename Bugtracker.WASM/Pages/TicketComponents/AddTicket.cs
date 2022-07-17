@@ -52,7 +52,6 @@ namespace Bugtracker.WASM.Pages.TicketComponents
             {
                 _displayTitleTaken = false;
                 _isTicketAdded = false;
-                // TODO : get ID of myself from API request asking to extract payload of my JWT Token
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 AddedTicket.SubmitMember = await Http.GetFromJsonAsync<int>("https://localhost:7051/api/Member/idfromjwt");
                 TicketModel ticketModel = AddedTicket.ToModel();

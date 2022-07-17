@@ -28,7 +28,12 @@ else
                     <td>@ticket.Status</td>
                     <td>@ticket.Priority</td>
                     <td>@ticket.SubmitTime</td>
-                    <td>@ticket.Project</td>
+                    <td>
+                        @if (_projects.Count != 0)
+                        {
+                            @_projects.Where(project => project.IdProject == ticket.Project).SingleOrDefault().Name
+                        }
+                    </td>
                     <td>
                         <button class="btn btn-primary" @onclick="() => DisplayTicketDetailsDialog(ticket)">
                             <img src="/custom-icons/arrows-angle-expand.svg" alt="Project Details" />
