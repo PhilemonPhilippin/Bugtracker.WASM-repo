@@ -1,7 +1,7 @@
 ﻿<h3>Edit a ticket</h3>
 
 <EditForm Model="@EditedTicket" OnValidSubmit="@SubmitEdit">
-    <DataAnnotationsValidator/>
+    <DataAnnotationsValidator />
 
     <label for="Title">
         Title: @if (_displayTitleTaken)
@@ -39,15 +39,23 @@
     <label for="AssignedMember">
         Assigned member:
     </label>
-    <InputNumber id="AssignedMember" @bind-Value="@EditedTicket.AssignedMember" class="form-control"/>
+    <InputNumber id="AssignedMember" @bind-Value="@EditedTicket.AssignedMember" class="form-control" />
 
     <label for="Project">
         Project:
     </label>
-    <InputNumber id="Project" @bind-Value="@EditedTicket.Project" class="form-control" />
-    
-    
-     <button type="submit" class="btn btn-warning">Confirm edit</button>
-     <button @onclick="OnCancel" class="btn btn-primary">Cancel</button>
-     <ValidationSummary/>
+    <InputSelect id="Project" @bind-Value="@EditedTicket.Project" class="form-control">
+        @if (_projects.Count != 0)
+        {
+            @foreach (ProjectModel project in _projects)
+            {
+                <option value="@project.IdProject">@project.Name</option>
+            }
+        }
+    </InputSelect>
+
+
+    <button type="submit" class="btn btn-warning">Confirm edit</button>
+    <button @onclick="OnCancel" class="btn btn-primary">Cancel</button>
+    <ValidationSummary />
 </EditForm>

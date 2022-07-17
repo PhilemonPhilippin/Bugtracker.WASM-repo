@@ -21,6 +21,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         public EventCallback OnConfirm { get; set; }
         [Parameter]
         public TicketModel TicketTarget { get; set; }
+        private List<ProjectModel> _projects = new List<ProjectModel>();
         private TicketFormModel EditedTicket { get; set; } = new TicketFormModel();
         private string _token;
         private bool _isMemberConnected;
@@ -29,6 +30,16 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         protected override async Task OnInitializedAsync()
         {
             EditedTicket = TicketTarget.ToFormModel();
+            _token = await LocalStorage.GetToken();
+            if (_token is null)
+                _isMemberConnected = false;
+            else
+                _isMemberConnected = true;
+            if (_isMemberConnected)
+            {
+                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
+            }
         }
         private async Task SubmitEdit()
         {
