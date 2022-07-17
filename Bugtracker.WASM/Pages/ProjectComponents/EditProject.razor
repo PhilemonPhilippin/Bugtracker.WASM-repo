@@ -19,7 +19,15 @@
     <label for="Manager">
         Manager: 
     </label>
-    <InputNumber id="Manager" @bind-Value="@EditedProject.Manager" class="form-control"/>
+    <InputSelect id="Manager" @bind-Value="@EditedProject.Manager" class="form-control">
+        @if (_members.Count != 0)
+        {
+            @foreach (MemberModel member in _members)
+            {
+                <option value="@member.IdMember">@member.Pseudo</option>
+            }
+        }
+    </InputSelect>
     
      <button type="submit" class="btn btn-warning">Confirm edit</button>
      <button @onclick="OnCancel" class="btn btn-primary">Cancel</button>
