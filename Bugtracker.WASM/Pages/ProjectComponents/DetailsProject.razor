@@ -6,20 +6,28 @@
 }
 else
 {
-    <table class="table table-secondary">
+    <table class="table table-striped">
         <thead class="table-primary">
             <tr>
-                <th>Id project</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Manager</th>
+                <th>Information</th>
+                <th>Project</th>
             </tr>
         </thead>
         <tbody>
             <tr>
+                <td>Id</td>
                 <td>@ProjectTarget.IdProject</td>
+            </tr>
+            <tr>
+                <td>Name</td>
                 <td>@ProjectTarget.Name</td>
+            </tr>
+            <tr>
+                <td>Description</td>
                 <td>@ProjectTarget.Description</td>
+            </tr>
+            <tr>
+                <td>Manager</td>
                 <td>@manager.Pseudo</td>
             </tr>
         </tbody>

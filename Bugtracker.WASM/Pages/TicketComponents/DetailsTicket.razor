@@ -1,4 +1,4 @@
-﻿<h3>DetailsTicket</h3>
+﻿<h3 class="mt-2">Ticket details</h3>
 
 @if (TicketTarget is null)
 {
@@ -6,37 +6,57 @@
 }
 else
 {
-    <table class="table table-secondary">
+    <table class="table table-striped">
         <thead class="table-primary">
             <tr>
-                <th>Id ticket</th>
-                <th>Title</th>
-                <th>Status</th>
-                <th>Priority</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Submit time</th>
-                <th>Submit member</th>
-                <th>Assigned member</th>
-                <th>Project</th>
+                <th>Information</th>
+                <th>Ticket</th>
             </tr>
         </thead>
         <tbody>
             <tr>
+                <td>Id</td>
                 <td>@TicketTarget.IdTicket</td>
+            </tr>
+            <tr>
+                <td>Title</td>
                 <td>@TicketTarget.Title</td>
+            </tr>
+            <tr>
+                <td>Status</td>
                 <td>@TicketTarget.Status</td>
+            </tr>
+            <tr>
+                <td>Priority</td>
                 <td>@TicketTarget.Priority</td>
+            </tr>
+            <tr>
+                <td>Type</td>
                 <td>@TicketTarget.Type</td>
+            </tr>
+            <tr>
+                <td>Description</td>
                 <td>@TicketTarget.Description</td>
+            </tr>
+            <tr>
+                <td>Submit time</td>
                 <td>@TicketTarget.SubmitTime</td>
+            </tr>
+            <tr>
+                <td>Submit member</td>
                 <td>@SubmittingMember.Pseudo</td>
+            </tr>
+            <tr>
+                <td>Assigned member</td>
                 <td>
                     @if (TicketTarget.AssignedMember is not null)
                     {
                         @MemberAssigned.Pseudo
                     }
                 </td>
+            </tr>
+            <tr>
+                <td>Project</td>
                 <td>@Project.Name</td>
             </tr>
         </tbody>

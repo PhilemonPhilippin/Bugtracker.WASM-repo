@@ -7,27 +7,37 @@
 }
 else
 {
-    <table class="table table-secondary">
+    <table class="table table-striped">
         <thead class="table-primary">
             <tr>
-                <th>Id member</th>
-                <th>Pseudo</th>
-                <th>Email</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
+                <th>Information</th>
+                <th>Member</th>
             </tr>
         </thead>
         <tbody>
             <tr>
+                <td>Id</td>
                 <td>@MemberTarget.IdMember</td>
+            </tr>
+            <tr>
+                <td>Pseudo</td>
                 <td>@MemberTarget.Pseudo</td>
+            </tr>
+            <tr>
+                <td>Email</td>
                 <td>@MemberTarget.Email</td>
+            </tr>
+            <tr>
+                <td>Firstname</td>
                 <td>@MemberTarget.Firstname</td>
+            </tr>
+            <tr>
+                <td>Lastname</td>
                 <td>@MemberTarget.Lastname</td>
             </tr>
         </tbody>
     </table>
 
     <button @onclick="OnCancel" class="btn btn-primary">Close</button>
-    
+
 }

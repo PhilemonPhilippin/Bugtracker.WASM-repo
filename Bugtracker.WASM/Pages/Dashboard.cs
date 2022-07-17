@@ -33,16 +33,20 @@ namespace Bugtracker.WASM.Pages
             if (_displayProjectsComponent)
                 _displayProjectsComponent = false;
             else
+            {
+                _displayTicketsComponent = false;
                 _displayProjectsComponent = true;
+            }
         }
         private void DisplayTicketsComponent()
         {
             if (_displayTicketsComponent)
                 _displayTicketsComponent = false;
             else
+            {
+                _displayProjectsComponent = false;
                 _displayTicketsComponent = true;
-
-            
+            }
         }
     }
 }

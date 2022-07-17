@@ -1,7 +1,6 @@
-﻿
-<h2 class="mt-2">Projects List</h2>
+﻿<h2 class="mt-3">Projects List</h2>
 
-<button @onclick="DisplayAddProjectDialog" class="btn @((_displayAddProjectDialog) ? "btn-secondary" : "btn-success")">Add project</button>
+<button @onclick="DisplayAddProjectDialog" class="btn @((_displayAddProjectDialog) ? "btn-secondary" : "btn-success") mt-2">Add project</button>
 
 @if (_projects.Count == 0)
 {
