@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Components;
 using Bugtracker.WASM.Tools;
 using Bugtracker.WASM.Mappers;
 using System.Net.Http.Json;
+using Bugtracker.WASM.Models.MemberModels;
+using System.Collections.Generic;
 
 namespace Bugtracker.WASM.Pages.TicketComponents
 {
@@ -22,6 +24,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         [Parameter]
         public TicketModel TicketTarget { get; set; }
         private List<ProjectModel> _projects = new List<ProjectModel>();
+        private List<MemberModel> _members = new List<MemberModel>();
         private TicketFormModel EditedTicket { get; set; } = new TicketFormModel();
         private string _token;
         private bool _isMemberConnected;
@@ -39,6 +42,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
             {
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
+                _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
             }
         }
         private async Task SubmitEdit()

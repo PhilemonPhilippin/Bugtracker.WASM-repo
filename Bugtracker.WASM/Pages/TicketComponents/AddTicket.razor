@@ -34,15 +34,18 @@
     </label>
     <InputText id="Description" @bind-Value="@AddedTicket.Description" class="form-control" />
 
-    <label for="SubmitMember">
-        Submit member:
-    </label>
-    <InputNumber id="SubmitMember" @bind-Value="@AddedTicket.SubmitMember" class="form-control" />
-
     <label for="Project">
         Project:
     </label>
-    <InputNumber id="Project" @bind-Value="@AddedTicket.Project" class="form-control" />
+    <InputSelect id="Project" @bind-Value="@AddedTicket.Project" class="form-control">
+        @if (_projects.Count != 0)
+        {
+            @foreach (ProjectModel project in _projects)
+            {
+                <option value="@project.IdProject">@project.Name</option>
+            }
+        }
+    </InputSelect>
 
     <button type="submit" class="btn btn-primary">Confirm add</button>
     <button @onclick="OnCancel" class="btn btn-primary">Cancel</button>

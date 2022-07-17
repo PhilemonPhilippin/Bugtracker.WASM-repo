@@ -31,15 +31,18 @@
     </label>
     <InputText id="Description" @bind-Value="@EditedTicket.Description" class="form-control" />
 
-    <label for="SubmitMember">
-        Submit member:
-    </label>
-    <InputNumber id="SubmitMember" @bind-Value="@EditedTicket.SubmitMember" class="form-control" />
-
     <label for="AssignedMember">
         Assigned member:
     </label>
-    <InputNumber id="AssignedMember" @bind-Value="@EditedTicket.AssignedMember" class="form-control" />
+    <InputSelect id="AssignedMember" @bind-Value="@EditedTicket.AssignedMember" class="form-control">
+        @if (_members.Count != 0)
+        {
+            @foreach (MemberModel member in _members)
+            {
+                <option value="@member.IdMember">@member.Pseudo</option>
+            }
+        }
+    </InputSelect>
 
     <label for="Project">
         Project:
