@@ -22,7 +22,12 @@ else
             {
                 <tr>
                     <td>@project.Name</td>
-                    <td>@project.Manager</td>
+                    <td>
+                        @if (_members.Count != 0)
+                        {
+                            @_members.Where(member => member.IdMember == project.Manager).SingleOrDefault().Pseudo
+                        }
+                        </td>
                     <td>
                          <button class="btn btn-primary" @onclick="() => DisplayProjectDetailsDialog(project)">
                             <img src="/custom-icons/arrows-angle-expand.svg" alt="Project Details" />

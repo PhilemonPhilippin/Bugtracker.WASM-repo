@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using Bugtracker.WASM.Models;
 using System.Net.Http.Json;
 using System.Diagnostics.Metrics;
+using Bugtracker.WASM.Models.MemberModels;
 
 namespace Bugtracker.WASM.Pages.ProjectComponents
 {
@@ -15,6 +16,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         [Inject]
         IMemberLocalStorage LocalStorage { get; set; }
         private List<ProjectModel> _projects = new List<ProjectModel>();
+        private List<MemberModel> _members = new List<MemberModel>();
         private ProjectModel _projectTarget;
         private bool _displayProjectDetailsDialog;
         private bool _displayEditProjectDialog;
@@ -34,6 +36,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
             {
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
+                _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
             }
         }
         private async Task DeleteProject(int id)
