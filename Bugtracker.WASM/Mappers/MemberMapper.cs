@@ -14,5 +14,15 @@ namespace Bugtracker.WASM.Mappers
                 PswdHash = memberRegistration.Password
             };
         }
+
+        public static MemberPostModel ToPostModel(this MemberRegistrationModel memberRegistration)
+        {
+            return new MemberPostModel()
+            {
+                Pseudo = memberRegistration.Pseudo,
+                Email = memberRegistration.Email,
+                Password = memberRegistration.Password
+            };
+        }
     }
 }

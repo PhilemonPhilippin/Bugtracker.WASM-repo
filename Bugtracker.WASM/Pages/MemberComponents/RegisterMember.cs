@@ -19,8 +19,8 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             _displayPseudoTaken = false;
             _displayEmailTaken = false;
 
-            MemberModel memberModel = MemberRegistration.ToModel();
-            using HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Member", memberModel);
+            MemberPostModel postModel = MemberRegistration.ToPostModel();
+            using HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Member", postModel);
             if (!response.IsSuccessStatusCode)
             {
                 string errorMessage = await response.Content.ReadAsStringAsync();

@@ -19,4 +19,17 @@ namespace Bugtracker.WASM.Models.MemberModels
         [Compare(nameof(Password))]
         public string ConfirmPassword { get; set; }
     }
+    public class MemberPostModel
+    {
+        [Required]
+        [MaxLength(50)]
+        public string Pseudo { get; set; }
+        [Required]
+        [MaxLength(250)]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+    }
 }
