@@ -48,7 +48,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
                 ProjectModel projectModel = AddedProject.ToModel();
 
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Project", projectModel);
+                using HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Project", projectModel);
 
                 if (!response.IsSuccessStatusCode)
                 {

@@ -7,8 +7,8 @@ namespace Bugtracker.WASM.Pages
     {
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
-        [Inject]
-        private NavigationManager NavManager { get; set; }
+        //[Inject]
+        //private NavigationManager NavManager { get; set; }
         private bool _displayLogin;
         private bool _displayRegistration;
         private bool _isMemberConnected;

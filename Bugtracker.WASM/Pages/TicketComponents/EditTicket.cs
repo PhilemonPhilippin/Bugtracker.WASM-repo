@@ -51,7 +51,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 TicketModel ticketModel = EditedTicket.ToModel();
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                HttpResponseMessage response = await Http.PutAsJsonAsync("https://localhost:7051/api/Ticket", ticketModel);
+                using HttpResponseMessage response = await Http.PutAsJsonAsync("https://localhost:7051/api/Ticket", ticketModel);
                 if (!response.IsSuccessStatusCode)
                 {
                     string message = await response.Content.ReadAsStringAsync();

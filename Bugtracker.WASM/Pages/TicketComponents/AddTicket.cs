@@ -47,7 +47,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 AddedTicket.SubmitMember = await Http.GetFromJsonAsync<int>("https://localhost:7051/api/Member/idfromjwt");
                 TicketModel ticketModel = AddedTicket.ToModel();
 
-                HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Ticket", ticketModel);
+                using HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Ticket", ticketModel);
 
                 if (!response.IsSuccessStatusCode)
                 {

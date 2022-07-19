@@ -22,7 +22,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         {
             _displayPseudoNotFound = false;
             _displayIncorrectPassword = false;
-            HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Member/login", MemberLogin);
+            using HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Member/login", MemberLogin);
             if (!response.IsSuccessStatusCode)
             {
                 string errorMessage = await response.Content.ReadAsStringAsync();

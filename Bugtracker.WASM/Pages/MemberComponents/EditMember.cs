@@ -41,7 +41,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             {
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                HttpResponseMessage response = await Http.PutAsJsonAsync($"https://localhost:7051/api/Member/{MemberEdited.IdMember}", MemberEdited);
+                using HttpResponseMessage response = await Http.PutAsJsonAsync($"https://localhost:7051/api/Member/{MemberEdited.IdMember}", MemberEdited);
 
                 if (!response.IsSuccessStatusCode)
                 {
