@@ -21,6 +21,7 @@
     <InputSelect id="Manager" @bind-Value="@EditedProject.Manager" class="form-control">
         @if (_members.Count != 0)
         {
+            <option value="1">Select..</option>
             @foreach (MemberModel member in _members)
             {
                 <option value="@member.IdMember">@member.Pseudo</option>
