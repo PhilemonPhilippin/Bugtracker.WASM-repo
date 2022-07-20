@@ -7,7 +7,9 @@ namespace Bugtracker.WASM.Models
         public int IdTicket { get; set; }
         [MaxLength(250)]
         public string Title { get; set; }
+        [Range(1, 4)]
         public int Status { get; set; }
+        [Range(1, 3)]
         public int Priority { get; set; }
         [MaxLength(250)]
         public string Type { get; set; }
@@ -26,8 +28,10 @@ namespace Bugtracker.WASM.Models
         [MaxLength(250)]
         public string Title { get; set; }
         [Required]
+        [Range(1, 4)]
         public int Status { get; set; }
         [Required]
+        [Range(1, 3)]
         public int Priority { get; set; }
         [Required]
         [MaxLength(250)]

@@ -11,7 +11,7 @@
     </label>
     <InputText id="Title" @bind-Value="@EditedTicket.Title" class="form-control" />
 
-    <label for="Status">
+    @*<label for="Status">
         Status:
     </label>
     <InputNumber id="Status" @bind-Value="@EditedTicket.Status" class="form-control" />
@@ -19,7 +19,26 @@
     <label for="Priority">
         Priority:
     </label>
-    <InputNumber id="Priority" @bind-Value="@EditedTicket.Priority" class="form-control" />
+    <InputNumber id="Priority" @bind-Value="@EditedTicket.Priority" class="form-control" />*@
+
+    <label for="Status">
+        Status:
+    </label>
+    <InputSelect id="Status" @bind-Value="@EditedTicket.Status" class="form-control">
+       <option value="1">To-do</option>
+       <option value="2">In Progress</option>
+       <option value="3">Stuck</option>
+       <option value="4">Complete</option>
+    </InputSelect>
+
+    <label for="Priority">
+        Priority:
+    </label>
+    <InputSelect id="Priority" @bind-Value="@EditedTicket.Priority" class="form-control">
+       <option value="1">High</option>
+       <option value="2">Medium</option>
+       <option value="3">Low</option>
+    </InputSelect>
 
     <label for="Type">
         Type:

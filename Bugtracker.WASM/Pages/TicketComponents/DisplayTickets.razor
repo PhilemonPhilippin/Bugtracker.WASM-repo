@@ -22,8 +22,37 @@ else
             {
                 <tr>
                     <td>@ticket.Title </td>
-                    <td>@ticket.Status</td>
-                    <td>@ticket.Priority</td>
+                    <td>
+                        @switch (ticket.Status)
+                        {
+                            case 1:
+                                @:To-do
+                                break;
+                            case 2:
+                                @:In progress
+                                break;
+                            case 3:
+                                @:Stuck
+                                break;
+                            case 4:
+                                @:Complete
+                                break;
+                        }
+                    </td>
+                    <td>
+                        @switch (ticket.Priority)
+                        {
+                            case 1:
+                                @:High
+                                break;
+                            case 2:
+                                @:Medium
+                                break;
+                            case 3:
+                                @:Low
+                                break;
+                        }
+                    </td>
                     <td>@ticket.SubmitTime</td>
                     <td>
                         @if (_projects.Count != 0)

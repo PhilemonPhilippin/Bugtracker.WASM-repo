@@ -15,20 +15,46 @@ else
         </thead>
         <tbody>
             <tr>
-                <td>Id</td>
-                <td>@TicketTarget.IdTicket</td>
-            </tr>
-            <tr>
                 <td>Title</td>
                 <td>@TicketTarget.Title</td>
             </tr>
             <tr>
                 <td>Status</td>
-                <td>@TicketTarget.Status</td>
+                <td>
+                    @switch (TicketTarget.Status)
+                    {
+                        case 1:
+                            @:To-do
+                            break;
+                        case 2:
+                            @:In progress
+                            break;
+                        case 3:
+                            @:Stuck
+                            break;
+                        case 4:
+                            @:Complete
+                            break;
+                    }
+
+                </td>
             </tr>
             <tr>
                 <td>Priority</td>
-                <td>@TicketTarget.Priority</td>
+                <td>
+                    @switch (TicketTarget.Priority)
+                    {
+                        case 1:
+                            @:High
+                            break;
+                        case 2:
+                            @:Medium
+                            break;
+                        case 3:
+                            @:Low
+                            break;
+                    }
+                </td>
             </tr>
             <tr>
                 <td>Type</td>
