@@ -21,7 +21,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (MemberModel member in _members)
+            @foreach (@*MemberModel*@ MemberNoPswdModel member in _members)
             {
                 <tr>
                     <td>
@@ -49,10 +49,10 @@ else
     </table>
     @if (_displayMemberDetailsDialog)
     {
-        <DetailsMember MemberTarget="@_memberTarget" OnCancel="CloseDetailsDialog" />
+        @*<DetailsMember MemberTarget="@_memberTarget" OnCancel="CloseDetailsDialog" />*@
     }
     else if (_displayMemberEditDialog)
     {
-        <EditMember MemberTarget="@_memberTarget" OnCancel="CloseMemberEditDialog" OnConfirm="ConfirmMemberEdit" />
+        @*<EditMember MemberTarget="@_memberTarget" OnCancel="CloseMemberEditDialog" OnConfirm="ConfirmMemberEdit" />*@
     }
 }
