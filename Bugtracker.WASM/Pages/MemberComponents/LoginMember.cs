@@ -15,7 +15,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         private MemberLoginModel MemberLogin { get; set; } = new MemberLoginModel();
-        private ConnectedMemberModel ConnectedMember { get; set; } = new ConnectedMemberModel();
+        //private ConnectedMemberModel ConnectedMember { get; set; } = new ConnectedMemberModel();
         private bool _displayPseudoNotFound;
         private bool _displayIncorrectPassword;
         private async Task SubmitLogin()
@@ -33,8 +33,10 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             }
             else
             {
-                ConnectedMember = await response.Content.ReadFromJsonAsync<ConnectedMemberModel>();
-                await LocalStorage.SetToken(ConnectedMember.Token);
+                //ConnectedMember = await response.Content.ReadFromJsonAsync<ConnectedMemberModel>();
+                //await LocalStorage.SetToken(ConnectedMember.Token);
+                string token = await response.Content.ReadAsStringAsync();
+                await LocalStorage.SetToken(token);
                 NavManager.NavigateTo("/");
             }
         }
