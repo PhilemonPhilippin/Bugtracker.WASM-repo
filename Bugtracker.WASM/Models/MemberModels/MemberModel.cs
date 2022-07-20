@@ -30,4 +30,13 @@ namespace Bugtracker.WASM.Models.MemberModels
         [MaxLength(50)]
         public string? Lastname { get; set; }
     }
+    public class MemberLoginModel
+    {
+        [Required]
+        [MaxLength(50)]
+        public string Pseudo { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+    }
 }

@@ -19,7 +19,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         [Parameter]
         public EventCallback OnConfirm { get; set; }
         private string _token;
-        private MemberEditModel MemberEdited { get; set; } = new MemberEditModel();
+        private MemberNoPswdModel MemberEdited { get; set; } = new MemberNoPswdModel();
         private bool _displayPseudoTaken;
         private bool _displayEmailTaken;
         private bool _isMemberConnected;
