@@ -12,9 +12,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         public HttpClient Http { get; set; }
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
-        //private List<MemberModel> _members = new List<MemberModel>();
         private List<MemberNoPswdModel> _members = new List<MemberNoPswdModel>();
-        //private MemberModel _memberTarget = new MemberModel() { IdMember = 0 };
         private MemberNoPswdModel _memberTarget = new MemberNoPswdModel() { IdMember = 0 };
         private string _token;
         private bool _displayMemberEditDialog;
@@ -27,7 +25,6 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             {
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                //_members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
                 _members = await Http.GetFromJsonAsync<List<MemberNoPswdModel>>("https://localhost:7051/api/Member");
             }
         }
@@ -42,7 +39,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
                 await RefreshMembersList();
             }
         }
-        private void DisplayMemberDetailsDialog(/*MemberModel*/ MemberNoPswdModel member)
+        private void DisplayMemberDetailsDialog(MemberNoPswdModel member)
         {
             if (_displayMemberDetailsDialog)
                 _displayMemberDetailsDialog = false;
@@ -57,7 +54,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         {
             _displayMemberDetailsDialog = false;
         }
-        private void DisplayMemberEditDialog(/*MemberModel*/ MemberNoPswdModel member)
+        private void DisplayMemberEditDialog(MemberNoPswdModel member)
         {
             if (_displayMemberEditDialog)
                 _displayMemberEditDialog = false;
@@ -85,29 +82,9 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             {
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                //_members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
                 _members = await Http.GetFromJsonAsync<List<MemberNoPswdModel>>("https://localhost:7051/api/Member");
 
             }
         }
-        //private async Task AskTokenValidation()
-        //{
-        //    _token = await LocalStorage.GetToken();
-        //    if (_token is null)
-        //        _isMemberConnected = false;
-        //    else
-        //    {
-        //        Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-        //        HttpResponseMessage response = await Http.GetAsync("https://localhost:7051/api/Member/token");
-        //        if (!response.IsSuccessStatusCode)
-        //            _isMemberConnected = false;
-        //        else
-        //        {
-        //            ConnectedMemberModel connectedMember = await response.Content.ReadFromJsonAsync<ConnectedMemberModel>();
-        //            await LocalStorage.SetToken(connectedMember.Token);
-        //            _isMemberConnected = true;
-        //        }
-        //    }
-        //}
     }
 }

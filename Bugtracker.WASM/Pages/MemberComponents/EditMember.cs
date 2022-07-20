@@ -13,7 +13,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         [Parameter]
-        public MemberModel MemberTarget { get; set; }
+        public MemberNoPswdModel MemberTarget { get; set; }
         [Parameter]
         public EventCallback OnCancel { get; set; }
         [Parameter]
