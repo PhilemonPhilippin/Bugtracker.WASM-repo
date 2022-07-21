@@ -59,7 +59,8 @@
             <option value="">Select..</option>
             @foreach (MemberModel member in _members)
             {
-                <option value="@member.IdMember">@member.Pseudo</option>
+                @if (member.Activated == true)
+                 {<option value="@member.IdMember">@member.Pseudo</option>}
             }
         }
     </InputSelect>
