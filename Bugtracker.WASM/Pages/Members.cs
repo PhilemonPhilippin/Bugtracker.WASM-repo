@@ -14,6 +14,8 @@ namespace Bugtracker.WASM.Pages
         protected override async Task OnInitializedAsync()
         {
             _isMemberConnected = await LocalStorage.HasToken();
+            if (!_isMemberConnected)
+                NavManager.NavigateTo("/account");
         }
         private void ToAccount()
         {

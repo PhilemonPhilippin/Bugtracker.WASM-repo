@@ -6,6 +6,10 @@
         {
             <span class="text-danger"> /!\ Pseudo not found.</span>
         }
+        @if (_displayMemberDisabled)
+        {
+            <span class="text-danger"> /!\ This account has been disabled.</span>
+        }
     </label>
     <InputText id="Pseudo" @bind-Value="@MemberLogin.Pseudo" class="form-control" />
 
