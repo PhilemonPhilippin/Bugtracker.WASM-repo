@@ -41,7 +41,30 @@ namespace Bugtracker.WASM.Models
         public string Description { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime SubmitTime { get; set; }
+        public int? AssignedMember { get; set; }
         [Required]
+        public int Project { get; set; }
+    }
+    public class TicketEditModel
+    {
+        public int IdTicket { get; set; }
+        [Required]
+        [MaxLength(250)]
+        public string Title { get; set; }
+        [Required]
+        [Range(1, 4)]
+        public int Status { get; set; }
+        [Required]
+        [Range(1, 3)]
+        public int Priority { get; set; }
+        [Required]
+        [MaxLength(250)]
+        public string Type { get; set; }
+        [Required]
+        [MaxLength(750)]
+        public string Description { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime SubmitTime { get; set; }
         public int? SubmitMember { get; set; }
         public int? AssignedMember { get; set; }
         [Required]

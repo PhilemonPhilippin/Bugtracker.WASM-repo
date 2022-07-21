@@ -25,13 +25,13 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         public TicketModel TicketTarget { get; set; }
         private List<ProjectModel> _projects = new List<ProjectModel>();
         private List<MemberModel> _members = new List<MemberModel>();
-        private TicketFormModel EditedTicket { get; set; } = new TicketFormModel();
+        private TicketEditModel EditedTicket { get; set; } = new TicketEditModel();
         private string _token;
         private bool _isMemberConnected;
         private bool _displayTitleTaken;
         protected override async Task OnInitializedAsync()
         {
-            EditedTicket = TicketTarget.ToFormModel();
+            EditedTicket = TicketTarget.ToEditModel();
             _isMemberConnected = await LocalStorage.HasToken();
 
             if (_isMemberConnected)

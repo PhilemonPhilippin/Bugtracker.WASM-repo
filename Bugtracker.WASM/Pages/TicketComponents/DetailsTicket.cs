@@ -18,8 +18,8 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         public TicketModel TicketTarget { get; set; }
         [Parameter]
         public EventCallback OnCancel { get; set; }
-        private MemberModel MemberAssigned { get; set; } = new MemberModel();
-        private MemberModel SubmittingMember { get; set; } = new MemberModel();
+        private MemberNoPswdModel MemberAssigned { get; set; } = new MemberNoPswdModel();
+        private MemberNoPswdModel SubmittingMember { get; set; } = new MemberNoPswdModel();
         private ProjectModel Project { get; set; } = new ProjectModel();
         private string _token;
         private bool _isMemberConnected;
@@ -32,12 +32,14 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 Project = await Http.GetFromJsonAsync<ProjectModel>($"https://localhost:7051/api/Project/{TicketTarget.Project}");
 
-                SubmittingMember = await Http.GetFromJsonAsync<MemberModel>($"https://localhost:7051/api/Member/{TicketTarget.SubmitMember}");
+                if (TicketTarget.SubmitMember is not null)
+                {
+                    SubmittingMember = await Http.GetFromJsonAsync<MemberNoPswdModel>($"https://localhost:7051/api/Member/{TicketTarget.SubmitMember}");
+                }
 
                 if (TicketTarget.AssignedMember is not null)
                 {
-                    int memberAssignedId = (int)TicketTarget.AssignedMember;
-                    MemberAssigned = await Http.GetFromJsonAsync<MemberModel>($"https://localhost:7051/api/Member/{memberAssignedId}");
+                    MemberAssigned = await Http.GetFromJsonAsync<MemberNoPswdModel>($"https://localhost:7051/api/Member/{TicketTarget.AssignedMember}");
                 }
             }
         }

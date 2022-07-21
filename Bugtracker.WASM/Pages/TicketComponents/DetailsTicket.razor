@@ -70,7 +70,12 @@ else
             </tr>
             <tr>
                 <td>Submit member</td>
-                <td>@SubmittingMember.Pseudo</td>
+                <td>
+                    @if (@SubmittingMember is not null)
+                    {
+                        @SubmittingMember.Pseudo
+                    }
+                </td>
             </tr>
             <tr>
                 <td>Assigned member</td>
