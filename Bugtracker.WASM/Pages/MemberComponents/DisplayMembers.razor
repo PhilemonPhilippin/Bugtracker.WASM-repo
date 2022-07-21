@@ -23,27 +23,32 @@ else
         <tbody>
             @foreach (MemberNoPswdModel member in _members)
             {
-                <tr>
-                    <td>
-                        @member.Pseudo
-                    </td>
-                    <td>
-                        @member.Email
-                    </td>
-                    <td>
-                        <button class="btn @((member.IdMember == _memberTarget.IdMember && _displayMemberDetailsDialog) ? "btn-secondary":"btn-primary")"
+                @if (member.Activated == true)
+                {
+
+                    <tr>
+                        <td>
+                            @member.Pseudo
+                        </td>
+                        <td>
+                            @member.Email
+                        </td>
+                        <td>
+                            <button class="btn @((member.IdMember == _memberTarget.IdMember && _displayMemberDetailsDialog) ? "btn-secondary":"btn-primary")"
                         @onclick="() => DisplayMemberDetailsDialog(member)">
-                            <img src="/custom-icons/arrows-angle-expand.svg" alt="Member Details" />
-                        </button>
-                        <button class="btn @((member.IdMember == _memberTarget.IdMember && _displayMemberEditDialog) ? "btn-secondary":"btn-warning") ms-1"
+                                <img src="/custom-icons/arrows-angle-expand.svg" alt="Member Details" />
+                            </button>
+                            <button class="btn @((member.IdMember == _memberTarget.IdMember && _displayMemberEditDialog) ? "btn-secondary":"btn-warning") ms-1"
                         @onclick="() => DisplayMemberEditDialog(member)">
-                            <img src="/custom-icons/pen.svg" alt="Edit Member" />
-                        </button>
-                        <button class="btn btn-danger ms-1" @onclick="() => DeleteMember(member.IdMember)">
-                            <img src="/custom-icons/trash3.svg" alt="Delete Member" />
-                        </button>
-                    </td>
-                </tr>
+                                <img src="/custom-icons/pen.svg" alt="Edit Member" />
+                            </button>
+                            <button class="btn btn-danger ms-1" @onclick="() => DeleteMember(member.IdMember)">
+                                <img src="/custom-icons/trash3.svg" alt="Delete Member" />
+                            </button>
+                        </td>
+                    </tr>
+
+                }
             }
         </tbody>
     </table>

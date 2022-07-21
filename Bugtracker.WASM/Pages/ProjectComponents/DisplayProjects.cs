@@ -45,7 +45,6 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
                 await Http.DeleteAsync($"https://localhost:7051/api/Project/{id}");
                 await RefreshProjectsList();
             }
-
         }
         private async Task RefreshProjectsList()
         {

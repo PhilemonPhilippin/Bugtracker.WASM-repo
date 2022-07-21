@@ -44,7 +44,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
 
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                AddedTicket.SubmitMember = await Http.GetFromJsonAsync<int>("https://localhost:7051/api/Member/idfromjwt");
+                AddedTicket.SubmitMember = await Http.GetFromJsonAsync<int?>("https://localhost:7051/api/Member/idfromjwt");
                 TicketModel ticketModel = AddedTicket.ToModel();
 
                 using HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Ticket", ticketModel);
