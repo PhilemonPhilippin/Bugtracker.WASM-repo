@@ -11,7 +11,7 @@
 else
 {
     <p>You are logged in ! Do you want to see the list of all members ?</p>
-    <button class="btn btn-primary" @onclick="DisplayMembersComponent">List of members</button>
+    <button class="btn @((_displayMembersComponent) ? "btn-secondary": "btn-primary")" @onclick="DisplayMembersComponent">List of members</button>
     @if (_displayMembersComponent)
     {
         <DisplayMembers />
