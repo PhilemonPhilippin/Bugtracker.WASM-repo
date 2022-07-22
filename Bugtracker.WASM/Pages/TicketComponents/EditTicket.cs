@@ -59,7 +59,29 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                         _displayTitleTaken = true;
                 }
                 else
+                {
+                    // Vérifier s'il y a une combinaison assign existante
+                    if (ticketModel.AssignedMember is not null)
+                    {
+                        int assignedMemberId = (int)ticketModel.AssignedMember;
+                        AssignMinimalModel assign = new AssignMinimalModel() { Project = ticketModel.Project, Member = assignedMemberId };
+                        Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                        using HttpResponseMessage getOneResponse = await Http.PostAsJsonAsync("https://localhost:7051/api/Assign/getone", assign);
+                        if (!getOneResponse.IsSuccessStatusCode)
+                        {
+                            // Dans ce cas, il n'y a pas d'assign. Il faut en créer un
+                            // TODO : Eviter de devoir faire deux demandes API pour ça. Une seule devrait suffire
+                            await Http.PostAsJsonAsync("https://localhost:7051/api/Assign", assign);
+                        }
+                    }
+
+                    // Envoyer une requête au ticket controller pour savoir :
+                    // Est-ce que l'ancienne combinaison assignedMember/Project est présente dans au moins UN autre ticket ?
+                    // Si oui, alors on ne fait rien.
+                    // Si non, alors on doit delete cet ancien assign.
+
                     await OnConfirm.InvokeAsync();
+                }
             }
         }
     }
