@@ -25,6 +25,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         public TicketModel TicketTarget { get; set; }
         private List<ProjectModel> _projects = new List<ProjectModel>();
         private List<MemberModel> _members = new List<MemberModel>();
+        private List<TicketModel> _tickets = new List<TicketModel>();
         private TicketEditModel EditedTicket { get; set; } = new TicketEditModel();
         private string _token;
         private bool _isMemberConnected;
@@ -40,6 +41,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
                 _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
+                _tickets = await Http.GetFromJsonAsync<List<TicketModel>>("https://localhost:7051/api/Ticket");
             }
         }
         private async Task SubmitEdit()
@@ -66,7 +68,18 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                         AssignMinimalModel assign = new AssignMinimalModel() { Project = ticketModel.Project, Member = assignedMemberId };
                         await Http.PostAsJsonAsync("https://localhost:7051/api/Assign", assign);
                     }
+                    if (TicketTarget.AssignedMember is not null)
+                    {
+                        int assignedMemberId = (int)TicketTarget.AssignedMember;
+                        AssignMinimalModel assign = new AssignMinimalModel() {Project = TicketTarget.Project, Member = assignedMemberId };
+                        // Si il n'existe aucun ticket qui aurait déjà un assign avec l'ancienne combinaison AssignedMember + Project :
+                        if (_tickets.Count(ticket => ticket.AssignedMember == TicketTarget.AssignedMember && ticket.Project == TicketTarget.Project) == 0)
+                        {
+                            // Alors on delete l'ancien assign
+                            await Http.DeleteAsync("https://localhost:7051/api/Assign",);
+                        }
 
+                    }
                     // Envoyer une requête au ticket controller pour savoir :
                     // Est-ce que l'ancienne combinaison assignedMember/Project est présente dans au moins UN autre ticket ?
                     // Si oui, alors on ne fait rien.
