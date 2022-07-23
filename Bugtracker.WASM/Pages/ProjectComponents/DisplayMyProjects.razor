@@ -1,4 +1,4 @@
-﻿<h2 class="mt-3">Display My Projects list</h2>
+﻿<h2 class="mt-3">My Projects</h2>
 
 @if (_myProjects.Count == 0)
 {
@@ -6,7 +6,7 @@
 }
 else
 {
-    <table class="table table-striped mt-2">
+    <table class="table table-striped mt-4">
         <thead class="table-primary">
             <tr>
                 <th>Name</th>
@@ -27,12 +27,12 @@ else
                     </td>
                     <td>
                         <button class="btn @((project.IdProject == _projectTarget.IdProject && _displayProjectDetailsDialog) ? "btn-secondary":"btn-primary")"
-                        @onclick="() => DisplayProjectDetailsDialog(project)">
-                            <img src="/custom-icons/arrows-angle-expand.svg" alt="Project Details" />
+                        @onclick="() => DisplayProjectDetailsDialog(project)" title="Details">
+                            <img src="/custom-icons/arrows-angle-expand.svg" alt="Details" />
                         </button>
                         <button class="btn @((project.IdProject == _projectTarget.IdProject && _displayEditProjectDialog) ? "btn-secondary":"btn-warning") ms-1"
-                        @onclick="() => DisplayProjectEditDialog(project)">
-                            <img src="/custom-icons/pen.svg" alt="Edit Project" />
+                        @onclick="() => DisplayProjectEditDialog(project)" title="Edit">
+                            <img src="/custom-icons/pen.svg" alt="Edit" />
                         </button>
                     </td>
                 </tr>

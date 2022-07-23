@@ -1,12 +1,12 @@
-﻿<h2 class="mt-3">Tickets list</h2>
-<button @onclick="DisplayAddTicketDialog" class="btn @((_displayAddTicketDialog) ? "btn-secondary" : "btn-success") mt-2">Add Ticket</button>
+﻿<h2 class="mt-4">Tickets list</h2>
+<button @onclick="DisplayAddTicketDialog" class="btn @((_displayAddTicketDialog) ? "btn-secondary" : "btn-success") mt-4" title="Add">Add Ticket</button>
 @if (_tickets.Count == 0)
 {
     <span class="mt-2">Loading tickets list...</span>
 }
 else
 {
-    <table class="table table-striped mt-2">
+    <table class="table table-striped mt-3">
         <thead class="table-primary">
             <tr>
                 <th>Title</th>
@@ -62,17 +62,17 @@ else
                     </td>
                     <td>
                         <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayTicketDetailsDialog) ? "btn-secondary":"btn-primary")"
-                        @onclick="() => DisplayTicketDetailsDialog(ticket)">
-                            <img src="/custom-icons/arrows-angle-expand.svg" alt="Ticket Details" />
+                        @onclick="() => DisplayTicketDetailsDialog(ticket)" title="Details">
+                            <img src="/custom-icons/arrows-angle-expand.svg" alt="Details" />
                         </button>
 
                         <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayEditTicketDialog) ? "btn-secondary":"btn-warning") ms-1"
-                        @onclick="() => DisplayTicketEditDialog(ticket)">
-                            <img src="/custom-icons/pen.svg" alt="Edit Ticket" />
+                        @onclick="() => DisplayTicketEditDialog(ticket)" title="Edit">
+                            <img src="/custom-icons/pen.svg" alt="Edit" />
                         </button>
 
-                        <button class="btn btn-danger ms-1" @onclick="() => DeleteTicket(ticket)">
-                            <img src="/custom-icons/trash3.svg" alt="Delete Ticket" />
+                        <button class="btn btn-danger ms-1" @onclick="() => DeleteTicket(ticket)" title="Delete">
+                            <img src="/custom-icons/trash3.svg" alt="Delete" />
                         </button>
                     </td>
                 </tr>

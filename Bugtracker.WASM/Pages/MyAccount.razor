@@ -8,8 +8,8 @@
         In order to access the Bug tracker application, you must be logged in first. <br />
         Do you want to login or create a new account ?
     </p>
-    <button class="btn @((_displayLogin) ? "btn-secondary" : "btn-primary")" @onclick="DisplayLogin">Login</button>
-    <button class="btn @((_displayRegistration) ? "btn-secondary" : "btn-primary")" @onclick="DisplayRegistration">Create new account</button>
+    <button class="btn @((_displayLogin) ? "btn-outline-secondary" : "btn-outline-primary")" @onclick="DisplayLogin" title="Login">Login</button>
+    <button class="btn @((_displayRegistration) ? "btn-outline-secondary" : "btn-outline-primary")" @onclick="DisplayRegistration" title="Create account">Create new account</button>
 
     @if (_displayRegistration)
     {

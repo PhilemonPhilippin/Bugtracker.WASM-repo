@@ -1,4 +1,4 @@
-﻿<h3 class="mt-2">Ticket details</h3>
+﻿<h3 class="mt-4">Ticket details</h3>
 
 @if (TicketTarget is null)
 {
@@ -6,7 +6,7 @@
 }
 else
 {
-    <table class="table table-striped">
+    <table class="table table-striped mt-3">
         <thead class="table-primary">
             <tr>
                 <th>Information</th>
@@ -92,5 +92,5 @@ else
             </tr>
         </tbody>
     </table>
-    <button @onclick="OnCancel" class="btn btn-primary">Close</button>
+    <button @onclick="OnCancel" class="btn btn-primary mt-2">Close</button>
 }

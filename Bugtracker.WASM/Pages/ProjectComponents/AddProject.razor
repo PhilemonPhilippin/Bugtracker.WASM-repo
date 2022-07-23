@@ -1,8 +1,7 @@
-﻿<h3>Add a project</h3>
+﻿<h3 class="mt-4">Add a project</h3>
 @if (_isProjectAdded)
 {
     <span class="text-success">Project added successfully !</span>
-
 }
 <EditForm Model="@AddedProject" OnValidSubmit="@SubmitAdd">
     <DataAnnotationsValidator />
@@ -36,7 +35,7 @@
             }
         }
     </InputSelect>
-    <button type="submit" class="btn btn-success">Confirm add</button>
-    <button @onclick="OnCancel" class="btn btn-primary">Cancel</button>
+    <button type="submit" class="btn btn-success mt-2 me-2" title="Add">Confirm add</button>
+    <button @onclick="OnCancel" class="btn btn-primary mt-2" title="Cancel">Cancel</button>
     <ValidationSummary />
 </EditForm>

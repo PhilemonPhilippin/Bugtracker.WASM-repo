@@ -1,17 +1,17 @@
 ﻿@page "/members"
 <PageTitle>Members |Bugtracker</PageTitle>
-<h1>Member management</h1>
+<h1>Users management</h1>
 
 
 @if (!_isMemberConnected)
 {
     <p class="text-danger">You are not connected. Click below to go to login page</p>
-    <button class="btn btn-primary" @onclick="ToAccount">Login page</button>
+    <button class="btn btn-outline-primary" @onclick="ToAccount">Login page</button>
 }
 else
 {
-    <p>You are logged in ! Do you want to see the list of all members ?</p>
-    <button class="btn @((_displayMembersComponent) ? "btn-secondary": "btn-primary")" @onclick="DisplayMembersComponent">List of members</button>
+    <p>Do you want to see the list of all users ?</p>
+    <button class="btn @((_displayMembersComponent) ? "btn-outline-secondary": "btn-outline-primary")" @onclick="DisplayMembersComponent" title="List of users">Users</button>
     @if (_displayMembersComponent)
     {
         <DisplayMembers />
