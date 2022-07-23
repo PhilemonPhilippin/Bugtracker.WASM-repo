@@ -19,7 +19,7 @@ namespace Bugtracker.WASM.Pages
         private bool _isMemberConnected;
         private bool _displayProjectsComponent;
         private bool _displayTicketsComponent;
-
+        private bool _displayMyTicketsComponent;
         protected override async Task OnInitializedAsync()
         {
             _isMemberConnected = await LocalStorage.HasToken();
@@ -39,6 +39,13 @@ namespace Bugtracker.WASM.Pages
                 _displayTicketsComponent = false;
                 _displayProjectsComponent = true;
             }
+        }
+        private void DisplayMyTicketsComponent()
+        {
+            if (_displayMyTicketsComponent)
+                _displayMyTicketsComponent = false;
+            else
+                _displayMyTicketsComponent = true;
         }
         private void DisplayTicketsComponent()
         {

@@ -60,7 +60,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 {
                     _isTicketAdded = true;
                     await OnConfirm.InvokeAsync();
-                    AddedTicket = new TicketFormModel();
+                    AddedTicket = new TicketFormModel() { IdTicket = default, SubmitTime = DateTime.Now };
                 }
             }
         }

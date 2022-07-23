@@ -60,7 +60,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
                 {
                     _isProjectAdded = true;
                     await OnConfirm.InvokeAsync();
-                    AddedProject = new ProjectFormModel();
+                    AddedProject = new ProjectFormModel() { IdProject = default };
                 }
             }
         }
