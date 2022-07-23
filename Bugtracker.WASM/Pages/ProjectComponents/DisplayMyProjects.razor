@@ -30,11 +30,10 @@ else
                         @onclick="() => DisplayProjectDetailsDialog(project)">
                             <img src="/custom-icons/arrows-angle-expand.svg" alt="Project Details" />
                         </button>
-                        @*
                         <button class="btn @((project.IdProject == _projectTarget.IdProject && _displayEditProjectDialog) ? "btn-secondary":"btn-warning") ms-1"
                         @onclick="() => DisplayProjectEditDialog(project)">
                             <img src="/custom-icons/pen.svg" alt="Edit Project" />
-                        </button>*@
+                        </button>
                     </td>
                 </tr>
             }
@@ -45,8 +44,8 @@ else
 {
     <DetailsProject OnCancel="@CloseDetailsDialog" ProjectTarget="@_projectTarget" />
 }
-@*
+
 else if (_displayEditProjectDialog)
 {
     <EditProject OnCancel="@CloseEditDialog" OnConfirm="@ConfirmProjectEdit" ProjectTarget="@_projectTarget" />
-}*@
+}
