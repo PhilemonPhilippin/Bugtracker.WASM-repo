@@ -22,6 +22,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         private int? _myMemberId;
         private string _token;
         private bool _isMemberConnected;
+        private bool _displayProjectDetailsDialog;
 
         protected override async Task OnInitializedAsync()
         {
@@ -49,5 +50,20 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
             }
         }
 
+        private void DisplayProjectDetailsDialog(ProjectModel project)
+        {
+            if (_displayProjectDetailsDialog)
+                _displayProjectDetailsDialog = false;
+            else
+            {
+                //_displayEditProjectDialog = false;
+                _displayProjectDetailsDialog = true;
+                _projectTarget = project;
+            }
+        }
+        private void CloseDetailsDialog()
+        {
+            _displayProjectDetailsDialog = false;
+        }
     }
 }
