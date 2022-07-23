@@ -62,9 +62,17 @@ else
                     </td>
                     <td>
                         Buttons here
+                        <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayTicketDetailsDialog) ? "btn-secondary":"btn-primary")"
+                        @onclick="() => DisplayTicketDetailsDialog(ticket)">
+                            <img src="/custom-icons/arrows-angle-expand.svg" alt="Ticket Details" />
+                        </button>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+}
+@if (_displayTicketDetailsDialog)
+{
+    <DetailsTicket OnCancel="@CloseDetailsDialog" TicketTarget="@_ticketTarget"/>
 }

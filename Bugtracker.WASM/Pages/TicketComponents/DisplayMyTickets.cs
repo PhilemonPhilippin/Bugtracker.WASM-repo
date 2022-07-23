@@ -16,9 +16,11 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private List<TicketModel> _tickets = new List<TicketModel>();
         private List<ProjectModel> _projects = new List<ProjectModel>();
         private List<TicketModel> _myTickets = new List<TicketModel>();
+        private TicketModel _ticketTarget = new TicketModel() { IdTicket = 0 };
         private int? _myMemberId;
         private string _token;
         private bool _isMemberConnected;
+        private bool _displayTicketDetailsDialog;
 
         protected override async Task OnInitializedAsync()
         {
@@ -32,6 +34,21 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _myMemberId = await Http.GetFromJsonAsync<int?>("https://localhost:7051/api/Member/idfromjwt");
                 _myTickets = _tickets.Where(t => t.AssignedMember == _myMemberId).ToList();
             }
+        }
+
+        private void DisplayTicketDetailsDialog(TicketModel ticket)
+        {
+            if (_displayTicketDetailsDialog)
+                _displayTicketDetailsDialog = false;
+            else
+            {
+                _displayTicketDetailsDialog = true;
+                _ticketTarget = ticket;
+            }
+        }
+        private void CloseDetailsDialog()
+        {
+            _displayTicketDetailsDialog = false;
         }
     }
 }
