@@ -41,7 +41,6 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
                 _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
-                _tickets = await Http.GetFromJsonAsync<List<TicketModel>>("https://localhost:7051/api/Ticket");
             }
         }
         private async Task SubmitEdit()
@@ -53,6 +52,8 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 TicketModel ticketModel = EditedTicket.ToModel();
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                // I Get my list of tickets before editing the ticket so that i can use it later to check for old existing assign.
+                _tickets = await Http.GetFromJsonAsync<List<TicketModel>>("https://localhost:7051/api/Ticket");
                 using HttpResponseMessage response = await Http.PutAsJsonAsync("https://localhost:7051/api/Ticket", ticketModel);
                 if (!response.IsSuccessStatusCode)
                 {
@@ -64,27 +65,22 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 {
                     if (ticketModel.AssignedMember is not null)
                     {
+                        // On ajoute un Assign avec la nouvelle combinaison AssignedMember + Project si il n'y en a pas déjà un.
                         int assignedMemberId = (int)ticketModel.AssignedMember;
-                        AssignMinimalModel assign = new AssignMinimalModel() { Project = ticketModel.Project, Member = assignedMemberId };
-                        await Http.PostAsJsonAsync("https://localhost:7051/api/Assign", assign);
+                        AssignMinimalModel newAssign = new AssignMinimalModel() { Project = ticketModel.Project, Member = assignedMemberId };
+                        await Http.PostAsJsonAsync("https://localhost:7051/api/Assign", newAssign);
                     }
                     if (TicketTarget.AssignedMember is not null)
                     {
+                        // On supprime l'Assign de l'ancienne combinaison AssignedMember + Project si aucun autre ticket n'a cette combinaison.
                         int assignedMemberId = (int)TicketTarget.AssignedMember;
-                        AssignMinimalModel assign = new AssignMinimalModel() {Project = TicketTarget.Project, Member = assignedMemberId };
-                        // Si il n'existe aucun ticket qui aurait déjà un assign avec l'ancienne combinaison AssignedMember + Project :
-                        if (_tickets.Count(ticket => ticket.AssignedMember == TicketTarget.AssignedMember && ticket.Project == TicketTarget.Project) == 0)
+                        AssignMinimalModel oldAssign = new AssignMinimalModel() {Project = TicketTarget.Project, Member = assignedMemberId };
+                        // Si parmi tous les tickets il n'y en a qu'un avec l'ancienne combinaison, on le supprime.
+                        if (_tickets.Count(ticket => ticket.AssignedMember == TicketTarget.AssignedMember && ticket.Project == TicketTarget.Project) == 1)
                         {
-                            // Alors on delete l'ancien assign
-                            await Http.DeleteAsync("https://localhost:7051/api/Assign",);
+                            await Http.DeleteAsync($"https://localhost:7051/api/Assign/{oldAssign.Project}/{oldAssign.Member}");
                         }
-
                     }
-                    // Envoyer une requête au ticket controller pour savoir :
-                    // Est-ce que l'ancienne combinaison assignedMember/Project est présente dans au moins UN autre ticket ?
-                    // Si oui, alors on ne fait rien.
-                    // Si non, alors on doit delete cet ancien assign.
-
                     await OnConfirm.InvokeAsync();
                 }
             }
