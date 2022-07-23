@@ -21,6 +21,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private string _token;
         private bool _isMemberConnected;
         private bool _displayTicketDetailsDialog;
+        private bool _displayEditTicketDialog;
 
         protected override async Task OnInitializedAsync()
         {
@@ -36,12 +37,24 @@ namespace Bugtracker.WASM.Pages.TicketComponents
             }
         }
 
+        private async Task RefreshTicketsList()
+        {
+            _isMemberConnected = await LocalStorage.HasToken();
+            if (_isMemberConnected)
+            {
+                _token = await LocalStorage.GetToken();
+                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                _tickets = await Http.GetFromJsonAsync<List<TicketModel>>("https://localhost:7051/api/Ticket");
+                _myTickets = _tickets.Where(t => t.AssignedMember == _myMemberId).ToList();
+            }
+        }
         private void DisplayTicketDetailsDialog(TicketModel ticket)
         {
             if (_displayTicketDetailsDialog)
                 _displayTicketDetailsDialog = false;
             else
             {
+                _displayEditTicketDialog = false;
                 _displayTicketDetailsDialog = true;
                 _ticketTarget = ticket;
             }
@@ -49,6 +62,26 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private void CloseDetailsDialog()
         {
             _displayTicketDetailsDialog = false;
+        }
+        private void DisplayTicketEditDialog(TicketModel ticket)
+        {
+            if (_displayEditTicketDialog)
+                _displayEditTicketDialog = false;
+            else
+            {
+                _displayTicketDetailsDialog = false;
+                _displayEditTicketDialog = true;
+                _ticketTarget = ticket;
+            }
+        }
+        private void CloseEditDialog()
+        {
+            _displayEditTicketDialog = false;
+        }
+        private async Task ConfirmTicketEdit()
+        {
+            await RefreshTicketsList();
+            _displayEditTicketDialog = false;
         }
     }
 }
