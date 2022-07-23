@@ -31,13 +31,23 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
             }
         }
-        private async Task DeleteTicket(int id)
+        private async Task DeleteTicket(TicketModel ticket)
         {
             _isMemberConnected = await LocalStorage.HasToken();
             if (_isMemberConnected)
             {
                 _token = await LocalStorage.GetToken();
-                await Http.DeleteAsync($"https://localhost:7051/api/Ticket/{id}");
+                // Si il n'existe qu'un seul ticket pour lequel l'assign entre ticket et project existe, on le delete.
+                if (ticket.AssignedMember is not null)
+                {
+                    int assignedMemberId = (int)ticket.AssignedMember;
+                    if (_tickets.Count(t => t.AssignedMember == ticket.AssignedMember && t.Project == ticket.Project) == 1)
+                    {
+                        Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                        await Http.DeleteAsync($"https://localhost:7051/api/Assign/{ticket.Project}/{assignedMemberId}");
+                    }
+                }
+                await Http.DeleteAsync($"https://localhost:7051/api/Ticket/{ticket.IdTicket}");
                 await RefreshTicketsList();
             }
         }
