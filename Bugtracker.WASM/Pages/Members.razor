@@ -1,19 +1,28 @@
 ﻿@page "/members"
 <PageTitle>Members |Bugtracker</PageTitle>
-<h1>Users management</h1>
+
+<div class="row">
+    <div class="col-2">
+    </div>
+    <div class="col align-self-center">
+        <h1>Users management</h1>
 
 
-@if (!_isMemberConnected)
-{
-    <p class="text-danger">You are not connected. Click below to go to login page</p>
-    <button class="btn btn-outline-primary" @onclick="ToAccount">Login page</button>
-}
-else
-{
-    <p>Do you want to see the list of all users ?</p>
-    <button class="btn @((_displayMembersComponent) ? "btn-outline-secondary": "btn-outline-primary")" @onclick="DisplayMembersComponent" title="List of users">Users</button>
-    @if (_displayMembersComponent)
-    {
-        <DisplayMembers />
-    }
-}
+        @if (!_isMemberConnected)
+        {
+            <p class="text-danger">You are not connected. Click below to go to login page</p>
+            <button class="btn btn-outline-primary" @onclick="ToAccount">Login page</button>
+        }
+        else
+        {
+            <p>Do you want to see the list of all users ?</p>
+            <button class="btn @((_displayMembersComponent) ? "btn-outline-secondary": "btn-outline-primary")" @onclick="DisplayMembersComponent" title="List of users">Users</button>
+            @if (_displayMembersComponent)
+            {
+                <DisplayMembers />
+            }
+        }
+    </div>
+    <div class="col-2">
+    </div>
+</div>

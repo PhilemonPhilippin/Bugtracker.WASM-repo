@@ -1,26 +1,34 @@
 ﻿@page "/account"
 <PageTitle>Account |Bugtracker</PageTitle>
-<h1>My account</h1>
+<div class="row">
+    <div class="col-2">
+</div>
+    <div class="col align-self-center">
+        <h1>My account</h1>
 
-@if (!_isMemberConnected)
-{
-    <p>
-        In order to access the Bug tracker application, you must be logged in first. <br />
-        Do you want to login or create a new account ?
-    </p>
-    <button class="btn @((_displayLogin) ? "btn-outline-secondary" : "btn-outline-primary")" @onclick="DisplayLogin" title="Login">Login</button>
-    <button class="btn @((_displayRegistration) ? "btn-outline-secondary" : "btn-outline-primary")" @onclick="DisplayRegistration" title="Create account">Create new account</button>
+        @if (!_isMemberConnected)
+        {
+            <p>
+                In order to access the Bug tracker application, you must be logged in first. <br />
+                Do you want to login or create a new account ?
+            </p>
+            <button class="btn @((_displayLogin) ? "btn-outline-secondary" : "btn-outline-primary")" @onclick="DisplayLogin" title="Login">Login</button>
+            <button class="btn @((_displayRegistration) ? "btn-outline-secondary" : "btn-outline-primary")" @onclick="DisplayRegistration" title="Create account">Create new account</button>
 
-    @if (_displayRegistration)
-    {
-        <RegisterMember />
-    }
-    else if (_displayLogin)
-    {
-        <LoginMember />
-    }
-}
-else
-{
-    <LogoutMember OnConfirm=@(()=> _isMemberConnected = false) />
-}
+            @if (_displayRegistration)
+            {
+                <RegisterMember />
+            }
+            else if (_displayLogin)
+            {
+                <LoginMember />
+            }
+        }
+        else
+        {
+            <LogoutMember OnConfirm=@(()=> _isMemberConnected = false) />
+        }
+    </div>
+    <div class="col-2">
+</div>
+</div>

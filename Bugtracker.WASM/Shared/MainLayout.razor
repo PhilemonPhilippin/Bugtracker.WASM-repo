@@ -1,17 +1,40 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
+<nav class="py-2 bg-light border-bottom">
+    <div class="container d-flex flex-wrap">
+        <ul class="nav me-auto">
+            <li class="nav-item"><a href="/" class="nav-link link-dark px-2 active" aria-current="page">Dashboard</a></li>
+            <li class="nav-item"><a href="members" class="nav-link link-dark px-2">Users</a></li>
+            <li class="nav-item"><a href="account" class="nav-link link-dark px-2">Account</a></li>
+        </ul>
+        <ul class="nav">
+            <li class="nav-item"><a href="account" class="nav-link link-dark px-2">Login</a></li>
+            <li class="nav-item"><a href="account" class="nav-link link-dark px-2">Sign up</a></li>
+        </ul>
     </div>
-
+</nav>
+<header class="py-3 mb-4 border-bottom">
+    <div class="container d-flex justify-content-center">
+        <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
+            <span class="fs-4">Bug tracker application</span>
+        </a>
+    </div>
+</header>
+<div class="page">
     <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
-
         <article class="content px-4">
             @Body
         </article>
+
     </main>
+</div>
+<div class="container">
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Dashboard</a></li>
+            <li class="nav-item"><a href="members" class="nav-link px-2 text-muted">Users</a></li>
+            <li class="nav-item"><a href="account" class="nav-link px-2 text-muted">Account</a></li>
+        </ul>
+        <p class="text-center text-muted">&copy; 2022 Philemon Emile Olivier Philippin</p>
+    </footer>
 </div>
