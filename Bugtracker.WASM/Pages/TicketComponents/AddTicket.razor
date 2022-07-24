@@ -4,7 +4,8 @@
     <span class="text-success">Project added successfully !</span>
 }
 
-<EditForm Model="@AddedTicket" OnValidSubmit="@SubmitAdd">
+<div class="mt-3">
+<EditForm Model="@AddedTicket" OnValidSubmit="@SubmitAdd" class="p-4 p-md-5 border rounded-3 bg-light">
     <DataAnnotationsValidator />
     <label for="Title">
         Title: @if (_displayTitleTaken)
@@ -60,3 +61,4 @@
     <button @onclick="OnCancel" class="btn btn-primary mt-2" title="Cancel">Cancel</button>
     <ValidationSummary />
 </EditForm>
+</div>
