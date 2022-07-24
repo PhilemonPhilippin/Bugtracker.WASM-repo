@@ -1,10 +1,12 @@
-﻿<h3 class="mt-2">Member details</h3>
-@if (MemberTarget is null)
+﻿<h3 class="mt-2">Profile</h3>
+
+@if (_member is null)
 {
     <span>Loading User...</span>
 }
 else
 {
+    <button @onclick="DisplayEditProfileDialog" class="btn btn-warning mt-2 me-2" title="Edit">Edit Profile</button>
     <div class="row">
         <div class="col-md-6">
             <table class="table table-striped mt-3">
@@ -17,23 +19,26 @@ else
                 <tbody>
                     <tr>
                         <td>Pseudo</td>
-                        <td>@MemberTarget.Pseudo</td>
+                        <td>@_member.Pseudo</td>
                     </tr>
                     <tr>
                         <td>Email</td>
-                        <td>@MemberTarget.Email</td>
+                        <td>@_member.Email</td>
                     </tr>
                     <tr>
                         <td>Firstname</td>
-                        <td>@MemberTarget.Firstname</td>
+                        <td>@_member.Firstname</td>
                     </tr>
                     <tr>
                         <td>Lastname</td>
-                        <td>@MemberTarget.Lastname</td>
+                        <td>@_member.Lastname</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    <button @onclick="OnCancel" class="btn btn-primary mt-2">Close</button>
+}
+@if (_displayEditProfileDialog)
+{
+    <EditMember MemberTarget="_member" OnCancel="CloseMemberEditDialog" OnConfirm="ConfirmMemberEdit"/>
 }

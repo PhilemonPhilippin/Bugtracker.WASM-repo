@@ -28,6 +28,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
             {
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                // TODO: récupérer un MemberNoPswdModel
                 manager = await Http.GetFromJsonAsync<MemberModel>($"https://localhost:7051/api/Member/{ProjectTarget.Manager}");
             }
         }
