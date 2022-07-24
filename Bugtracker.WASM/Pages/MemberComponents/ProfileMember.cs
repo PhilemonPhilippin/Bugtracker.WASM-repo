@@ -15,8 +15,9 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         private MemberNoPswdModel _member = new MemberNoPswdModel();
         private bool _isMemberConnected;
         private bool _displayEditProfileDialog;
+        private bool _displayChangePswdDialog;
         private string _token;
-        private int? memberId;
+        private int? _memberId;
         protected override async Task OnInitializedAsync()
         {
             _isMemberConnected = await LocalStorage.HasToken();
@@ -24,8 +25,8 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             {
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                memberId = await Http.GetFromJsonAsync<int?>("https://localhost:7051/api/Member/idfromjwt");
-                _member = await Http.GetFromJsonAsync<MemberNoPswdModel>($"https://localhost:7051/api/Member/{memberId}");
+                _memberId = await Http.GetFromJsonAsync<int?>("https://localhost:7051/api/Member/idfromjwt");
+                _member = await Http.GetFromJsonAsync<MemberNoPswdModel>($"https://localhost:7051/api/Member/{_memberId}");
             }
         }
         private void DisplayEditProfileDialog()
@@ -53,7 +54,16 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             {
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                _member = await Http.GetFromJsonAsync<MemberNoPswdModel>($"https://localhost:7051/api/Member/{memberId}");
+                _member = await Http.GetFromJsonAsync<MemberNoPswdModel>($"https://localhost:7051/api/Member/{_memberId}");
+            }
+        }
+        private void DisplayChangePswdDialog()
+        {
+            if (_displayChangePswdDialog)
+                _displayChangePswdDialog = false;
+            else
+            {
+                _displayChangePswdDialog = true;
             }
         }
     }

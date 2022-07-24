@@ -32,4 +32,30 @@ namespace Bugtracker.WASM.Models.MemberModels
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }
+    public class MemberChangePswdModel
+    {
+        [Required]
+        public int IdMember { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        public string OldPassword { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        public string NewPassword { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        [Compare(nameof(NewPassword))]
+        public string ConfirmPassword { get; set; }
+    }
+    public class MemberPostPswdModel
+    {
+        [Required]
+        public int IdMember { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        public string OldPassword { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        public string NewPassword { get; set; }
+    }
 }

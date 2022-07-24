@@ -7,6 +7,7 @@
 else
 {
     <button @onclick="DisplayEditProfileDialog" class="btn btn-warning mt-2 me-2" title="Edit">Edit Profile</button>
+    <button @onclick="DisplayChangePswdDialog" class="btn btn-warning mt-2 me-2" title="Change Password">Change Password</button>
     <div class="row">
         <div class="col-md-6">
             <table class="table table-striped mt-3">
@@ -41,4 +42,8 @@ else
 @if (_displayEditProfileDialog)
 {
     <EditMember MemberTarget="_member" OnCancel="CloseMemberEditDialog" OnConfirm="ConfirmMemberEdit"/>
+}
+else if (_displayChangePswdDialog)
+{
+    <ChangePswdMember MemberId="@_memberId"/>
 }
