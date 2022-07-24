@@ -5,31 +5,35 @@
 }
 else
 {
-    <table class="table table-striped mt-3">
-        <thead class="table-primary">
-            <tr>
-                <th>Information</th>
-                <th>Member</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Pseudo</td>
-                <td>@MemberTarget.Pseudo</td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td>@MemberTarget.Email</td>
-            </tr>
-            <tr>
-                <td>Firstname</td>
-                <td>@MemberTarget.Firstname</td>
-            </tr>
-            <tr>
-                <td>Lastname</td>
-                <td>@MemberTarget.Lastname</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-6">
+            <table class="table table-striped mt-3">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Information</th>
+                        <th>Member</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pseudo</td>
+                        <td>@MemberTarget.Pseudo</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>@MemberTarget.Email</td>
+                    </tr>
+                    <tr>
+                        <td>Firstname</td>
+                        <td>@MemberTarget.Firstname</td>
+                    </tr>
+                    <tr>
+                        <td>Lastname</td>
+                        <td>@MemberTarget.Lastname</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
     <button @onclick="OnCancel" class="btn btn-primary mt-2">Close</button>
 }
