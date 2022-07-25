@@ -16,7 +16,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         [Inject]
         IMemberLocalStorage LocalStorage { get; set; }
         private List<ProjectModel> _projects = new List<ProjectModel>();
-        private List<MemberModel> _members = new List<MemberModel>();
+        private List<MemberNoPswdModel> _members = new List<MemberNoPswdModel>();
         private ProjectModel _projectTarget = new ProjectModel() { IdProject = 0 };
         private bool _displayProjectDetailsDialog;
         private bool _displayEditProjectDialog;
@@ -32,7 +32,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
-                _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
+                _members = await Http.GetFromJsonAsync<List<MemberNoPswdModel>>("https://localhost:7051/api/Member");
             }
         }
         private async Task DeleteProject(int id)

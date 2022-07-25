@@ -16,7 +16,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         private IMemberLocalStorage LocalStorage { get; set; }
         private List<ProjectModel> _projects = new List<ProjectModel>();
         private List<ProjectModel> _myProjects = new List<ProjectModel>();
-        private List<MemberModel> _members = new List<MemberModel>();
+        private List<MemberNoPswdModel> _members = new List<MemberNoPswdModel>();
         private List<AssignModel> _assigns = new List<AssignModel>();
         private ProjectModel _projectTarget = new ProjectModel() { IdProject = 0 };
         private int? _myMemberId;
@@ -33,7 +33,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
-                _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
+                _members = await Http.GetFromJsonAsync<List<MemberNoPswdModel>>("https://localhost:7051/api/Member");
                 _myMemberId = await Http.GetFromJsonAsync<int?>("https://localhost:7051/api/Member/idfromjwt");
                 _assigns = await Http.GetFromJsonAsync<List<AssignModel>>("https://localhost:7051/api/Assign");
                 // Je crée une liste avec les projects id pour lesquels le membre connecté est assigné.

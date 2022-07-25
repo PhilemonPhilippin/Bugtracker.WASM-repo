@@ -22,7 +22,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         [Parameter]
         public ProjectModel ProjectTarget { get; set; }
         private ProjectFormModel EditedProject { get; set; } = new ProjectFormModel();
-        private List<MemberModel> _members = new List<MemberModel>();
+        private List<MemberNoPswdModel> _members = new List<MemberNoPswdModel>();
         private bool _isMemberConnected;
         private bool _displayNameTaken;
         private string _token;
@@ -38,7 +38,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
             {
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
+                _members = await Http.GetFromJsonAsync<List<MemberNoPswdModel>>("https://localhost:7051/api/Member");
             }
         }
         private async Task SubmitEdit()

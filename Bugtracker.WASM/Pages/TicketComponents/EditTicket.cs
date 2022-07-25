@@ -24,7 +24,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         [Parameter]
         public TicketModel TicketTarget { get; set; }
         private List<ProjectModel> _projects = new List<ProjectModel>();
-        private List<MemberModel> _members = new List<MemberModel>();
+        private List<MemberNoPswdModel> _members = new List<MemberNoPswdModel>();
         private List<TicketModel> _tickets = new List<TicketModel>();
         private TicketEditModel EditedTicket { get; set; } = new TicketEditModel();
         private string _token;
@@ -40,7 +40,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
-                _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
+                _members = await Http.GetFromJsonAsync<List<MemberNoPswdModel>>("https://localhost:7051/api/Member");
             }
         }
         private async Task SubmitEdit()
