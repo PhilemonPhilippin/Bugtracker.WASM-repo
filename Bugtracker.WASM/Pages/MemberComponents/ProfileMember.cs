@@ -35,6 +35,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
                 _displayEditProfileDialog = false;
             else
             {
+                _displayChangePswdDialog = false;
                 _displayEditProfileDialog = true;
             }
         }
@@ -63,8 +64,13 @@ namespace Bugtracker.WASM.Pages.MemberComponents
                 _displayChangePswdDialog = false;
             else
             {
+                _displayEditProfileDialog = false;
                 _displayChangePswdDialog = true;
             }
+        }
+        private void CloseChangePswdDialog()
+        {
+            _displayChangePswdDialog = false;
         }
     }
 }

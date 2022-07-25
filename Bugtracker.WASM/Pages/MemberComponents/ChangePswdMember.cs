@@ -15,6 +15,8 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         private IMemberLocalStorage LocalStorage { get; set; }
         [Parameter]
         public int? MemberId { get; set; }
+        [Parameter]
+        public EventCallback OnCancel { get; set; }
         private MemberChangePswdModel pswdModel = new MemberChangePswdModel();
         private MemberPostPswdModel postPswdModel = new MemberPostPswdModel();
         private bool _displayIncorrectPassword;
