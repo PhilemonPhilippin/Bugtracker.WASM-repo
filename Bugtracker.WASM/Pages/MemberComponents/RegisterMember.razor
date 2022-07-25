@@ -1,9 +1,10 @@
-﻿<h3 class="mt-3">Registration form :</h3>
+﻿<h3 class="mt-4">Register :</h3>
 @if (_isRegistrationValid)
 {
     <span class="text-success">Registration completed! Please login above to access the application.</span>
 }
-<EditForm Model="@MemberRegistration" OnValidSubmit="@SubmitRegistration">
+<div class="mt-3">
+<EditForm Model="@MemberRegistration" OnValidSubmit="@SubmitRegistration" class="p-4 p-md-5 border rounded-3 bg-light">
     <DataAnnotationsValidator />
     <label for="Pseudo">
         Pseudo: @if (_displayPseudoTaken)
@@ -27,6 +28,7 @@
     <label for="ConfirmPassword">Confirm Password:</label>
     <InputText type="password" id="ConfirmPassword" @bind-Value="@MemberRegistration.ConfirmPassword" class="form-control" />
 
-    <button type="submit" class="btn btn-success mt-2">Confirm registration</button>
+    <button type="submit" class="btn btn-success mt-2" title="Confirm">Confirm registration</button>
     <ValidationSummary />
 </EditForm>
+</div>

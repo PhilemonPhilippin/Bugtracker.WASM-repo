@@ -5,7 +5,7 @@
     <span class="text-success">Password Changed with success!</span>
 }
 <div class="mt-3">
-    <EditForm Model="@pswdModel" OnValidSubmit="Submit">
+    <EditForm Model="@pswdModel" OnValidSubmit="Submit" class="p-4 p-md-5 border rounded-3 bg-light">
     <DataAnnotationsValidator />
 
     <label for="OldPassword">
@@ -23,7 +23,7 @@
     <label for="ConfirmPassword">Confirm Password:</label>
     <InputText type="password" id="ConfirmPassword" @bind-Value="@pswdModel.ConfirmPassword" class="form-control" />
 
-    <button type="submit" class="btn btn-success mt-2">Change Password</button>
+    <button type="submit" class="btn btn-success mt-2" title="Confirm">Confirm changes</button>
     <ValidationSummary />
     </EditForm>
 </div>

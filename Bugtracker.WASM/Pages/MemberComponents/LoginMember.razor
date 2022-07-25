@@ -1,5 +1,6 @@
-﻿<h3 class="mt-3">Login form :</h3>
-<EditForm Model="@MemberLogin" OnValidSubmit="@SubmitLogin">
+﻿<h3 class="mt-4">Login form :</h3>
+<div class="mt-3">
+<EditForm Model="@MemberLogin" OnValidSubmit="@SubmitLogin" class="p-4 p-md-5 border rounded-3 bg-light">
     <DataAnnotationsValidator />
     <label for="Pseudo">
         Pseudo: @if (_displayPseudoNotFound)
@@ -21,6 +22,7 @@
     </label>
     <InputText type="password" id="Password" @bind-Value="@MemberLogin.Password" class="form-control" />
 
-    <button type="submit" class="btn btn-success mt-2">Login</button>
+    <button type="submit" class="btn btn-success mt-2" title="Login">Login</button>
     <ValidationSummary />
 </EditForm>
+</div>
