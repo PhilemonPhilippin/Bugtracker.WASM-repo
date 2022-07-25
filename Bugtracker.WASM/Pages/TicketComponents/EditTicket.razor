@@ -48,6 +48,7 @@
         @if (_members.Count != 0)
         {
             <option value="" disabled>Select..</option>
+            <option value="">No Assigned yet</option>
             @foreach (MemberNoPswdModel member in _members)
             {
                 @if (member.Activated == true)
