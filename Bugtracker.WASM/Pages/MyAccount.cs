@@ -7,8 +7,7 @@ namespace Bugtracker.WASM.Pages
     {
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
-        //[Inject]
-        //private NavigationManager NavManager { get; set; }
+        
         private bool _displayLogin;
         private bool _displayRegistration;
         private bool _isMemberConnected;
@@ -18,13 +17,23 @@ namespace Bugtracker.WASM.Pages
         }
         private void DisplayLogin()
         {
-            _displayRegistration = false;
-            _displayLogin = true;
+            if (_displayLogin)
+                _displayLogin = false;
+            else
+            {
+                _displayRegistration = false;
+                _displayLogin = true;
+            }
         }
         private void DisplayRegistration()
         {
-            _displayLogin = false;
-            _displayRegistration = true;
+            if (_displayRegistration)
+                _displayRegistration = false;
+            else
+            {
+                _displayLogin = false;
+                _displayRegistration = true;
+            }
         }
     }
 }
