@@ -70,7 +70,7 @@ else
             <EditTicket OnCancel="@CloseEditDialog" OnConfirm="@ConfirmTicketEdit" TicketTarget="@_ticketTarget" />
         }
     }
-    <p class="fs-3 fw-normal mt-4">In Progress (@(_myTickets.Count(t => t.Status == 2)))</p>
+    <p class="fs-3 fw-normal mt-3">In Progress (@(_myTickets.Count(t => t.Status == 2)))</p>
     @if (_myTickets.Count(t => t.Status == 2) != 0)
     {
         <table class="table table-warning">
@@ -136,7 +136,7 @@ else
         }
     }
 
-    <p class="fs-3 fw-normal mt-4">Stuck (@(_myTickets.Count(t => t.Status == 3)))</p>
+    <p class="fs-3 fw-normal mt-3">Stuck (@(_myTickets.Count(t => t.Status == 3)))</p>
     @if (_myTickets.Count(t => t.Status == 3) != 0)
     {
         <table class="table table-danger">
@@ -201,7 +201,7 @@ else
             <EditTicket OnCancel="@CloseEditDialog" OnConfirm="@ConfirmTicketEdit" TicketTarget="@_ticketTarget" />
         }
     }
-    <p class="fs-3 fw-normal mt-4">Complete (@(_myTickets.Count(t => t.Status == 4)))</p>
+    <p class="fs-3 fw-normal mt-3">Complete (@(_myTickets.Count(t => t.Status == 4)))</p>
     @if (_myTickets.Count(t => t.Status == 4) != 0)
     {
         <table class="table table-success">
