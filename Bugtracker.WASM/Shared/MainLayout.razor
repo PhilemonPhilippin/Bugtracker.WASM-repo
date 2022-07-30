@@ -1,42 +1,44 @@
 ﻿@inherits LayoutComponentBase
 
-<nav class="py-2 bg-light border-bottom">
-    <div class="container d-flex flex-wrap">
-        <ul class="nav me-auto">
-            <li class="nav-item"><a href="/" class="nav-link link-dark px-2 active oi oi-home" aria-current="page"> Dashboard</a></li>
-            <li class="nav-item"><a href="manager" class="nav-link link-dark px-2 oi oi-clipboard"> Manager</a></li>
-            <li class="nav-item"><a href="members" class="nav-link link-dark px-2 oi oi-people"> Users</a></li>
-        </ul>
-        <ul class="nav">
-            <li class="nav-item"><a href="account" class="nav-link link-dark px-2 oi oi-person"> Account</a></li>
-            <li class="nav-item"><a href="logout" class="nav-link link-dark px-2 oi oi-account-logout"> Logout</a></li>
-        </ul>
+<div class="bg-white">
+    <nav class="py-2 border-bottom">
+        <div class="container d-flex flex-wrap">
+            <ul class="nav me-auto">
+                <li class="nav-item"><a href="/" class="nav-link link-dark px-2 active oi oi-home" aria-current="page"> Dashboard</a></li>
+                <li class="nav-item"><a href="manager" class="nav-link link-dark px-2 oi oi-clipboard"> Manager</a></li>
+                <li class="nav-item"><a href="members" class="nav-link link-dark px-2 oi oi-people"> Users</a></li>
+            </ul>
+            <ul class="nav">
+                <li class="nav-item"><a href="account" class="nav-link link-dark px-2 oi oi-person"> Account</a></li>
+                <li class="nav-item"><a href="logout" class="nav-link link-dark px-2 oi oi-account-logout"> Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <header class="py-3 mb-4 border-bottom bg-dark">
+        <div class="container d-flex justify-content-center">
+            <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
+                <span class="fs-4 text-white">Bug tracker</span>
+            </a>
+        </div>
+    </header>
+    <div class="page">
+        <div class="container bg-light">
+            <main>
+                <article class="content px-4">
+                    @Body
+                </article>
+            </main>
+        </div>
     </div>
-</nav>
-<header class="py-3 mb-4 border-bottom">
-    <div class="container d-flex justify-content-center">
-        <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
-            <span class="fs-4">Bug tracker</span>
-        </a>
-    </div>
-</header>
-<div class="page">
     <div class="container">
-    <main>
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+        <footer class="py-3 my-4">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Dashboard</a></li>
+                <li class="nav-item"><a href="members" class="nav-link px-2 text-muted">Users</a></li>
+                <li class="nav-item"><a href="manager" class="nav-link px-2 text-muted">Manager</a></li>
+                <li class="nav-item"><a href="account" class="nav-link px-2 text-muted">Account</a></li>
+            </ul>
+            <p class="text-center text-muted">&copy; 2022 Philemon Emile Olivier Philippin</p>
+        </footer>
     </div>
-</div>
-<div class="container">
-    <footer class="py-3 my-4">
-        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-            <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Dashboard</a></li>
-            <li class="nav-item"><a href="members" class="nav-link px-2 text-muted">Users</a></li>
-            <li class="nav-item"><a href="manager" class="nav-link px-2 text-muted">Manager</a></li>
-            <li class="nav-item"><a href="account" class="nav-link px-2 text-muted">Account</a></li>
-        </ul>
-        <p class="text-center text-muted">&copy; 2022 Philemon Emile Olivier Philippin</p>
-    </footer>
 </div>
