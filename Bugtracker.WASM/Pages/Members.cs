@@ -10,7 +10,7 @@ namespace Bugtracker.WASM.Pages
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         private bool _isMemberConnected;
-        private bool _displayMembersComponent;
+        private bool _displayMembersComponent = true;
         protected override async Task OnInitializedAsync()
         {
             _isMemberConnected = await LocalStorage.HasToken();

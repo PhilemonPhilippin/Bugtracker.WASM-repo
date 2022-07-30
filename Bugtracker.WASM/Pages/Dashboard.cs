@@ -19,7 +19,7 @@ namespace Bugtracker.WASM.Pages
         private bool _isMemberConnected;
         private bool _displayProjectsComponent;
         private bool _displayTicketsComponent;
-        private bool _displayMyTicketsComponent;
+        private bool _displayMyTicketsComponent = true;
         private bool _displayMyProjectsComponent;
         protected override async Task OnInitializedAsync()
         {

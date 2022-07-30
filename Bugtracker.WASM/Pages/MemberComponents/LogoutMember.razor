@@ -6,8 +6,8 @@
     <div class="col align-self-center">
         @if (_isMemberConnected)
         {
-            <h1>Logout</h1>
-            <span>Do you want to Logout ?</span>
+            <h1 class="oi oi-account-logout"> Logout</h1>
+            <p class="mt-3">Are you sure that you want to Logout ?</p>
             <div class="mt-2">
             <button @onclick="ToDashboard" class="btn btn-primary me-2" title="Navigate to Dashboard">Back to Dashboard</button>
             <button @onclick="ConfirmLogout" class="btn btn-danger" title="Logout">Logout</button>

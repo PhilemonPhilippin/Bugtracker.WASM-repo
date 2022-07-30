@@ -8,7 +8,7 @@ namespace Bugtracker.WASM.Pages
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         
-        private bool _displayLogin;
+        private bool _displayLogin = true;
         private bool _displayRegistration;
         private bool _isMemberConnected;
         protected async override Task OnInitializedAsync()

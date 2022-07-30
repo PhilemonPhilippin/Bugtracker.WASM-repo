@@ -5,8 +5,9 @@
     <div class="col-2">
     </div>
     <div class="col align-self-center">
-        <h1>Users management</h1>
-
+        <h1 class="oi oi-people"> Users management</h1>
+        <p class="mt-3">Welcome on the Users management page. <br />
+            Here, you can manage all registered users of the application.</p>
 
         @if (!_isMemberConnected)
         {
@@ -15,12 +16,13 @@
         }
         else
         {
-            <p>Do you want to see the list of all users ?</p>
+            @*<p>Do you want to see the list of all users ?</p>
             <button class="btn @((_displayMembersComponent) ? "btn-outline-secondary": "btn-outline-primary")" @onclick="DisplayMembersComponent" title="List of users">Users</button>
             @if (_displayMembersComponent)
             {
                 <DisplayMembers />
-            }
+            }*@
+            <DisplayMembers />
         }
     </div>
     <div class="col-2">
