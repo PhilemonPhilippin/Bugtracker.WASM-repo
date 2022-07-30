@@ -12,6 +12,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         public HttpClient Http { get; set; }
         [Inject]
         IMemberLocalStorage LocalStorage { get; set; }
+
         private List<TicketModel> _tickets = new List<TicketModel>();
         private List<ProjectModel> _projects = new List<ProjectModel>();
         private TicketModel _ticketTarget = new TicketModel() { IdTicket = 0 };

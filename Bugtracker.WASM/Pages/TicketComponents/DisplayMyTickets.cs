@@ -17,6 +17,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private List<ProjectModel> _projects = new List<ProjectModel>();
         private List<TicketModel> _myTickets = new List<TicketModel>();
         private TicketModel _ticketTarget = new TicketModel() { IdTicket = 0 };
+        private int _statusTarget;
         private int? _myMemberId;
         private string _token;
         private bool _isMemberConnected;
@@ -48,7 +49,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _myTickets = _tickets.Where(t => t.AssignedMember == _myMemberId).ToList();
             }
         }
-        private void DisplayTicketDetailsDialog(TicketModel ticket)
+        private void DisplayTicketDetailsDialog(TicketModel ticket, int status)
         {
             if (_displayTicketDetailsDialog)
                 _displayTicketDetailsDialog = false;
@@ -57,13 +58,14 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _displayEditTicketDialog = false;
                 _displayTicketDetailsDialog = true;
                 _ticketTarget = ticket;
+                _statusTarget = status;
             }
         }
         private void CloseDetailsDialog()
         {
             _displayTicketDetailsDialog = false;
         }
-        private void DisplayTicketEditDialog(TicketModel ticket)
+        private void DisplayTicketEditDialog(TicketModel ticket, int status)
         {
             if (_displayEditTicketDialog)
                 _displayEditTicketDialog = false;
@@ -72,6 +74,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _displayTicketDetailsDialog = false;
                 _displayEditTicketDialog = true;
                 _ticketTarget = ticket;
+                _statusTarget = status;
             }
         }
         private void CloseEditDialog()
