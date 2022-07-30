@@ -10,9 +10,7 @@ else
         <thead class="table-primary">
             <tr>
                 <th>Title</th>
-                <th>Status</th>
                 <th>Priority</th>
-                <th>Submit time</th>
                 <th>Project</th>
                 <th>Actions</th>
             </tr>
@@ -22,23 +20,6 @@ else
             {
                 <tr>
                     <td>@ticket.Title </td>
-                    <td>
-                        @switch (ticket.Status)
-                        {
-                            case 1:
-                                @:To-do
-                                break;
-                            case 2:
-                                @:In progress
-                                break;
-                            case 3:
-                                @:Stuck
-                                break;
-                            case 4:
-                                @:Complete
-                                break;
-                        }
-                    </td>
                     <td>
                         @switch (ticket.Priority)
                         {
@@ -53,7 +34,6 @@ else
                                 break;
                         }
                     </td>
-                    <td>@ticket.SubmitTime</td>
                     <td>
                         @if (_projects.Count != 0)
                         {

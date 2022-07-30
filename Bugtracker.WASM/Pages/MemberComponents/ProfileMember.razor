@@ -8,42 +8,38 @@ else
 {
     <button @onclick="DisplayEditProfileDialog" class="btn btn-warning mt-2 me-2" title="Edit">Edit Profile</button>
     <button @onclick="DisplayChangePswdDialog" class="btn btn-warning mt-2 me-2" title="Change Password">Change Password</button>
-    <div class="row">
-        <div class="col-md-6">
-            <table class="table table-striped mt-3">
-                <thead class="table-primary">
-                    <tr>
-                        <th>Information</th>
-                        <th>User</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Pseudo</td>
-                        <td>@_member.Pseudo</td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td>@_member.Email</td>
-                    </tr>
-                    <tr>
-                        <td>Firstname</td>
-                        <td>@_member.Firstname</td>
-                    </tr>
-                    <tr>
-                        <td>Lastname</td>
-                        <td>@_member.Lastname</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <table class="table table-striped mt-3">
+        <thead class="table-primary">
+            <tr>
+                <th>Information</th>
+                <th>User</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Pseudo</td>
+                <td>@_member.Pseudo</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>@_member.Email</td>
+            </tr>
+            <tr>
+                <td>Firstname</td>
+                <td>@_member.Firstname</td>
+            </tr>
+            <tr>
+                <td>Lastname</td>
+                <td>@_member.Lastname</td>
+            </tr>
+        </tbody>
+    </table>
 }
 @if (_displayEditProfileDialog)
 {
-    <EditMember MemberTarget="_member" OnCancel="CloseMemberEditDialog" OnConfirm="ConfirmMemberEdit"/>
+    <EditMember MemberTarget="_member" OnCancel="CloseMemberEditDialog" OnConfirm="ConfirmMemberEdit" />
 }
 else if (_displayChangePswdDialog)
 {
-    <ChangePswdMember MemberId="@_memberId" OnCancel="CloseChangePswdDialog"/>
+    <ChangePswdMember MemberId="@_memberId" OnCancel="CloseChangePswdDialog" />
 }
