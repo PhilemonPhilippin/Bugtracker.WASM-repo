@@ -267,11 +267,3 @@ else
         }
     }
 }
-@*@if (_displayTicketDetailsDialog)
-{
-<DetailsTicket OnCancel="@CloseDetailsDialog" TicketTarget="@_ticketTarget" />
-}
-else if (_displayEditTicketDialog)
-{
-<EditTicket OnCancel="@CloseEditDialog" OnConfirm="@ConfirmTicketEdit" TicketTarget="@_ticketTarget" />
-}*@

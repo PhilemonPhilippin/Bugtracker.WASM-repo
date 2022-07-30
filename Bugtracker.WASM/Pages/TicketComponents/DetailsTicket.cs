@@ -5,6 +5,7 @@ using static System.Net.WebRequestMethods;
 using System.Net.Http.Headers;
 using Bugtracker.WASM.Models.MemberModels;
 using System.Net.Http.Json;
+using Microsoft.JSInterop;
 
 namespace Bugtracker.WASM.Pages.TicketComponents
 {
@@ -14,6 +15,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private HttpClient Http { get; set; }
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
+      
         [Parameter]
         public TicketModel TicketTarget { get; set; }
         [Parameter]
@@ -23,6 +25,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private ProjectModel Project { get; set; } = new ProjectModel();
         private string _token;
         private bool _isMemberConnected;
+       
         protected override async Task OnInitializedAsync()
         {
             _isMemberConnected = await LocalStorage.HasToken();
