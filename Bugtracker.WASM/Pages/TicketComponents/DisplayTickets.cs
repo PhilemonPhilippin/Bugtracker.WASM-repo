@@ -12,15 +12,14 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         public HttpClient Http { get; set; }
         [Inject]
         IMemberLocalStorage LocalStorage { get; set; }
-
         private List<TicketModel> _tickets = new List<TicketModel>();
         private List<ProjectModel> _projects = new List<ProjectModel>();
         private TicketModel _ticketTarget = new TicketModel() { IdTicket = 0 };
-        private bool _isMemberConnected;
-        private bool _displayTicketDetailsDialog;
-        private bool _displayAddTicketDialog;
-        private bool _displayEditTicketDialog;
         private string _token;
+        private bool _isMemberConnected;
+        private bool _displayDetailsDialog;
+        private bool _displayAddDialog;
+        private bool _displayEditDialog;
         protected override async Task OnInitializedAsync()
         {
             _isMemberConnected = await LocalStorage.HasToken();
@@ -49,10 +48,10 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                     }
                 }
                 await Http.DeleteAsync($"https://localhost:7051/api/Ticket/{ticket.IdTicket}");
-                await RefreshTicketsList();
+                await RefreshTicketList();
             }
         }
-        private async Task RefreshTicketsList()
+        private async Task RefreshTicketList()
         {
             _isMemberConnected = await LocalStorage.HasToken();
             if (_isMemberConnected)
@@ -62,57 +61,51 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _tickets = await Http.GetFromJsonAsync<List<TicketModel>>("https://localhost:7051/api/Ticket");
             }
         }
-        private void DisplayTicketDetailsDialog(TicketModel ticket)
+        private async Task ConfirmEdit()
         {
-            if (_displayTicketDetailsDialog)
-                _displayTicketDetailsDialog = false;
-            else
+            await RefreshTicketList();
+            _displayEditDialog = false;
+        }
+        private void DisplayDetailsDialog(TicketModel ticket)
+        {
+            _displayDetailsDialog = !_displayDetailsDialog;
+            if (_displayDetailsDialog)
             {
-                _displayAddTicketDialog = false;
-                _displayEditTicketDialog = false;
-                _displayTicketDetailsDialog = true;
+                _displayAddDialog = false;
+                _displayEditDialog = false;
+                _ticketTarget = ticket;
+            }
+        }
+        private void DisplayAddDialog()
+        {
+            _displayAddDialog = !_displayAddDialog;
+            if (_displayAddDialog)
+            {
+                _displayEditDialog = false;
+                _displayDetailsDialog = false;
+            }
+        }
+        private void DisplayEditDialog(TicketModel ticket)
+        {
+            _displayEditDialog = !_displayEditDialog;
+            if (_displayEditDialog)
+            {
+                _displayAddDialog = false;
+                _displayDetailsDialog = false;
                 _ticketTarget = ticket;
             }
         }
         private void CloseDetailsDialog()
         {
-            _displayTicketDetailsDialog = false;
-        }
-        private void DisplayAddTicketDialog()
-        {
-            if (_displayAddTicketDialog)
-                _displayAddTicketDialog = false;
-            else
-            {
-                _displayEditTicketDialog = false;
-                _displayTicketDetailsDialog = false;
-                _displayAddTicketDialog = true;
-            }
+            _displayDetailsDialog = false;
         }
         private void CloseAddDialog()
         {
-            _displayAddTicketDialog = false;
-        }
-        private void DisplayTicketEditDialog(TicketModel ticket)
-        {
-            if (_displayEditTicketDialog)
-                _displayEditTicketDialog = false;
-            else
-            {
-                _displayAddTicketDialog = false;
-                _displayTicketDetailsDialog = false;
-                _displayEditTicketDialog = true;
-                _ticketTarget = ticket;
-            }
+            _displayAddDialog = false;
         }
         private void CloseEditDialog()
         {
-            _displayEditTicketDialog = false;
-        }
-        private async Task ConfirmTicketEdit()
-        {
-            await RefreshTicketsList();
-            _displayEditTicketDialog = false;
+            _displayEditDialog = false;
         }
     }
 }

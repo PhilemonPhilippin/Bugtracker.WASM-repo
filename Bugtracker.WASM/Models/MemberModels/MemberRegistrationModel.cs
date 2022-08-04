@@ -32,7 +32,7 @@ namespace Bugtracker.WASM.Models.MemberModels
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }
-    public class MemberChangePswdModel
+    public class MemberFormPswdModel
     {
         [Required]
         public int IdMember { get; set; }

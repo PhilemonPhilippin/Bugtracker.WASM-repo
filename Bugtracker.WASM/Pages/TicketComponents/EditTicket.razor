@@ -1,77 +1,81 @@
 ﻿<h3 class="mt-4">Edit a ticket</h3>
 
 <div class="mt-3">
-<EditForm Model="@EditedTicket" OnValidSubmit="@SubmitEdit" class="p-4 p-md-5 border rounded-3 bg-light">
-    <DataAnnotationsValidator />
+    <EditForm Model="@EditedTicket" OnValidSubmit="@SubmitEdit" class="p-4 p-md-5 border rounded-3 bg-light">
+        <DataAnnotationsValidator />
 
-    <label for="Title">
-        Title: @if (_displayTitleTaken)
-        {
-            <span class="text-danger"> /!\ This title is already taken.</span>
-        }
-    </label>
-    <InputText id="Title" @bind-Value="@EditedTicket.Title" class="form-control" />
-
-    <label for="Status">
-        Status:
-    </label>
-    <InputSelect id="Status" @bind-Value="@EditedTicket.Status" class="form-control">
-       <option value="1">To-do</option>
-       <option value="2">In Progress</option>
-       <option value="3">Stuck</option>
-       <option value="4">Complete</option>
-    </InputSelect>
-
-    <label for="Priority">
-        Priority:
-    </label>
-    <InputSelect id="Priority" @bind-Value="@EditedTicket.Priority" class="form-control">
-       <option value="1">High</option>
-       <option value="2">Medium</option>
-       <option value="3">Low</option>
-    </InputSelect>
-
-    <label for="Type">
-        Type:
-    </label>
-    <InputText id="Type" @bind-Value="@EditedTicket.Type" class="form-control" />
-
-    <label for="Description">
-        Description:
-    </label>
-    <InputText id="Description" @bind-Value="@EditedTicket.Description" class="form-control" />
-
-    <label for="AssignedMember">
-        Assigned member:
-    </label>
-    <InputSelect id="AssignedMember" @bind-Value="@EditedTicket.AssignedMember" class="form-control">
-        @if (_members.Count != 0)
-        {
-            <option value="" disabled>Select..</option>
-            <option value="">No Assigned yet</option>
-            @foreach (MemberNoPswdModel member in _members)
+        <label for="Title">
+            Title: @if (_displayTitleTaken)
             {
-                @if (member.Activated == true)
-                 {<option value="@member.IdMember">@member.Pseudo</option>}
+                <span class="text-danger"> /!\ This title is already taken.</span>
             }
-        }
-    </InputSelect>
+        </label>
+        <InputText id="Title" @bind-Value="@EditedTicket.Title" class="form-control" />
 
-    <label for="Project">
-        Project:
-    </label>
-    <InputSelect id="Project" @bind-Value="@EditedTicket.Project" class="form-control">
-        @if (_projects.Count != 0)
-        {
-            <option value="" disabled>Select..</option>
-            @foreach (ProjectModel project in _projects)
+        <label for="Status">
+            Status:
+        </label>
+        <InputSelect id="Status" @bind-Value="@EditedTicket.Status" class="form-control">
+            <option value="1">To-do</option>
+            <option value="2">In Progress</option>
+            <option value="3">Stuck</option>
+            <option value="4">Complete</option>
+        </InputSelect>
+
+        <label for="Priority">
+            Priority:
+        </label>
+        <InputSelect id="Priority" @bind-Value="@EditedTicket.Priority" class="form-control">
+            <option value="1">High</option>
+            <option value="2">Medium</option>
+            <option value="3">Low</option>
+        </InputSelect>
+
+        <label for="Type">
+            Type:
+        </label>
+        <InputText id="Type" @bind-Value="@EditedTicket.Type" class="form-control" />
+
+        <label for="Description">
+            Description:
+        </label>
+        <InputText id="Description" @bind-Value="@EditedTicket.Description" class="form-control" />
+
+        <label for="AssignedMember">
+            Assigned member:
+        </label>
+        <InputSelect id="AssignedMember" @bind-Value="@EditedTicket.AssignedMember" class="form-control">
+            @if (_members.Count != 0)
             {
-                <option value="@project.IdProject">@project.Name</option>
+                <option value="" disabled>Select..</option>
+                <option value="">No Assigned yet</option>
+                @foreach (MemberModel member in _members)
+                {
+                    @if (member.Activated == true)
+                    {
+                        <option value="@member.IdMember">@member.Pseudo</option>
+                    }
+                }
             }
-        }
-    </InputSelect>
-    <button type="submit" class="btn btn-warning mt-2 me-2" title="Edit">Confirm Edit</button>
-    <button @onclick="OnCancel" class="btn btn-primary mt-2" title="Close">Close</button>
-    <ValidationSummary />
-</EditForm>
+        </InputSelect>
+
+        <label for="Project">
+            Project:
+        </label>
+        <InputSelect id="Project" @bind-Value="@EditedTicket.Project" class="form-control">
+            @if (_projects.Count != 0)
+            {
+                <option value="" disabled>Select..</option>
+                @foreach (ProjectModel project in _projects)
+                {
+                    <option value="@project.IdProject">@project.Name</option>
+                }
+            }
+        </InputSelect>
+
+        <button type="submit" class="btn btn-warning mt-2 me-2" title="Edit">Confirm Edit</button>
+        <button @onclick="OnCancel" class="btn btn-primary mt-2" title="Close">Close</button>
+
+        <ValidationSummary />
+    </EditForm>
 </div>

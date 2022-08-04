@@ -18,7 +18,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         public EventCallback OnCancel { get; set; }
         [Parameter]
         public EventCallback OnConfirm { get; set; }
-        private List<MemberNoPswdModel> _members = new List<MemberNoPswdModel>();
+        private List<MemberModel> _members = new List<MemberModel>();
         private ProjectFormModel AddedProject { get; set; } = new ProjectFormModel() { IdProject = default };
 
         private bool _displayNameTaken;
@@ -33,10 +33,9 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
             {
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                _members = await Http.GetFromJsonAsync<List<MemberNoPswdModel>>("https://localhost:7051/api/Member");
+                _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
             }
         }
-
         private async Task SubmitAdd()
         {
             _isMemberConnected = await LocalStorage.HasToken();
@@ -52,8 +51,8 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    string message = await response.Content.ReadAsStringAsync();
-                    if (message.Contains("Name already exists."))
+                    string errorMessage = await response.Content.ReadAsStringAsync();
+                    if (errorMessage.Contains("Name already exists."))
                         _displayNameTaken = true;
                 }
                 else

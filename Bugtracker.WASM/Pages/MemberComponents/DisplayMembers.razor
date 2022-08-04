@@ -20,8 +20,9 @@ else
                 </th>
             </tr>
         </thead>
+
         <tbody>
-            @foreach (MemberNoPswdModel member in _members)
+            @foreach (MemberModel member in _members)
             {
                 @if (member.Activated == true)
                 {
@@ -30,16 +31,18 @@ else
                         <td>
                             @member.Pseudo
                         </td>
+
                         <td>
                             @member.Email
                         </td>
+
                         <td>
-                            <button class="btn @((member.IdMember == _memberTarget.IdMember && _displayMemberDetailsDialog) ? "btn-secondary":"btn-primary")"
-                        @onclick="() => DisplayMemberDetailsDialog(member)" title="Details">
+                            <button class="btn @((member.IdMember == _memberTarget.IdMember && _displayDetailsDialog) ? "btn-secondary":"btn-primary")"
+                        @onclick="() => DisplayDetailsDialog(member)" title="Details">
                                 <img src="/custom-icons/arrows-angle-expand.svg" alt="Details" />
                             </button>
-                            <button class="btn @((member.IdMember == _memberTarget.IdMember && _displayMemberEditDialog) ? "btn-secondary":"btn-warning") ms-1"
-                        @onclick="() => DisplayMemberEditDialog(member)" title="Edit">
+                            <button class="btn @((member.IdMember == _memberTarget.IdMember && _displayEditDialog) ? "btn-secondary":"btn-warning") ms-1"
+                        @onclick="() => DisplayEditDialog(member)" title="Edit">
                                 <img src="/custom-icons/pen.svg" alt="Edit" />
                             </button>
                             <button class="btn btn-danger ms-1" @onclick="() => DeleteMember(member.IdMember)" title="Delete">
@@ -52,12 +55,13 @@ else
             }
         </tbody>
     </table>
-    @if (_displayMemberDetailsDialog)
+
+    @if (_displayDetailsDialog)
     {
         <DetailsMember MemberTarget="@_memberTarget" OnCancel="CloseDetailsDialog" />
     }
-    else if (_displayMemberEditDialog)
+    else if (_displayEditDialog)
     {
-        <EditMember MemberTarget="@_memberTarget" OnCancel="CloseMemberEditDialog" OnConfirm="ConfirmMemberEdit" />
+        <EditMember MemberTarget="@_memberTarget" OnCancel="CloseEditDialog" OnConfirm="ConfirmEdit" />
     }
 }

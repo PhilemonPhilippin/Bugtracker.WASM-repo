@@ -1,4 +1,5 @@
 ﻿<h2 class="mt-3">My Tickets</h2>
+
 @if (_myTickets.Count == 0)
 {
     <span class="mt-2">Loading tickets list...</span>
@@ -6,6 +7,7 @@
 else
 {
     <p class="fs-3 fw-normal mt-4">To-do (@(_myTickets.Count(t => t.Status == 1)))</p>
+
     @if (_myTickets.Count(t => t.Status == 1) != 0)
     {
         <table class="table table-warning">
@@ -18,6 +20,7 @@ else
                     <th>Actions</th>
                 </tr>
             </thead>
+
             <tbody>
                 @foreach (TicketModel ticket in _myTickets)
                 {
@@ -26,6 +29,7 @@ else
 
                         <tr>
                             <td>@ticket.Title </td>
+
                             <td>
                                 @switch (ticket.Priority)
                                 {
@@ -40,19 +44,21 @@ else
                                         break;
                                 }
                             </td>
+
                             <td>
                                 @if (_projects.Count != 0)
                                 {
                                     @_projects.Where(project => project.IdProject == ticket.Project).SingleOrDefault().Name
                                 }
                             </td>
+
                             <td>
                                 <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayTicketDetailsDialog) ? "btn-secondary":"btn-primary")"
                         @onclick="() => DisplayTicketDetailsDialog(ticket, 1)" title="Details">
                                     <img src="/custom-icons/arrows-angle-expand.svg" alt="Details" />
                                 </button>
-                                <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayEditTicketDialog) ? "btn-secondary":"btn-warning") ms-1"
-                        @onclick="() => DisplayTicketEditDialog(ticket, 1)" title="Edit">
+
+                                <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayEditTicketDialog) ? "btn-secondary":"btn-warning") ms-1" @onclick="() => DisplayTicketEditDialog(ticket, 1)" title="Edit">
                                     <img src="/custom-icons/pen.svg" alt="Edit" />
                                 </button>
                             </td>
@@ -61,6 +67,7 @@ else
                 }
             </tbody>
         </table>
+
         @if (_displayTicketDetailsDialog && _statusTarget == 1)
         {
             <DetailsTicket OnCancel="@CloseDetailsDialog" TicketTarget="@_ticketTarget" />
@@ -70,7 +77,10 @@ else
             <EditTicket OnCancel="@CloseEditDialog" OnConfirm="@ConfirmTicketEdit" TicketTarget="@_ticketTarget" />
         }
     }
+
+
     <p class="fs-3 fw-normal mt-3">In Progress (@(_myTickets.Count(t => t.Status == 2)))</p>
+
     @if (_myTickets.Count(t => t.Status == 2) != 0)
     {
         <table class="table table-warning">
@@ -83,6 +93,7 @@ else
                     <th>Actions</th>
                 </tr>
             </thead>
+
             <tbody>
                 @foreach (TicketModel ticket in _myTickets)
                 {
@@ -91,6 +102,7 @@ else
 
                         <tr>
                             <td>@ticket.Title </td>
+
                             <td>
                                 @switch (ticket.Priority)
                                 {
@@ -105,19 +117,21 @@ else
                                         break;
                                 }
                             </td>
+
                             <td>
                                 @if (_projects.Count != 0)
                                 {
                                     @_projects.Where(project => project.IdProject == ticket.Project).SingleOrDefault().Name
                                 }
                             </td>
+
                             <td>
                                 <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayTicketDetailsDialog) ? "btn-secondary":"btn-primary")"
                         @onclick="() => DisplayTicketDetailsDialog(ticket, 2)" title="Details">
                                     <img src="/custom-icons/arrows-angle-expand.svg" alt="Details" />
                                 </button>
-                                <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayEditTicketDialog) ? "btn-secondary":"btn-warning") ms-1"
-                        @onclick="() => DisplayTicketEditDialog(ticket, 2)" title="Edit">
+
+                                <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayEditTicketDialog) ? "btn-secondary":"btn-warning") ms-1" @onclick="() => DisplayTicketEditDialog(ticket, 2)" title="Edit">
                                     <img src="/custom-icons/pen.svg" alt="Edit" />
                                 </button>
                             </td>
@@ -126,6 +140,7 @@ else
                 }
             </tbody>
         </table>
+
         @if (_displayTicketDetailsDialog && _statusTarget == 2)
         {
             <DetailsTicket OnCancel="@CloseDetailsDialog" TicketTarget="@_ticketTarget" />
@@ -137,6 +152,7 @@ else
     }
 
     <p class="fs-3 fw-normal mt-3">Stuck (@(_myTickets.Count(t => t.Status == 3)))</p>
+
     @if (_myTickets.Count(t => t.Status == 3) != 0)
     {
         <table class="table table-danger">
@@ -149,6 +165,7 @@ else
                     <th>Actions</th>
                 </tr>
             </thead>
+
             <tbody>
                 @foreach (TicketModel ticket in _myTickets)
                 {
@@ -157,6 +174,7 @@ else
 
                         <tr>
                             <td>@ticket.Title </td>
+
                             <td>
                                 @switch (ticket.Priority)
                                 {
@@ -171,19 +189,21 @@ else
                                         break;
                                 }
                             </td>
+
                             <td>
                                 @if (_projects.Count != 0)
                                 {
                                     @_projects.Where(project => project.IdProject == ticket.Project).SingleOrDefault().Name
                                 }
                             </td>
+
                             <td>
                                 <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayTicketDetailsDialog) ? "btn-secondary":"btn-primary")"
                         @onclick="() => DisplayTicketDetailsDialog(ticket, 3)" title="Details">
                                     <img src="/custom-icons/arrows-angle-expand.svg" alt="Details" />
                                 </button>
-                                <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayEditTicketDialog) ? "btn-secondary":"btn-warning") ms-1"
-                        @onclick="() => DisplayTicketEditDialog(ticket, 3)" title="Edit">
+
+                                <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayEditTicketDialog) ? "btn-secondary":"btn-warning") ms-1" @onclick="() => DisplayTicketEditDialog(ticket, 3)" title="Edit">
                                     <img src="/custom-icons/pen.svg" alt="Edit" />
                                 </button>
                             </td>
@@ -192,6 +212,7 @@ else
                 }
             </tbody>
         </table>
+
         @if (_displayTicketDetailsDialog && _statusTarget == 3)
         {
             <DetailsTicket OnCancel="@CloseDetailsDialog" TicketTarget="@_ticketTarget" />
@@ -201,7 +222,9 @@ else
             <EditTicket OnCancel="@CloseEditDialog" OnConfirm="@ConfirmTicketEdit" TicketTarget="@_ticketTarget" />
         }
     }
+
     <p class="fs-3 fw-normal mt-3">Complete (@(_myTickets.Count(t => t.Status == 4)))</p>
+
     @if (_myTickets.Count(t => t.Status == 4) != 0)
     {
         <table class="table table-success">
@@ -214,6 +237,7 @@ else
                     <th>Actions</th>
                 </tr>
             </thead>
+
             <tbody>
                 @foreach (TicketModel ticket in _myTickets)
                 {
@@ -222,6 +246,7 @@ else
 
                         <tr>
                             <td>@ticket.Title </td>
+
                             <td>
                                 @switch (ticket.Priority)
                                 {
@@ -236,19 +261,21 @@ else
                                         break;
                                 }
                             </td>
+
                             <td>
                                 @if (_projects.Count != 0)
                                 {
                                     @_projects.Where(project => project.IdProject == ticket.Project).SingleOrDefault().Name
                                 }
                             </td>
+
                             <td>
                                 <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayTicketDetailsDialog) ? "btn-secondary":"btn-primary")"
                         @onclick="() => DisplayTicketDetailsDialog(ticket, 4)" title="Details">
                                     <img src="/custom-icons/arrows-angle-expand.svg" alt="Details" />
                                 </button>
-                                <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayEditTicketDialog) ? "btn-secondary":"btn-warning") ms-1"
-                        @onclick="() => DisplayTicketEditDialog(ticket, 4)" title="Edit">
+
+                                <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayEditTicketDialog) ? "btn-secondary":"btn-warning") ms-1" @onclick="() => DisplayTicketEditDialog(ticket, 4)" title="Edit">
                                     <img src="/custom-icons/pen.svg" alt="Edit" />
                                 </button>
                             </td>
@@ -257,6 +284,7 @@ else
                 }
             </tbody>
         </table>
+
         @if (_displayTicketDetailsDialog && _statusTarget == 4)
         {
             <DetailsTicket OnCancel="@CloseDetailsDialog" TicketTarget="@_ticketTarget" />

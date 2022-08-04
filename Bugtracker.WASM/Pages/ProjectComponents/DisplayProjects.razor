@@ -1,5 +1,7 @@
 ﻿<h2 class="mt-4">Projects</h2>
-<button @onclick="DisplayAddProjectDialog" class="btn @((_displayAddProjectDialog) ? "btn-secondary" : "btn-success") mt-4" title="Add">Add Project</button>
+
+<button @onclick="DisplayAddDialog" class="btn @((_displayAddDialog) ? "btn-secondary" : "btn-success") mt-4" title="Add">Add Project</button>
+
 @if (_projects.Count == 0)
 {
     <span class="mt-2">Loading projects list...</span>
@@ -14,26 +16,31 @@ else
                 <th>Actions</th>
             </tr>
         </thead>
+
         <tbody>
             @foreach (ProjectModel project in _projects)
             {
                 <tr>
                     <td>@project.Name</td>
+
                     <td>
                         @if (_members.Count != 0)
                         {
                             @_members.Where(member => member.IdMember == project.Manager).SingleOrDefault().Pseudo
                         }
                     </td>
+
                     <td>
-                        <button class="btn @((project.IdProject == _projectTarget.IdProject && _displayProjectDetailsDialog) ? "btn-secondary":"btn-primary")"
-                        @onclick="() => DisplayProjectDetailsDialog(project)" title="Details">
+                        <button class="btn @((project.IdProject == _projectTarget.IdProject && _displayDetailsDialog) ? "btn-secondary":"btn-primary")"
+                        @onclick="() => DisplayDetailsDialog(project)" title="Details">
                             <img src="/custom-icons/arrows-angle-expand.svg" alt="Details" />
                         </button>
-                        <button class="btn @((project.IdProject == _projectTarget.IdProject && _displayEditProjectDialog) ? "btn-secondary":"btn-warning") ms-1"
-                        @onclick="() => DisplayProjectEditDialog(project)" title="Edit">
+
+                        <button class="btn @((project.IdProject == _projectTarget.IdProject && _displayEditDialog) ? "btn-secondary":"btn-warning") ms-1"
+                        @onclick="() => DisplayEditDialog(project)" title="Edit">
                             <img src="/custom-icons/pen.svg" alt="Edit" />
                         </button>
+
                         <button class="btn btn-danger ms-1" @onclick="() => DeleteProject(project.IdProject)" title="Delete">
                             <img src="/custom-icons/trash3.svg" alt="Delete" />
                         </button>
@@ -42,16 +49,17 @@ else
             }
         </tbody>
     </table>
-    @if (_displayAddProjectDialog)
+
+    @if (_displayAddDialog)
     {
-        <AddProject OnCancel="@CloseAddDialog" OnConfirm="@RefreshProjectsList" />
+        <AddProject OnCancel="@CloseAddDialog" OnConfirm="@RefreshProjectList" />
     }
-    else if (_displayProjectDetailsDialog)
+    else if (_displayDetailsDialog)
     {
         <DetailsProject OnCancel="@CloseDetailsDialog" ProjectTarget="@_projectTarget" />
     }
-    else if (_displayEditProjectDialog)
+    else if (_displayEditDialog)
     {
-        <EditProject OnCancel="@CloseEditDialog" OnConfirm="@ConfirmProjectEdit" ProjectTarget="@_projectTarget" />
+        <EditProject OnCancel="@CloseEditDialog" OnConfirm="@ConfirmEdit" ProjectTarget="@_projectTarget" />
     }
 }

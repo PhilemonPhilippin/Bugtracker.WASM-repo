@@ -24,23 +24,24 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         [Parameter]
         public TicketModel TicketTarget { get; set; }
         private List<ProjectModel> _projects = new List<ProjectModel>();
-        private List<MemberNoPswdModel> _members = new List<MemberNoPswdModel>();
+        private List<MemberModel> _members = new List<MemberModel>();
         private List<TicketModel> _tickets = new List<TicketModel>();
         private TicketEditModel EditedTicket { get; set; } = new TicketEditModel();
         private string _token;
         private bool _isMemberConnected;
         private bool _displayTitleTaken;
+
         protected override async Task OnInitializedAsync()
         {
             EditedTicket = TicketTarget.ToEditModel();
-            _isMemberConnected = await LocalStorage.HasToken();
 
+            _isMemberConnected = await LocalStorage.HasToken();
             if (_isMemberConnected)
             {
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
-                _members = await Http.GetFromJsonAsync<List<MemberNoPswdModel>>("https://localhost:7051/api/Member");
+                _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
             }
         }
         private async Task SubmitEdit()
@@ -74,7 +75,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                     {
                         // On supprime l'Assign de l'ancienne combinaison AssignedMember + Project si aucun autre ticket n'a cette combinaison.
                         int assignedMemberId = (int)TicketTarget.AssignedMember;
-                        AssignMinimalModel oldAssign = new AssignMinimalModel() {Project = TicketTarget.Project, Member = assignedMemberId };
+                        AssignMinimalModel oldAssign = new AssignMinimalModel() { Project = TicketTarget.Project, Member = assignedMemberId };
                         // Si parmi tous les tickets il n'y en a qu'un avec l'ancienne combinaison, on le supprime.
                         if (_tickets.Count(ticket => ticket.AssignedMember == TicketTarget.AssignedMember && ticket.Project == TicketTarget.Project) == 1)
                         {

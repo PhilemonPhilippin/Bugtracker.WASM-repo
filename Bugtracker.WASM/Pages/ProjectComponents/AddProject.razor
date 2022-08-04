@@ -1,44 +1,47 @@
 ﻿<h3 class="mt-4">Add a project</h3>
+
 @if (_isProjectAdded)
 {
     <span class="text-success">Project added successfully !</span>
 }
+
 <div class="mt-3">
-<EditForm Model="@AddedProject" OnValidSubmit="@SubmitAdd" class="p-4 p-md-5 border rounded-3 bg-light">
-    <DataAnnotationsValidator />
+    <EditForm Model="@AddedProject" OnValidSubmit="@SubmitAdd" class="p-4 p-md-5 border rounded-3 bg-light">
+        <DataAnnotationsValidator />
 
-    <label for="Name">
-        Name: @if (_displayNameTaken)
-        {
-            <span class="text-danger"> /!\ This name is already taken.</span>
-        }
-    </label>
-    <InputText id="Name" @bind-Value="@AddedProject.Name" class="form-control" />
-    
-    <label for="Description">
-        Description:
-    </label>
-    <InputText id="Description" @bind-Value="@AddedProject.Description" class="form-control" />
-  
-
-    <label for="Manager">
-        Manager:
-    </label>
-    <InputSelect id="Manager" @bind-Value="@AddedProject.Manager" class="form-control">
-        @if (_members.Count != 0)
-        {
-            <option value="" disabled>Select..</option>
-            @foreach (MemberNoPswdModel member in _members)
+        <label for="Name">
+            Name: @if (_displayNameTaken)
             {
-                @if (member.Activated == true)
+                <span class="text-danger"> /!\ This name is already taken.</span>
+            }
+        </label>
+        <InputText id="Name" @bind-Value="@AddedProject.Name" class="form-control" />
+
+        <label for="Description">
+            Description:
+        </label>
+        <InputText id="Description" @bind-Value="@AddedProject.Description" class="form-control" />
+
+        <label for="Manager">
+            Manager:
+        </label>
+        <InputSelect id="Manager" @bind-Value="@AddedProject.Manager" class="form-control">
+            @if (_members.Count != 0)
+            {
+                <option value="" disabled>Select..</option>
+                @foreach (MemberModel member in _members)
                 {
-                    <option value="@member.IdMember">@member.Pseudo</option>
+                    @if (member.Activated == true)
+                    {
+                        <option value="@member.IdMember">@member.Pseudo</option>
+                    }
                 }
             }
-        }
-    </InputSelect>
-    <button type="submit" class="btn btn-success mt-2 me-2" title="Add">Confirm add</button>
-    <button @onclick="OnCancel" class="btn btn-primary mt-2" title="Close">Close</button>
-    <ValidationSummary />
-</EditForm>
+        </InputSelect>
+
+        <button type="submit" class="btn btn-success mt-2 me-2" title="Add">Confirm add</button>
+        <button @onclick="OnCancel" class="btn btn-primary mt-2" title="Close">Close</button>
+
+        <ValidationSummary />
+    </EditForm>
 </div>

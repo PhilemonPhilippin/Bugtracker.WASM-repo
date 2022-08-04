@@ -7,33 +7,25 @@ namespace Bugtracker.WASM.Pages
     {
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
-        
         private bool _displayLogin = true;
         private bool _displayRegistration;
         private bool _isMemberConnected;
+
         protected async override Task OnInitializedAsync()
         {
             _isMemberConnected = await LocalStorage.HasToken();
         }
         private void DisplayLogin()
         {
+            _displayLogin = !_displayLogin;
             if (_displayLogin)
-                _displayLogin = false;
-            else
-            {
                 _displayRegistration = false;
-                _displayLogin = true;
-            }
         }
         private void DisplayRegistration()
         {
+            _displayRegistration = !_displayRegistration;
             if (_displayRegistration)
-                _displayRegistration = false;
-            else
-            {
                 _displayLogin = false;
-                _displayRegistration = true;
-            }
         }
     }
 }

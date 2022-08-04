@@ -24,6 +24,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private bool _isMemberConnected;
         private bool _displayTitleTaken;
         private bool _isTicketAdded;
+
         protected override async Task OnInitializedAsync()
         {
             _isMemberConnected = await LocalStorage.HasToken();
@@ -44,16 +45,17 @@ namespace Bugtracker.WASM.Pages.TicketComponents
 
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                int? submitMemberId = await Http.GetFromJsonAsync<int?>("https://localhost:7051/api/Member/idfromjwt");
+                int submitMemberId = await Http.GetFromJsonAsync<int>("https://localhost:7051/api/Member/idfromjwt");
+
                 TicketModel ticketModel = AddedTicket.ToModel();
                 ticketModel.SubmitMember = submitMemberId;
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+
                 using HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Ticket", ticketModel);
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    string message = await response.Content.ReadAsStringAsync();
-                    if (message.Contains("Title already exists."))
+                    string errorMessage = await response.Content.ReadAsStringAsync();
+                    if (errorMessage.Contains("Title already exists."))
                         _displayTitleTaken = true;
                 }
                 else

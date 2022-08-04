@@ -18,7 +18,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private List<TicketModel> _myTickets = new List<TicketModel>();
         private TicketModel _ticketTarget = new TicketModel() { IdTicket = 0 };
         private int _statusTarget;
-        private int? _myMemberId;
+        private int _myMemberId;
         private string _token;
         private bool _isMemberConnected;
         private bool _displayTicketDetailsDialog;
@@ -33,7 +33,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _tickets = await Http.GetFromJsonAsync<List<TicketModel>>("https://localhost:7051/api/Ticket");
                 _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
-                _myMemberId = await Http.GetFromJsonAsync<int?>("https://localhost:7051/api/Member/idfromjwt");
+                _myMemberId = await Http.GetFromJsonAsync<int>("https://localhost:7051/api/Member/idfromjwt");
                 _myTickets = _tickets.Where(t => t.AssignedMember == _myMemberId).ToList();
             }
         }
@@ -49,30 +49,27 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _myTickets = _tickets.Where(t => t.AssignedMember == _myMemberId).ToList();
             }
         }
+        private async Task ConfirmTicketEdit()
+        {
+            await RefreshTicketsList();
+            _displayEditTicketDialog = false;
+        }
         private void DisplayTicketDetailsDialog(TicketModel ticket, int status)
         {
+            _displayTicketDetailsDialog = !_displayTicketDetailsDialog;
             if (_displayTicketDetailsDialog)
-                _displayTicketDetailsDialog = false;
-            else
             {
                 _displayEditTicketDialog = false;
-                _displayTicketDetailsDialog = true;
                 _ticketTarget = ticket;
                 _statusTarget = status;
             }
         }
-        private void CloseDetailsDialog()
-        {
-            _displayTicketDetailsDialog = false;
-        }
         private void DisplayTicketEditDialog(TicketModel ticket, int status)
         {
+            _displayEditTicketDialog = !_displayEditTicketDialog;
             if (_displayEditTicketDialog)
-                _displayEditTicketDialog = false;
-            else
             {
                 _displayTicketDetailsDialog = false;
-                _displayEditTicketDialog = true;
                 _ticketTarget = ticket;
                 _statusTarget = status;
             }
@@ -81,10 +78,9 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         {
             _displayEditTicketDialog = false;
         }
-        private async Task ConfirmTicketEdit()
+        private void CloseDetailsDialog()
         {
-            await RefreshTicketsList();
-            _displayEditTicketDialog = false;
+            _displayTicketDetailsDialog = false;
         }
     }
 }

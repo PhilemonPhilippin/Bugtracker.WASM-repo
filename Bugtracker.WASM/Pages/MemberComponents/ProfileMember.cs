@@ -12,12 +12,13 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         private HttpClient Http { get; set; }
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
-        private MemberNoPswdModel _member = new MemberNoPswdModel();
+        private MemberModel _member = new MemberModel();
         private bool _isMemberConnected;
         private bool _displayEditProfileDialog;
         private bool _displayChangePswdDialog;
         private string _token;
-        private int? _memberId;
+        private int _memberId;
+
         protected override async Task OnInitializedAsync()
         {
             _isMemberConnected = await LocalStorage.HasToken();
@@ -25,28 +26,9 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             {
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                _memberId = await Http.GetFromJsonAsync<int?>("https://localhost:7051/api/Member/idfromjwt");
-                _member = await Http.GetFromJsonAsync<MemberNoPswdModel>($"https://localhost:7051/api/Member/{_memberId}");
+                _memberId = await Http.GetFromJsonAsync<int>("https://localhost:7051/api/Member/idfromjwt");
+                _member = await Http.GetFromJsonAsync<MemberModel>($"https://localhost:7051/api/Member/{_memberId}");
             }
-        }
-        private void DisplayEditProfileDialog()
-        {
-            if (_displayEditProfileDialog)
-                _displayEditProfileDialog = false;
-            else
-            {
-                _displayChangePswdDialog = false;
-                _displayEditProfileDialog = true;
-            }
-        }
-        private void CloseMemberEditDialog()
-        {
-            _displayEditProfileDialog = false;
-        }
-        private async Task ConfirmMemberEdit()
-        {
-            _displayEditProfileDialog = false;
-            await RefreshMember();
         }
         private async Task RefreshMember()
         {
@@ -55,22 +37,33 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             {
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                _member = await Http.GetFromJsonAsync<MemberNoPswdModel>($"https://localhost:7051/api/Member/{_memberId}");
+                _member = await Http.GetFromJsonAsync<MemberModel>($"https://localhost:7051/api/Member/{_memberId}");
             }
         }
-        private void DisplayChangePswdDialog()
+        private async Task ConfirmEdit()
         {
-            if (_displayChangePswdDialog)
-                _displayChangePswdDialog = false;
-            else
-            {
-                _displayEditProfileDialog = false;
-                _displayChangePswdDialog = true;
-            }
+            _displayEditProfileDialog = false;
+            await RefreshMember();
         }
-        private void CloseChangePswdDialog()
+        private void DisplayPswdDialog()
+        {
+            _displayChangePswdDialog = !_displayChangePswdDialog;
+            if (_displayChangePswdDialog)
+                _displayEditProfileDialog = false;
+        }
+        private void DisplayEditProfileDialog()
+        {
+            _displayEditProfileDialog = !_displayEditProfileDialog;
+            if (_displayEditProfileDialog)
+                _displayChangePswdDialog = false;
+        }
+        private void ClosePswdDialog()
         {
             _displayChangePswdDialog = false;
+        }
+        private void CloseEditDialog()
+        {
+            _displayEditProfileDialog = false;
         }
     }
 }

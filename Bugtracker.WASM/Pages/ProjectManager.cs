@@ -25,23 +25,15 @@ namespace Bugtracker.WASM.Pages
         }
         private void DisplayProjectsComponent()
         {
+            _displayProjectsComponent = !_displayProjectsComponent;
             if (_displayProjectsComponent)
-                _displayProjectsComponent = false;
-            else
-            {
                 _displayTicketsComponent = false;
-                _displayProjectsComponent = true;
-            }
         }
         private void DisplayTicketsComponent()
         {
+            _displayTicketsComponent = !_displayTicketsComponent;
             if (_displayTicketsComponent)
-                _displayTicketsComponent = false;
-            else
-            {
                 _displayProjectsComponent = false;
-                _displayTicketsComponent = true;
-            }
         }
     }
 }

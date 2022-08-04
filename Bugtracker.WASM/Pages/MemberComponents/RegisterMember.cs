@@ -13,6 +13,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         private bool _displayEmailTaken;
         private bool _isRegistrationValid;
         private MemberRegistrationModel MemberRegistration { get; set; } = new MemberRegistrationModel();
+
         private async Task SubmitRegistration()
         {
             _isRegistrationValid = false;

@@ -16,12 +16,12 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         [Inject]
         IMemberLocalStorage LocalStorage { get; set; }
         private List<ProjectModel> _projects = new List<ProjectModel>();
-        private List<MemberNoPswdModel> _members = new List<MemberNoPswdModel>();
+        private List<MemberModel> _members = new List<MemberModel>();
         private ProjectModel _projectTarget = new ProjectModel() { IdProject = 0 };
-        private bool _displayProjectDetailsDialog;
-        private bool _displayEditProjectDialog;
+        private bool _displayDetailsDialog;
+        private bool _displayEditDialog;
         private bool _isMemberConnected;
-        private bool _displayAddProjectDialog;
+        private bool _displayAddDialog;
         private string _token;
 
         protected override async Task OnInitializedAsync()
@@ -32,7 +32,17 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
-                _members = await Http.GetFromJsonAsync<List<MemberNoPswdModel>>("https://localhost:7051/api/Member");
+                _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
+            }
+        }
+        private async Task RefreshProjectList()
+        {
+            _isMemberConnected = await LocalStorage.HasToken();
+            if (_isMemberConnected)
+            {
+                _token = await LocalStorage.GetToken();
+                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+                _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
             }
         }
         private async Task DeleteProject(int id)
@@ -43,70 +53,56 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 await Http.DeleteAsync($"https://localhost:7051/api/Project/{id}");
-                await RefreshProjectsList();
+                await RefreshProjectList();
             }
         }
-        private async Task RefreshProjectsList()
+
+        private void DisplayDetailsDialog(ProjectModel project)
         {
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _displayDetailsDialog = !_displayDetailsDialog;
+            if (_displayDetailsDialog)
             {
-                _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
+                _displayAddDialog = false;
+                _displayEditDialog = false;
+                _projectTarget = project;
+
             }
         }
-        private void DisplayProjectDetailsDialog(ProjectModel project)
+        private void DisplayEditDialog(ProjectModel project)
         {
-            if (_displayProjectDetailsDialog)
-                _displayProjectDetailsDialog = false;
-            else
+            _displayEditDialog = !_displayEditDialog;
+            if (_displayEditDialog)
             {
-                _displayAddProjectDialog = false;
-                _displayEditProjectDialog = false;
-                _displayProjectDetailsDialog = true;
+                _displayAddDialog = false;
+                _displayDetailsDialog = false;
                 _projectTarget = project;
             }
         }
-        private void DisplayProjectEditDialog(ProjectModel project)
+        private void DisplayAddDialog()
         {
-            if (_displayEditProjectDialog)
-                _displayEditProjectDialog = false;
-            else
+            _displayAddDialog = !_displayAddDialog;
+            if (_displayAddDialog)
             {
-                _displayAddProjectDialog = false;
-                _displayProjectDetailsDialog = false;
-                _displayEditProjectDialog = true;
-                _projectTarget = project;
+                _displayEditDialog = false;
+                _displayDetailsDialog = false;
             }
+        }
+        private async Task ConfirmEdit()
+        {
+            await RefreshProjectList();
+            _displayEditDialog = false;
         }
         private void CloseDetailsDialog()
         {
-            _displayProjectDetailsDialog = false;
+            _displayDetailsDialog = false;
         }
         private void CloseAddDialog()
         {
-            _displayAddProjectDialog = false;
+            _displayAddDialog = false;
         }
         private void CloseEditDialog()
         {
-            _displayEditProjectDialog = false;
-        }
-        private void DisplayAddProjectDialog()
-        {
-            if (_displayAddProjectDialog)
-                _displayAddProjectDialog = false;
-            else
-            {
-                _displayEditProjectDialog = false;
-                _displayProjectDetailsDialog = false;
-                _displayAddProjectDialog = true;
-            }
-        }
-        private async Task ConfirmProjectEdit()
-        {
-            await RefreshProjectsList();
-            _displayEditProjectDialog = false;
+            _displayEditDialog = false;
         }
     }
 }

@@ -15,15 +15,16 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         private MemberLoginModel MemberLogin { get; set; } = new MemberLoginModel();
-        //private ConnectedMemberModel ConnectedMember { get; set; } = new ConnectedMemberModel();
         private bool _displayPseudoNotFound;
         private bool _displayIncorrectPassword;
         private bool _displayMemberDisabled;
+
         private async Task SubmitLogin()
         {
             _displayMemberDisabled = false;
             _displayPseudoNotFound = false;
             _displayIncorrectPassword = false;
+
             using HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Member/login", MemberLogin);
             if (!response.IsSuccessStatusCode)
             {

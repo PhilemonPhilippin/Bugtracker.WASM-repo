@@ -1,64 +1,68 @@
 ﻿<h3 class="mt-4">Add a ticket</h3>
+
 @if (_isTicketAdded)
 {
     <span class="text-success">Project added successfully !</span>
 }
 
 <div class="mt-3">
-<EditForm Model="@AddedTicket" OnValidSubmit="@SubmitAdd" class="p-4 p-md-5 border rounded-3 bg-light">
-    <DataAnnotationsValidator />
-    <label for="Title">
-        Title: @if (_displayTitleTaken)
-        {
-            <span class="text-danger"> /!\ This title is already taken.</span>
-        }
-    </label>
-    <InputText id="Title" @bind-Value="@AddedTicket.Title" class="form-control" />
+    <EditForm Model="@AddedTicket" OnValidSubmit="@SubmitAdd" class="p-4 p-md-5 border rounded-3 bg-light">
+        <DataAnnotationsValidator />
 
-    <label for="Status">
-        Status:
-    </label>
-    <InputSelect id="Status" @bind-Value="@AddedTicket.Status" class="form-control">
-       <option value="1">To-do</option>
-       <option value="2">In Progress</option>
-       <option value="3">Stuck</option>
-       <option value="4">Complete</option>
-    </InputSelect>
-
-    <label for="Priority">
-        Priority:
-    </label>
-    <InputSelect id="Priority" @bind-Value="@AddedTicket.Priority" class="form-control">
-       <option value="1">High</option>
-       <option value="2">Medium</option>
-       <option value="3">Low</option>
-    </InputSelect>
-
-    <label for="Type">
-        Type:
-    </label>
-    <InputText id="Type" @bind-Value="@AddedTicket.Type" class="form-control" />
-
-    <label for="Description">
-        Description:
-    </label>
-    <InputText id="Description" @bind-Value="@AddedTicket.Description" class="form-control" />
-
-    <label for="Project">
-        Project:
-    </label>
-    <InputSelect id="Project" @bind-Value="@AddedTicket.Project" class="form-control">
-        @if (_projects.Count != 0)
-        {
-            <option value="" disabled>Select..</option>
-            @foreach (ProjectModel project in _projects)
+        <label for="Title">
+            Title: @if (_displayTitleTaken)
             {
-                <option value="@project.IdProject">@project.Name</option>
+                <span class="text-danger"> /!\ This title is already taken.</span>
             }
-        }
-    </InputSelect>
-    <button type="submit" class="btn btn-success mt-2 me-2" title="Add">Confirm Add</button>
-    <button @onclick="OnCancel" class="btn btn-primary mt-2" title="Close">Close</button>
-    <ValidationSummary />
-</EditForm>
+        </label>
+        <InputText id="Title" @bind-Value="@AddedTicket.Title" class="form-control" />
+
+        <label for="Status">
+            Status:
+        </label>
+        <InputSelect id="Status" @bind-Value="@AddedTicket.Status" class="form-control">
+            <option value="1">To-do</option>
+            <option value="2">In Progress</option>
+            <option value="3">Stuck</option>
+            <option value="4">Complete</option>
+        </InputSelect>
+
+        <label for="Priority">
+            Priority:
+        </label>
+        <InputSelect id="Priority" @bind-Value="@AddedTicket.Priority" class="form-control">
+            <option value="1">High</option>
+            <option value="2">Medium</option>
+            <option value="3">Low</option>
+        </InputSelect>
+
+        <label for="Type">
+            Type:
+        </label>
+        <InputText id="Type" @bind-Value="@AddedTicket.Type" class="form-control" />
+
+        <label for="Description">
+            Description:
+        </label>
+        <InputText id="Description" @bind-Value="@AddedTicket.Description" class="form-control" />
+
+        <label for="Project">
+            Project:
+        </label>
+        <InputSelect id="Project" @bind-Value="@AddedTicket.Project" class="form-control">
+            @if (_projects.Count != 0)
+            {
+                <option value="" disabled>Select..</option>
+                @foreach (ProjectModel project in _projects)
+                {
+                    <option value="@project.IdProject">@project.Name</option>
+                }
+            }
+        </InputSelect>
+
+        <button type="submit" class="btn btn-success mt-2 me-2" title="Add">Confirm Add</button>
+        <button @onclick="OnCancel" class="btn btn-primary mt-2" title="Close">Close</button>
+
+        <ValidationSummary />
+    </EditForm>
 </div>

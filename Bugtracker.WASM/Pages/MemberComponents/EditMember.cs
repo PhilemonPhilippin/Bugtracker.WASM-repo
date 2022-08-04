@@ -13,16 +13,17 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         [Parameter]
-        public MemberNoPswdModel MemberTarget { get; set; }
+        public MemberModel MemberTarget { get; set; }
         [Parameter]
         public EventCallback OnCancel { get; set; }
         [Parameter]
         public EventCallback OnConfirm { get; set; }
         private string _token;
-        private MemberNoPswdModel MemberEdited { get; set; } = new MemberNoPswdModel();
+        private MemberModel MemberEdited { get; set; } = new MemberModel();
         private bool _displayPseudoTaken;
         private bool _displayEmailTaken;
         private bool _isMemberConnected;
+
         protected override async Task OnInitializedAsync()
         {
             MemberEdited.IdMember = MemberTarget.IdMember;
@@ -46,19 +47,23 @@ namespace Bugtracker.WASM.Pages.MemberComponents
                 if (!response.IsSuccessStatusCode)
                 {
                     string errorMessage = await response.Content.ReadAsStringAsync();
-                    if (errorMessage.Contains("Pseudo and Email already exist."))
-                    {
-                        _displayPseudoTaken = true;
-                        _displayEmailTaken = true;
-                    }
-                    else if (errorMessage.Contains("Pseudo already exists."))
-                        _displayPseudoTaken = true;
-                    else if (errorMessage.Contains("Email already exists."))
-                        _displayEmailTaken = true;
+                    HandleErrorMessage(errorMessage);
                 }
                 else
                     await OnConfirm.InvokeAsync();
             }
+        }
+        private void HandleErrorMessage(string errorMessage)
+        {
+            if (errorMessage.Contains("Pseudo and Email already exist."))
+            {
+                _displayPseudoTaken = true;
+                _displayEmailTaken = true;
+            }
+            else if (errorMessage.Contains("Pseudo already exists."))
+                _displayPseudoTaken = true;
+            else if (errorMessage.Contains("Email already exists."))
+                _displayEmailTaken = true;
         }
     }
 }

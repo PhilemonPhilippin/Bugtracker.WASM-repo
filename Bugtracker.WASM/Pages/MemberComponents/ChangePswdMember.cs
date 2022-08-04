@@ -14,10 +14,10 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         [Parameter]
-        public int? MemberId { get; set; }
+        public int MemberId { get; set; }
         [Parameter]
         public EventCallback OnCancel { get; set; }
-        private MemberChangePswdModel pswdModel = new MemberChangePswdModel();
+        private MemberFormPswdModel pswdModel = new MemberFormPswdModel();
         private MemberPostPswdModel postPswdModel = new MemberPostPswdModel();
         private bool _displayIncorrectPassword;
         private bool _displayPasswordChanged;
@@ -28,27 +28,28 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         {
             _displayIncorrectPassword = false;
             _displayPasswordChanged = false;
+
             _isMemberConnected = await LocalStorage.HasToken();
             if (_isMemberConnected)
             {
-                postPswdModel.IdMember = (int)MemberId;
+                postPswdModel.IdMember = MemberId;
                 postPswdModel.NewPassword = pswdModel.NewPassword;
                 postPswdModel.OldPassword = pswdModel.OldPassword;
+
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 using HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Member/changepswd", postPswdModel);
                 if (!response.IsSuccessStatusCode)
                 {
                     string errorMessage = await response.Content.ReadAsStringAsync();
+
                     if (errorMessage.Contains("Password incorrect."))
-                    {
                         _displayIncorrectPassword = true;
-                    }
                 }
                 else
                 {
                     _displayPasswordChanged = true;
-                    pswdModel = new MemberChangePswdModel();
+                    pswdModel = new MemberFormPswdModel();
                 }
             }
         }

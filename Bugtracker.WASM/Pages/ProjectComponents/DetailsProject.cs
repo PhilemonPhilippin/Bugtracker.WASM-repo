@@ -18,7 +18,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         public ProjectModel ProjectTarget { get; set; }
         [Parameter]
         public EventCallback OnCancel { get; set; }
-        private MemberNoPswdModel manager = new MemberNoPswdModel();
+        private MemberModel manager = new MemberModel();
         private bool _isMemberConnected;
         private string _token;
         protected override async Task OnInitializedAsync()
@@ -28,8 +28,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
             {
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                // TODO: récupérer un MemberNoPswdModel
-                manager = await Http.GetFromJsonAsync<MemberNoPswdModel>($"https://localhost:7051/api/Member/{ProjectTarget.Manager}");
+                manager = await Http.GetFromJsonAsync<MemberModel>($"https://localhost:7051/api/Member/{ProjectTarget.Manager}");
             }
         }
     }

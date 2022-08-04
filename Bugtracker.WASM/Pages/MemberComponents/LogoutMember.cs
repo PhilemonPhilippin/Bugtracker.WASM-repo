@@ -10,6 +10,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         [Inject]
         private NavigationManager NavManager { get; set; }
         private bool _isMemberConnected;
+
         protected override async Task OnInitializedAsync()
         {
             _isMemberConnected = await LocalStorage.HasToken();

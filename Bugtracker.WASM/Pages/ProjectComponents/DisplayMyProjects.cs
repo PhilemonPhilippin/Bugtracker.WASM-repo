@@ -16,10 +16,10 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         private IMemberLocalStorage LocalStorage { get; set; }
         private List<ProjectModel> _projects = new List<ProjectModel>();
         private List<ProjectModel> _myProjects = new List<ProjectModel>();
-        private List<MemberNoPswdModel> _members = new List<MemberNoPswdModel>();
+        private List<MemberModel> _members = new List<MemberModel>();
         private List<AssignModel> _assigns = new List<AssignModel>();
         private ProjectModel _projectTarget = new ProjectModel() { IdProject = 0 };
-        private int? _myMemberId;
+        private int _myMemberId;
         private string _token;
         private bool _isMemberConnected;
         private bool _displayProjectDetailsDialog;
@@ -33,8 +33,8 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
                 _token = await LocalStorage.GetToken();
                 Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
-                _members = await Http.GetFromJsonAsync<List<MemberNoPswdModel>>("https://localhost:7051/api/Member");
-                _myMemberId = await Http.GetFromJsonAsync<int?>("https://localhost:7051/api/Member/idfromjwt");
+                _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
+                _myMemberId = await Http.GetFromJsonAsync<int>("https://localhost:7051/api/Member/idfromjwt");
                 _assigns = await Http.GetFromJsonAsync<List<AssignModel>>("https://localhost:7051/api/Assign");
                 // Je crée une liste avec les projects id pour lesquels le membre connecté est assigné.
                 List<int> myProjectsId = new List<int>();
@@ -73,14 +73,26 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
                     _myProjects = _projects.Where(prj => myProjectsId.Contains(prj.IdProject)).ToList();
             }
         }
+        private async Task ConfirmProjectEdit()
+        {
+            await RefreshProjectsList();
+            _displayEditProjectDialog = false;
+        }
         private void DisplayProjectDetailsDialog(ProjectModel project)
         {
+            _displayProjectDetailsDialog = !_displayProjectDetailsDialog;
             if (_displayProjectDetailsDialog)
-                _displayProjectDetailsDialog = false;
-            else
             {
                 _displayEditProjectDialog = false;
-                _displayProjectDetailsDialog = true;
+                _projectTarget = project;
+            }
+        }
+        private void DisplayProjectEditDialog(ProjectModel project)
+        {
+            _displayEditProjectDialog = !_displayEditProjectDialog;
+            if (_displayEditProjectDialog)
+            {
+                _displayProjectDetailsDialog = false;
                 _projectTarget = project;
             }
         }
@@ -88,24 +100,8 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         {
             _displayProjectDetailsDialog = false;
         }
-        private void DisplayProjectEditDialog(ProjectModel project)
-        {
-            if (_displayEditProjectDialog)
-                _displayEditProjectDialog = false;
-            else
-            {
-                _displayProjectDetailsDialog = false;
-                _displayEditProjectDialog = true;
-                _projectTarget = project;
-            }
-        }
         private void CloseEditDialog()
         {
-            _displayEditProjectDialog = false;
-        }
-        private async Task ConfirmProjectEdit()
-        {
-            await RefreshProjectsList();
             _displayEditProjectDialog = false;
         }
     }

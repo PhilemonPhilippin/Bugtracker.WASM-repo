@@ -14,22 +14,26 @@ else
                 <th>Actions</th>
             </tr>
         </thead>
+
         <tbody>
             @foreach (ProjectModel project in _myProjects)
             {
                 <tr>
                     <td>@project.Name</td>
+
                     <td>
                         @if (_members.Count != 0)
                         {
                             @_members.Where(member => member.IdMember == project.Manager).SingleOrDefault().Pseudo
                         }
                     </td>
+
                     <td>
                         <button class="btn @((project.IdProject == _projectTarget.IdProject && _displayProjectDetailsDialog) ? "btn-secondary":"btn-primary")"
                         @onclick="() => DisplayProjectDetailsDialog(project)" title="Details">
                             <img src="/custom-icons/arrows-angle-expand.svg" alt="Details" />
                         </button>
+
                         <button class="btn @((project.IdProject == _projectTarget.IdProject && _displayEditProjectDialog) ? "btn-secondary":"btn-warning") ms-1"
                         @onclick="() => DisplayProjectEditDialog(project)" title="Edit">
                             <img src="/custom-icons/pen.svg" alt="Edit" />
@@ -40,11 +44,11 @@ else
         </tbody>
     </table>
 }
+
 @if (_displayProjectDetailsDialog)
 {
     <DetailsProject OnCancel="@CloseDetailsDialog" ProjectTarget="@_projectTarget" />
 }
-
 else if (_displayEditProjectDialog)
 {
     <EditProject OnCancel="@CloseEditDialog" OnConfirm="@ConfirmProjectEdit" ProjectTarget="@_projectTarget" />

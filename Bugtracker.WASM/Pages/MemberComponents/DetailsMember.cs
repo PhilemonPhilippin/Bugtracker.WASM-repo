@@ -6,7 +6,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
     public partial class DetailsMember
     {
         [Parameter]
-        public MemberNoPswdModel MemberTarget { get; set; }
+        public MemberModel MemberTarget { get; set; }
         [Parameter]
         public EventCallback OnCancel { get; set; }
     }

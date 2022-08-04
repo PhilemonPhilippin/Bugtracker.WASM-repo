@@ -1,5 +1,7 @@
 ﻿<h2 class="mt-4">Tickets</h2>
-<button @onclick="DisplayAddTicketDialog" class="btn @((_displayAddTicketDialog) ? "btn-secondary" : "btn-success") mt-4" title="Add">Add Ticket</button>
+
+<button @onclick="DisplayAddDialog" class="btn @((_displayAddDialog) ? "btn-secondary" : "btn-success") mt-4" title="Add">Add Ticket</button>
+
 @if (_tickets.Count == 0)
 {
     <span class="mt-2">Loading tickets list...</span>
@@ -15,11 +17,13 @@ else
                 <th>Actions</th>
             </tr>
         </thead>
+
         <tbody>
             @foreach (TicketModel ticket in _tickets)
             {
                 <tr>
                     <td>@ticket.Title </td>
+
                     <td>
                         @switch (ticket.Priority)
                         {
@@ -34,20 +38,22 @@ else
                                 break;
                         }
                     </td>
+
                     <td>
                         @if (_projects.Count != 0)
                         {
                             @_projects.Where(project => project.IdProject == ticket.Project).SingleOrDefault().Name
                         }
                     </td>
+
                     <td>
-                        <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayTicketDetailsDialog) ? "btn-secondary":"btn-primary")"
-                        @onclick="() => DisplayTicketDetailsDialog(ticket)" title="Details">
+                        <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayDetailsDialog) ? "btn-secondary":"btn-primary")"
+                        @onclick="() => DisplayDetailsDialog(ticket)" title="Details">
                             <img src="/custom-icons/arrows-angle-expand.svg" alt="Details" />
                         </button>
 
-                        <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayEditTicketDialog) ? "btn-secondary":"btn-warning") ms-1"
-                        @onclick="() => DisplayTicketEditDialog(ticket)" title="Edit">
+                        <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayEditDialog) ? "btn-secondary":"btn-warning") ms-1"
+                        @onclick="() => DisplayEditDialog(ticket)" title="Edit">
                             <img src="/custom-icons/pen.svg" alt="Edit" />
                         </button>
 
@@ -60,15 +66,16 @@ else
         </tbody>
     </table>
 }
-@if (_displayAddTicketDialog)
+
+@if (_displayAddDialog)
 {
-    <AddTicket OnCancel="@CloseAddDialog" OnConfirm="@RefreshTicketsList" />
+    <AddTicket OnCancel="@CloseAddDialog" OnConfirm="@RefreshTicketList" />
 }
-else if (_displayTicketDetailsDialog)
+else if (_displayDetailsDialog)
 {
     <DetailsTicket OnCancel="@CloseDetailsDialog" TicketTarget="@_ticketTarget" />
 }
-else if (_displayEditTicketDialog)
+else if (_displayEditDialog)
 {
-    <EditTicket OnCancel="@CloseEditDialog" OnConfirm="@ConfirmTicketEdit" TicketTarget="@_ticketTarget" />
+    <EditTicket OnCancel="@CloseEditDialog" OnConfirm="@ConfirmEdit" TicketTarget="@_ticketTarget" />
 }
