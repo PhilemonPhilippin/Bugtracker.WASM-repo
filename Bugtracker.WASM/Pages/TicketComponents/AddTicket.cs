@@ -14,6 +14,8 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private HttpClient Http { get; set; }
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
+        [Inject]
+        private IApiRequester Requester { get; set; } = default!;
         [Parameter]
         public EventCallback OnCancel { get; set; }
         [Parameter]
@@ -31,8 +33,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
             if (_isMemberConnected)
             {
                 _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
+                _projects = await Requester.Get<List<ProjectModel>>("Project", _token);
             }
         }
         private async Task SubmitAdd()
@@ -44,8 +45,8 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _isTicketAdded = false;
 
                 _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                int submitMemberId = await Http.GetFromJsonAsync<int>("https://localhost:7051/api/Member/idfromjwt");
+
+                int submitMemberId = await Requester.Get<int>("Member/idfromjwt", _token);
 
                 TicketModel ticketModel = AddedTicket.ToModel();
                 ticketModel.SubmitMember = submitMemberId;

@@ -9,9 +9,11 @@ namespace Bugtracker.WASM.Pages.TicketComponents
     public partial class DisplayTickets
     {
         [Inject]
-        public HttpClient Http { get; set; }
+        private HttpClient Http { get; set; }
         [Inject]
-        IMemberLocalStorage LocalStorage { get; set; }
+        private IMemberLocalStorage LocalStorage { get; set; }
+        [Inject]
+        private IApiRequester Requester { get; set; } = default!;
         private List<TicketModel> _tickets = new List<TicketModel>();
         private List<ProjectModel> _projects = new List<ProjectModel>();
         private TicketModel _ticketTarget = new TicketModel() { IdTicket = 0 };
@@ -26,9 +28,8 @@ namespace Bugtracker.WASM.Pages.TicketComponents
             if (_isMemberConnected)
             {
                 _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                _tickets = await Http.GetFromJsonAsync<List<TicketModel>>("https://localhost:7051/api/Ticket");
-                _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
+                _tickets = await Requester.Get<List<TicketModel>>("Ticket", _token);
+                _projects = await Requester.Get<List<ProjectModel>>("Project", _token);
             }
         }
         private async Task DeleteTicket(TicketModel ticket)
@@ -57,8 +58,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
             if (_isMemberConnected)
             {
                 _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                _tickets = await Http.GetFromJsonAsync<List<TicketModel>>("https://localhost:7051/api/Ticket");
+                _tickets = await Requester.Get<List<TicketModel>>("Ticket", _token);
             }
         }
         private async Task ConfirmEdit()

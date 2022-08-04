@@ -12,6 +12,8 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         private HttpClient Http { get; set; }
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
+        [Inject]
+        private IApiRequester Requester { get; set; } = default!;
         private MemberModel _member = new MemberModel();
         private bool _isMemberConnected;
         private bool _displayEditProfileDialog;
@@ -25,9 +27,8 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             if (_isMemberConnected)
             {
                 _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                _memberId = await Http.GetFromJsonAsync<int>("https://localhost:7051/api/Member/idfromjwt");
-                _member = await Http.GetFromJsonAsync<MemberModel>($"https://localhost:7051/api/Member/{_memberId}");
+                _memberId = await Requester.Get<int>("Member/idfromjwt", _token);
+                _member = await Requester.Get<MemberModel>($"Member/{_memberId}", _token);
             }
         }
         private async Task RefreshMember()
@@ -36,8 +37,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             if (_isMemberConnected)
             {
                 _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                _member = await Http.GetFromJsonAsync<MemberModel>($"https://localhost:7051/api/Member/{_memberId}");
+                _member = await Requester.Get<MemberModel>($"Member/{_memberId}", _token);
             }
         }
         private async Task ConfirmEdit()

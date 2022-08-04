@@ -14,6 +14,8 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         private HttpClient Http { get; set; }
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
+        [Inject]
+        private IApiRequester Requester { get; set; } = default!;
         private List<ProjectModel> _projects = new List<ProjectModel>();
         private List<ProjectModel> _myProjects = new List<ProjectModel>();
         private List<MemberModel> _members = new List<MemberModel>();
@@ -30,12 +32,12 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
             _isMemberConnected = await LocalStorage.HasToken();
             if (_isMemberConnected)
             {
-                _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
-                _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
-                _myMemberId = await Http.GetFromJsonAsync<int>("https://localhost:7051/api/Member/idfromjwt");
-                _assigns = await Http.GetFromJsonAsync<List<AssignModel>>("https://localhost:7051/api/Assign");
+                _token = await LocalStorage.GetToken();;
+                _projects = await Requester.Get<List<ProjectModel>>("Project", _token);
+                _members = await Requester.Get<List<MemberModel>>("Member", _token);
+                _myMemberId = await Requester.Get<int>("Member/idfromjwt", _token);
+                _assigns = await Requester.Get<List<AssignModel>>("Assign", _token);
+
                 // Je crée une liste avec les projects id pour lesquels le membre connecté est assigné.
                 List<int> myProjectsId = new List<int>();
                 foreach (AssignModel assign in _assigns)
@@ -56,9 +58,9 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
             if (_isMemberConnected)
             {
                 _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
-                _assigns = await Http.GetFromJsonAsync<List<AssignModel>>("https://localhost:7051/api/Assign");
+                _projects = await Requester.Get<List<ProjectModel>>("Project", _token);
+                _assigns = await Requester.Get<List<AssignModel>>("Assign", _token);
+
                 // Je crée une liste avec les projects id pour lesquels le membre connecté est assigné.
                 List<int> myProjectsId = new List<int>();
                 foreach (AssignModel assign in _assigns)

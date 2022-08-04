@@ -14,6 +14,8 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         private HttpClient Http { get; set; }
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
+        [Inject]
+        private IApiRequester Requester { get; set; } = default!;
         [Parameter]
         public ProjectModel ProjectTarget { get; set; }
         [Parameter]
@@ -27,8 +29,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
             if (_isMemberConnected)
             {
                 _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                manager = await Http.GetFromJsonAsync<MemberModel>($"https://localhost:7051/api/Member/{ProjectTarget.Manager}");
+                manager = await Requester.Get<MemberModel>($"Member/{ProjectTarget.Manager}", _token);
             }
         }
     }

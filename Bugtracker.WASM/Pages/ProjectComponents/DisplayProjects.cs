@@ -12,9 +12,11 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
     public partial class DisplayProjects
     {
         [Inject]
-        public HttpClient Http { get; set; }
+        private HttpClient Http { get; set; }
         [Inject]
-        IMemberLocalStorage LocalStorage { get; set; }
+        private IMemberLocalStorage LocalStorage { get; set; }
+        [Inject]
+        private IApiRequester Requester { get; set; } = default!;
         private List<ProjectModel> _projects = new List<ProjectModel>();
         private List<MemberModel> _members = new List<MemberModel>();
         private ProjectModel _projectTarget = new ProjectModel() { IdProject = 0 };
@@ -30,9 +32,8 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
             if (_isMemberConnected)
             {
                 _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
-                _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
+                _projects = await Requester.Get<List<ProjectModel>>("Project", _token);
+                _members = await Requester.Get<List<MemberModel>>("Member", _token);
             }
         }
         private async Task RefreshProjectList()
@@ -41,8 +42,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
             if (_isMemberConnected)
             {
                 _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
+                _projects = await Requester.Get<List<ProjectModel>>("Project", _token);
             }
         }
         private async Task DeleteProject(int id)

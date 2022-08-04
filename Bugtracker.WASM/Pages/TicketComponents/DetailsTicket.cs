@@ -15,7 +15,8 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private HttpClient Http { get; set; }
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
-      
+        [Inject]
+        private IApiRequester Requester { get; set; } = default!;
         [Parameter]
         public TicketModel TicketTarget { get; set; }
         [Parameter]
@@ -32,14 +33,13 @@ namespace Bugtracker.WASM.Pages.TicketComponents
             if (_isMemberConnected)
             {
                 _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                Project = await Http.GetFromJsonAsync<ProjectModel>($"https://localhost:7051/api/Project/{TicketTarget.Project}");
+                Project = await Requester.Get<ProjectModel>($"Project/{TicketTarget.Project}", _token);
 
                 if (TicketTarget.SubmitMember is not null)
-                    SubmittingMember = await Http.GetFromJsonAsync<MemberModel>($"https://localhost:7051/api/Member/{TicketTarget.SubmitMember}");
+                    SubmittingMember = await Requester.Get<MemberModel>($"Member/{TicketTarget.SubmitMember}", _token);
 
                 if (TicketTarget.AssignedMember is not null)
-                    MemberAssigned = await Http.GetFromJsonAsync<MemberModel>($"https://localhost:7051/api/Member/{TicketTarget.AssignedMember}");
+                    MemberAssigned = await Requester.Get<MemberModel>($"Member/{TicketTarget.AssignedMember}", _token);
             }
         }
     }

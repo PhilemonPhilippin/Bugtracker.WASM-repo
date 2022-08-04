@@ -17,6 +17,8 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private HttpClient Http { get; set; }
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
+        [Inject]
+        private IApiRequester Requester { get; set; } = default!;
         [Parameter]
         public EventCallback OnCancel { get; set; }
         [Parameter]
@@ -39,9 +41,8 @@ namespace Bugtracker.WASM.Pages.TicketComponents
             if (_isMemberConnected)
             {
                 _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                _projects = await Http.GetFromJsonAsync<List<ProjectModel>>("https://localhost:7051/api/Project");
-                _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
+                _projects = await Requester.Get<List<ProjectModel>>("Project", _token);
+                _members = await Requester.Get<List<MemberModel>>("Member", _token);
             }
         }
         private async Task SubmitEdit()
@@ -52,9 +53,9 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _displayTitleTaken = false;
                 TicketModel ticketModel = EditedTicket.ToModel();
                 _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
                 // I Get my list of tickets before editing the ticket so that i can use it later to check for old existing assign.
-                _tickets = await Http.GetFromJsonAsync<List<TicketModel>>("https://localhost:7051/api/Ticket");
+                _tickets = await Requester.Get<List<TicketModel>>("Ticket", _token);
+
                 using HttpResponseMessage response = await Http.PutAsJsonAsync("https://localhost:7051/api/Ticket", ticketModel);
                 if (!response.IsSuccessStatusCode)
                 {

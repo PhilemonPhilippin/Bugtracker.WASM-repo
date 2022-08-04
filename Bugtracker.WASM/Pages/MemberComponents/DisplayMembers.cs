@@ -12,6 +12,8 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         public HttpClient Http { get; set; }
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
+        [Inject]
+        private IApiRequester Requester { get; set; } = default!;
         private List<MemberModel> _members = new List<MemberModel>();
         private MemberModel _memberTarget = new MemberModel() { IdMember = 0 };
         private string _token;
@@ -29,8 +31,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             if (_isMemberConnected)
             {
                 _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                _members = await Http.GetFromJsonAsync<List<MemberModel>>("https://localhost:7051/api/Member");
+                _members = await Requester.Get<List<MemberModel>>("Member", _token);
             }
         }
         private async Task DeleteMember(int id)
