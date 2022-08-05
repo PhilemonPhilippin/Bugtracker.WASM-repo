@@ -9,9 +9,9 @@ namespace Bugtracker.WASM.Pages.MemberComponents
     public partial class LoginMember
     {
         [Inject]
-        private NavigationManager NavManager { get; set; }
+        private NavigationManager NavManager { get; set; } = default!;
         [Inject]
-        private IMemberLocalStorage LocalStorage { get; set; }
+        private IMemberLocalStorage LocalStorage { get; set; } = default!;
         [Inject]
         private IApiRequester Requester { get; set; } = default!;
         private MemberLoginModel MemberLogin { get; set; } = new MemberLoginModel();

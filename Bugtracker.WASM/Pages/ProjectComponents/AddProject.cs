@@ -11,7 +11,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
     public partial class AddProject
     {
         [Inject]
-        private IMemberLocalStorage LocalStorage { get; set; }
+        private IMemberLocalStorage LocalStorage { get; set; } = default!;
         [Inject]
         private IApiRequester Requester { get; set; } = default!;
         [Parameter]

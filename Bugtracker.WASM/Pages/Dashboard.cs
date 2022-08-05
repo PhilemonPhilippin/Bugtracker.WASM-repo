@@ -10,9 +10,9 @@ namespace Bugtracker.WASM.Pages
     public partial class Dashboard
     {
         [Inject]
-        private IMemberLocalStorage LocalStorage { get; set; }
+        private IMemberLocalStorage LocalStorage { get; set; } = default!;
         [Inject]
-        private NavigationManager NavManager { get; set; }
+        private NavigationManager NavManager { get; set; } = default!;
 
         private bool _isMemberConnected;
         private bool _displayMyTicketsComponent = true;

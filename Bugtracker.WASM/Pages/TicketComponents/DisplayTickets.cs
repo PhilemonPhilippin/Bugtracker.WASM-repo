@@ -9,7 +9,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
     public partial class DisplayTickets
     {
         [Inject]
-        private IMemberLocalStorage LocalStorage { get; set; }
+        private IMemberLocalStorage LocalStorage { get; set; } = default!;
         [Inject]
         private IApiRequester Requester { get; set; } = default!;
         private List<TicketModel> _tickets = new List<TicketModel>();

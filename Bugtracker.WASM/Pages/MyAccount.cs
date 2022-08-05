@@ -6,7 +6,7 @@ namespace Bugtracker.WASM.Pages
     public partial class MyAccount
     {
         [Inject]
-        private IMemberLocalStorage LocalStorage { get; set; }
+        private IMemberLocalStorage LocalStorage { get; set; } = default!;
         private bool _displayLogin = true;
         private bool _displayRegistration;
         private bool _isMemberConnected;

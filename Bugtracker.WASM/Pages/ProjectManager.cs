@@ -6,9 +6,9 @@ namespace Bugtracker.WASM.Pages
     public partial class ProjectManager
     {
         [Inject]
-        private NavigationManager NavManager { get; set; }
+        private NavigationManager NavManager { get; set; } = default!;
         [Inject]
-        private IMemberLocalStorage LocalStorage { get; set; }
+        private IMemberLocalStorage LocalStorage { get; set; } = default!;
         private bool _isMemberConnected;
         private bool _displayProjectsComponent = true;
         private bool _displayTicketsComponent;

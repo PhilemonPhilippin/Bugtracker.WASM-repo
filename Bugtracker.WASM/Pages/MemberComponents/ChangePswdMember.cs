@@ -10,7 +10,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
     public partial class ChangePswdMember
     {
         [Inject]
-        private IMemberLocalStorage LocalStorage { get; set; }
+        private IMemberLocalStorage LocalStorage { get; set; } = default!;
         [Inject]
         private IApiRequester Requester { get; set; } = default!;
         [Parameter]

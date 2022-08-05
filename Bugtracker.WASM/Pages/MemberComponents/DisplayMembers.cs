@@ -9,9 +9,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
     public partial class DisplayMembers
     {
         [Inject]
-        public HttpClient Http { get; set; }
-        [Inject]
-        private IMemberLocalStorage LocalStorage { get; set; }
+        private IMemberLocalStorage LocalStorage { get; set; } = default!;
         [Inject]
         private IApiRequester Requester { get; set; } = default!;
         private List<MemberModel> _members = new List<MemberModel>();
