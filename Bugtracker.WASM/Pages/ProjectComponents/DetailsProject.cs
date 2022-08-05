@@ -23,10 +23,10 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
         private string _token;
         protected override async Task OnInitializedAsync()
         {
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
-                _token = await LocalStorage.GetToken();
+                _isMemberConnected = true;
                 manager = await Requester.Get<MemberModel>($"Member/{ProjectTarget.Manager}", _token);
             }
         }

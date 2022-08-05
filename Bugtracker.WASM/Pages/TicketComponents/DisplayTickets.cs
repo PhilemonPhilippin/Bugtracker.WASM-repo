@@ -22,20 +22,20 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private bool _displayEditDialog;
         protected override async Task OnInitializedAsync()
         {
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
-                _token = await LocalStorage.GetToken();
+                _isMemberConnected = true;
                 _tickets = await Requester.Get<List<TicketModel>>("Ticket", _token);
                 _projects = await Requester.Get<List<ProjectModel>>("Project", _token);
             }
         }
         private async Task DeleteTicket(TicketModel ticket)
         {
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
-                _token = await LocalStorage.GetToken();
+                _isMemberConnected = true;
                 // Si il n'existe qu'un seul ticket pour lequel l'assign entre ticket et project existe, on le delete.
                 if (ticket.AssignedMember is not null)
                 {
@@ -51,10 +51,10 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         }
         private async Task RefreshTicketList()
         {
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
-                _token = await LocalStorage.GetToken();
+                _isMemberConnected = true;
                 _tickets = await Requester.Get<List<TicketModel>>("Ticket", _token);
             }
         }

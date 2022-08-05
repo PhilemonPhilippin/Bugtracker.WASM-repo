@@ -25,19 +25,20 @@ namespace Bugtracker.WASM.Pages.MemberComponents
         }
         private async Task RefreshMemberList()
         {
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
+                _isMemberConnected = true;
                 _token = await LocalStorage.GetToken();
                 _members = await Requester.Get<List<MemberModel>>("Member", _token);
             }
         }
         private async Task DeleteMember(int id)
         {
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
-                _token = await LocalStorage.GetToken();
+                _isMemberConnected = true;
                 await Requester.Delete($"Member/{id}", _token);
                 await RefreshMemberList();
             }

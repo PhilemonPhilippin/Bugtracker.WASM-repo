@@ -27,10 +27,10 @@ namespace Bugtracker.WASM.Pages.TicketComponents
 
         protected override async Task OnInitializedAsync()
         {
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
-                _token = await LocalStorage.GetToken();
+                _isMemberConnected = true;
                 Project = await Requester.Get<ProjectModel>($"Project/{TicketTarget.Project}", _token);
 
                 if (TicketTarget.SubmitMember is not null)

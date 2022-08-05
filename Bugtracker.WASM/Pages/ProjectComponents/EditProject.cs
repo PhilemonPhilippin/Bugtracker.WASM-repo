@@ -33,22 +33,22 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
             EditedProject.Description = ProjectTarget.Description;
             EditedProject.Manager = ProjectTarget.Manager;
 
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
-                _token = await LocalStorage.GetToken();
+                _isMemberConnected = true;
                 _members = await Requester.Get<List<MemberModel>>("Member", _token);
             }
         }
         private async Task SubmitEdit()
         {
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
+                _isMemberConnected = true;
                 _displayNameTaken = false;
                 ProjectModel projectModel = EditedProject.ToModel();
 
-                _token = await LocalStorage.GetToken();
                 using HttpResponseMessage response = await Requester.Put(projectModel, "Project", _token);
                 if (!response.IsSuccessStatusCode)
                 {

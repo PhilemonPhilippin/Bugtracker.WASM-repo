@@ -29,14 +29,14 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             _displayIncorrectPassword = false;
             _displayPasswordChanged = false;
 
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
+                _isMemberConnected = true;
                 postPswdModel.IdMember = MemberId;
                 postPswdModel.NewPassword = pswdModel.NewPassword;
                 postPswdModel.OldPassword = pswdModel.OldPassword;
 
-                _token = await LocalStorage.GetToken();
                 using HttpResponseMessage response = await Requester.Post(postPswdModel, "Member/changepswd", _token);
                 if (!response.IsSuccessStatusCode)
                 {

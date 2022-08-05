@@ -21,20 +21,20 @@ namespace Bugtracker.WASM.Pages.MemberComponents
 
         protected override async Task OnInitializedAsync()
         {
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
-                _token = await LocalStorage.GetToken();
+                _isMemberConnected = true;
                 _memberId = await Requester.Get<int>("Member/idfromjwt", _token);
                 _member = await Requester.Get<MemberModel>($"Member/{_memberId}", _token);
             }
         }
         private async Task RefreshMember()
         {
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
-                _token = await LocalStorage.GetToken();
+                _isMemberConnected = true;
                 _member = await Requester.Get<MemberModel>($"Member/{_memberId}", _token);
             }
         }

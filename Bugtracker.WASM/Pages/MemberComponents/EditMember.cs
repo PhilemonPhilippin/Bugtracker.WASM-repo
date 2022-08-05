@@ -37,10 +37,10 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             _displayPseudoTaken = false;
             _displayEmailTaken = false;
 
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
-                _token = await LocalStorage.GetToken();
+                _isMemberConnected = true;
                 using HttpResponseMessage response = await Requester.Put(MemberEdited, "Member", _token);
 
                 if (!response.IsSuccessStatusCode)

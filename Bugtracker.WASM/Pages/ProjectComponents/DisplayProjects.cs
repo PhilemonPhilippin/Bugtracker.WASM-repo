@@ -26,29 +26,29 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
 
         protected override async Task OnInitializedAsync()
         {
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
-                _token = await LocalStorage.GetToken();
+                _isMemberConnected = true;
                 _projects = await Requester.Get<List<ProjectModel>>("Project", _token);
                 _members = await Requester.Get<List<MemberModel>>("Member", _token);
             }
         }
         private async Task RefreshProjectList()
         {
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
-                _token = await LocalStorage.GetToken();
+                _isMemberConnected = true;
                 _projects = await Requester.Get<List<ProjectModel>>("Project", _token);
             }
         }
         private async Task DeleteProject(int id)
         {
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
-                _token = await LocalStorage.GetToken();
+                _isMemberConnected = true;
                 await Requester.Delete($"Project/{id}", _token);
                 await RefreshProjectList();
             }

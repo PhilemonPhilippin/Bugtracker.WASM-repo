@@ -26,10 +26,10 @@ namespace Bugtracker.WASM.Pages.TicketComponents
 
         protected override async Task OnInitializedAsync()
         {
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
-                _token = await LocalStorage.GetToken();
+                _isMemberConnected = true;
                 _tickets = await Requester.Get<List<TicketModel>>("Ticket", _token);
                 _projects = await Requester.Get<List<ProjectModel>>("Project", _token);
                 _myMemberId = await Requester.Get<int>("Member/idfromjwt", _token);
@@ -39,10 +39,10 @@ namespace Bugtracker.WASM.Pages.TicketComponents
 
         private async Task RefreshTicketsList()
         {
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
-                _token = await LocalStorage.GetToken();
+                _isMemberConnected = true;
                 _tickets = await Requester.Get<List<TicketModel>>("Ticket", _token);
                 _myTickets = _tickets.Where(t => t.AssignedMember == _myMemberId).ToList();
             }

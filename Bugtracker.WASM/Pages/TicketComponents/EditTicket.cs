@@ -35,22 +35,22 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         {
             EditedTicket = TicketTarget.ToEditModel();
 
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
-                _token = await LocalStorage.GetToken();
+                _isMemberConnected = true;
                 _projects = await Requester.Get<List<ProjectModel>>("Project", _token);
                 _members = await Requester.Get<List<MemberModel>>("Member", _token);
             }
         }
         private async Task SubmitEdit()
         {
-            _isMemberConnected = await LocalStorage.HasToken();
-            if (_isMemberConnected)
+            _token = await LocalStorage.GetToken();
+            if (_token is not null)
             {
+                _isMemberConnected = true;
                 _displayTitleTaken = false;
                 TicketModel ticketModel = EditedTicket.ToModel();
-                _token = await LocalStorage.GetToken();
                 // I Get my list of tickets before editing the ticket so that i can use it later to check for old existing assign.
                 _tickets = await Requester.Get<List<TicketModel>>("Ticket", _token);
 
