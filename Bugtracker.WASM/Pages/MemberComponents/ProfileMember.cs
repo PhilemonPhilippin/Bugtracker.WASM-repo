@@ -9,8 +9,6 @@ namespace Bugtracker.WASM.Pages.MemberComponents
     public partial class ProfileMember
     {
         [Inject]
-        private HttpClient Http { get; set; }
-        [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         [Inject]
         private IApiRequester Requester { get; set; } = default!;

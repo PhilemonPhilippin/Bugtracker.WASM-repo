@@ -12,8 +12,6 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
     public partial class EditProject
     {
         [Inject]
-        private HttpClient Http { get; set; }
-        [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         [Inject]
         private IApiRequester Requester { get; set; } = default!;
@@ -51,8 +49,7 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
                 ProjectModel projectModel = EditedProject.ToModel();
 
                 _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                using HttpResponseMessage response = await Http.PutAsJsonAsync("https://localhost:7051/api/Project", projectModel);
+                using HttpResponseMessage response = await Requester.Put(projectModel, "Project", _token);
                 if (!response.IsSuccessStatusCode)
                 {
                     string errorMessage = await response.Content.ReadAsStringAsync();

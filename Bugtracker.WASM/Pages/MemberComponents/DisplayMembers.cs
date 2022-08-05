@@ -40,8 +40,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             if (_isMemberConnected)
             {
                 _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                await Http.DeleteAsync($"https://localhost:7051/api/Member/{id}");
+                await Requester.Delete($"Member/{id}", _token);
                 await RefreshMemberList();
             }
         }

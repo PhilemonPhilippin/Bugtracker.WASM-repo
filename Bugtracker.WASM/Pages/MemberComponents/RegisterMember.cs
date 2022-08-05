@@ -1,5 +1,6 @@
 ﻿using Bugtracker.WASM.Mappers;
 using Bugtracker.WASM.Models.MemberModels;
+using Bugtracker.WASM.Tools;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 
@@ -8,7 +9,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
     public partial class RegisterMember
     {
         [Inject]
-        private HttpClient Http { get; set; }
+        private IApiRequester Requester { get; set; } = default!;
         private bool _displayPseudoTaken;
         private bool _displayEmailTaken;
         private bool _isRegistrationValid;
@@ -21,7 +22,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             _displayEmailTaken = false;
 
             MemberPostModel postModel = MemberRegistration.ToPostModel();
-            using HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Member", postModel);
+            using HttpResponseMessage response = await Requester.Post(postModel, "Member");
             if (!response.IsSuccessStatusCode)
             {
                 string errorMessage = await response.Content.ReadAsStringAsync();

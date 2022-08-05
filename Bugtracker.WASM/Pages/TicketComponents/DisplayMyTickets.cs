@@ -10,8 +10,6 @@ namespace Bugtracker.WASM.Pages.TicketComponents
     public partial class DisplayMyTickets
     {
         [Inject]
-        private HttpClient Http { get; set; }
-        [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         [Inject]
         private IApiRequester Requester { get; set; } = default!;

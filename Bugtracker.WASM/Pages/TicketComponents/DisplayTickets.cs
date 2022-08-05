@@ -9,8 +9,6 @@ namespace Bugtracker.WASM.Pages.TicketComponents
     public partial class DisplayTickets
     {
         [Inject]
-        private HttpClient Http { get; set; }
-        [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         [Inject]
         private IApiRequester Requester { get; set; } = default!;
@@ -44,11 +42,10 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                     int assignedMemberId = (int)ticket.AssignedMember;
                     if (_tickets.Count(t => t.AssignedMember == ticket.AssignedMember && t.Project == ticket.Project) == 1)
                     {
-                        Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                        await Http.DeleteAsync($"https://localhost:7051/api/Assign/{ticket.Project}/{assignedMemberId}");
+                        await Requester.Delete($"Assign/{ticket.Project}/{assignedMemberId}", _token);
                     }
                 }
-                await Http.DeleteAsync($"https://localhost:7051/api/Ticket/{ticket.IdTicket}");
+                await Requester.Delete($"Ticket/{ticket.IdTicket}", _token);
                 await RefreshTicketList();
             }
         }

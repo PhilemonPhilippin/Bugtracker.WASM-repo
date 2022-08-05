@@ -11,8 +11,6 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
     public partial class DisplayMyProjects
     {
         [Inject]
-        private HttpClient Http { get; set; }
-        [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         [Inject]
         private IApiRequester Requester { get; set; } = default!;

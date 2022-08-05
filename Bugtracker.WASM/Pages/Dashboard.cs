@@ -12,7 +12,7 @@ namespace Bugtracker.WASM.Pages
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         [Inject]
-        NavigationManager NavManager { get; set; }
+        private NavigationManager NavManager { get; set; }
 
         private bool _isMemberConnected;
         private bool _displayMyTicketsComponent = true;

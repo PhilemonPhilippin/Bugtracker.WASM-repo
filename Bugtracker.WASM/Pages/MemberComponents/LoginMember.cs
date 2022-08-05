@@ -9,11 +9,11 @@ namespace Bugtracker.WASM.Pages.MemberComponents
     public partial class LoginMember
     {
         [Inject]
-        private HttpClient Http { get; set; }
-        [Inject]
         private NavigationManager NavManager { get; set; }
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
+        [Inject]
+        private IApiRequester Requester { get; set; } = default!;
         private MemberLoginModel MemberLogin { get; set; } = new MemberLoginModel();
         private bool _displayPseudoNotFound;
         private bool _displayIncorrectPassword;
@@ -25,7 +25,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
             _displayPseudoNotFound = false;
             _displayIncorrectPassword = false;
 
-            using HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Member/login", MemberLogin);
+            using HttpResponseMessage response = await Requester.Post(MemberLogin, "Member/login");
             if (!response.IsSuccessStatusCode)
             {
                 string errorMessage = await response.Content.ReadAsStringAsync();

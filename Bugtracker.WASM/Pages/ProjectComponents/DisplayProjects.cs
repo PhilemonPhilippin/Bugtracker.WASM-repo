@@ -12,8 +12,6 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
     public partial class DisplayProjects
     {
         [Inject]
-        private HttpClient Http { get; set; }
-        [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         [Inject]
         private IApiRequester Requester { get; set; } = default!;
@@ -51,12 +49,10 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
             if (_isMemberConnected)
             {
                 _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                await Http.DeleteAsync($"https://localhost:7051/api/Project/{id}");
+                await Requester.Delete($"Project/{id}", _token);
                 await RefreshProjectList();
             }
         }
-
         private void DisplayDetailsDialog(ProjectModel project)
         {
             _displayDetailsDialog = !_displayDetailsDialog;

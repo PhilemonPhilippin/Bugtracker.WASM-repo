@@ -10,9 +10,9 @@ namespace Bugtracker.WASM.Pages.MemberComponents
     public partial class ChangePswdMember
     {
         [Inject]
-        private HttpClient Http { get; set; }
-        [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
+        [Inject]
+        private IApiRequester Requester { get; set; } = default!;
         [Parameter]
         public int MemberId { get; set; }
         [Parameter]
@@ -37,8 +37,7 @@ namespace Bugtracker.WASM.Pages.MemberComponents
                 postPswdModel.OldPassword = pswdModel.OldPassword;
 
                 _token = await LocalStorage.GetToken();
-                Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-                using HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Member/changepswd", postPswdModel);
+                using HttpResponseMessage response = await Requester.Post(postPswdModel, "Member/changepswd", _token);
                 if (!response.IsSuccessStatusCode)
                 {
                     string errorMessage = await response.Content.ReadAsStringAsync();

@@ -6,7 +6,7 @@ namespace Bugtracker.WASM.Pages
     public partial class Members
     {
         [Inject]
-        NavigationManager NavManager { get; set; }
+        private NavigationManager NavManager { get; set; }
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         private bool _isMemberConnected;

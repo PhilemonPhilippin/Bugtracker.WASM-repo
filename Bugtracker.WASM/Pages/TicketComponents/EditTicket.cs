@@ -14,8 +14,6 @@ namespace Bugtracker.WASM.Pages.TicketComponents
     public partial class EditTicket
     {
         [Inject]
-        private HttpClient Http { get; set; }
-        [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         [Inject]
         private IApiRequester Requester { get; set; } = default!;
@@ -56,7 +54,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 // I Get my list of tickets before editing the ticket so that i can use it later to check for old existing assign.
                 _tickets = await Requester.Get<List<TicketModel>>("Ticket", _token);
 
-                using HttpResponseMessage response = await Http.PutAsJsonAsync("https://localhost:7051/api/Ticket", ticketModel);
+                using HttpResponseMessage response = await Requester.Put(ticketModel, "Ticket", _token);
                 if (!response.IsSuccessStatusCode)
                 {
                     string message = await response.Content.ReadAsStringAsync();
@@ -70,7 +68,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                         // On ajoute un Assign avec la nouvelle combinaison AssignedMember + Project si il n'y en a pas déjà un.
                         int assignedMemberId = (int)ticketModel.AssignedMember;
                         AssignMinimalModel newAssign = new AssignMinimalModel() { Project = ticketModel.Project, Member = assignedMemberId };
-                        await Http.PostAsJsonAsync("https://localhost:7051/api/Assign", newAssign);
+                        await Requester.Post(newAssign, "Assign", _token);
                     }
                     if (TicketTarget.AssignedMember is not null)
                     {
@@ -80,7 +78,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                         // Si parmi tous les tickets il n'y en a qu'un avec l'ancienne combinaison, on le supprime.
                         if (_tickets.Count(ticket => ticket.AssignedMember == TicketTarget.AssignedMember && ticket.Project == TicketTarget.Project) == 1)
                         {
-                            await Http.DeleteAsync($"https://localhost:7051/api/Assign/{oldAssign.Project}/{oldAssign.Member}");
+                            await Requester.Delete($"Assign/{oldAssign.Project}/{oldAssign.Member}", _token);
                         }
                     }
                     await OnConfirm.InvokeAsync();

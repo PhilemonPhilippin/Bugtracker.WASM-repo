@@ -11,8 +11,6 @@ namespace Bugtracker.WASM.Pages.TicketComponents
     public partial class AddTicket
     {
         [Inject]
-        private HttpClient Http { get; set; }
-        [Inject]
         private IMemberLocalStorage LocalStorage { get; set; }
         [Inject]
         private IApiRequester Requester { get; set; } = default!;
@@ -51,7 +49,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 TicketModel ticketModel = AddedTicket.ToModel();
                 ticketModel.SubmitMember = submitMemberId;
 
-                using HttpResponseMessage response = await Http.PostAsJsonAsync("https://localhost:7051/api/Ticket", ticketModel);
+                using HttpResponseMessage response = await Requester.Post(ticketModel, "Ticket", _token);
 
                 if (!response.IsSuccessStatusCode)
                 {
