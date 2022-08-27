@@ -55,7 +55,10 @@
                 <option value="" disabled>Select..</option>
                 @foreach (ProjectModel project in _projects)
                 {
-                    <option value="@project.IdProject">@project.Name</option>
+                    @if (!project.Disabled)
+                    {
+                        <option value="@project.IdProject">@project.Name</option>
+                    }
                 }
             }
         </InputSelect>

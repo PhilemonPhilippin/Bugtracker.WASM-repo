@@ -11,7 +11,8 @@ namespace Bugtracker.WASM.Mappers
                 IdProject = (formModel.IdProject == 0) ? 0 : formModel.IdProject,
                 Name = formModel.Name,
                 Description = formModel.Description,
-                Manager = formModel.Manager
+                Manager = formModel.Manager,
+                Disabled = formModel.Disabled
             };
         }
     }

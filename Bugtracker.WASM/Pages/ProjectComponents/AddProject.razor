@@ -31,7 +31,7 @@
                 <option value="" disabled>Select..</option>
                 @foreach (MemberModel member in _members)
                 {
-                    @if (member.Activated == true)
+                    @if (member.Disabled == false)
                     {
                         <option value="@member.IdMember">@member.Pseudo</option>
                     }

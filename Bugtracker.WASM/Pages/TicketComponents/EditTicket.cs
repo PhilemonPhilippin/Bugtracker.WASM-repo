@@ -24,7 +24,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         [Parameter]
         public TicketModel TicketTarget { get; set; }
         private List<ProjectModel> _projects = new List<ProjectModel>();
-        private List<MemberModel> _members = new List<MemberModel>();
+        //private List<MemberModel> _members = new List<MemberModel>();
         private List<TicketModel> _tickets = new List<TicketModel>();
         private TicketEditModel EditedTicket { get; set; } = new TicketEditModel();
         private string _token;
@@ -40,7 +40,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
             {
                 _isMemberConnected = true;
                 _projects = await Requester.Get<List<ProjectModel>>("Project", _token);
-                _members = await Requester.Get<List<MemberModel>>("Member", _token);
+                //_members = await Requester.Get<List<MemberModel>>("Member", _token);
             }
         }
         private async Task SubmitEdit()
@@ -52,7 +52,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _displayTitleTaken = false;
                 TicketModel ticketModel = EditedTicket.ToModel();
                 // I Get my list of tickets before editing the ticket so that i can use it later to check for old existing assign.
-                _tickets = await Requester.Get<List<TicketModel>>("Ticket", _token);
+                //_tickets = await Requester.Get<List<TicketModel>>("Ticket", _token);
 
                 using HttpResponseMessage response = await Requester.Put(ticketModel, "Ticket", _token);
                 if (!response.IsSuccessStatusCode)
@@ -63,24 +63,24 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 }
                 else
                 {
-                    if (ticketModel.AssignedMember is not null)
-                    {
-                        // On ajoute un Assign avec la nouvelle combinaison AssignedMember + Project si il n'y en a pas déjà un.
-                        int assignedMemberId = (int)ticketModel.AssignedMember;
-                        AssignMinimalModel newAssign = new AssignMinimalModel() { Project = ticketModel.Project, Member = assignedMemberId };
-                        await Requester.Post(newAssign, "Assign", _token);
-                    }
-                    if (TicketTarget.AssignedMember is not null)
-                    {
-                        // On supprime l'Assign de l'ancienne combinaison AssignedMember + Project si aucun autre ticket n'a cette combinaison.
-                        int assignedMemberId = (int)TicketTarget.AssignedMember;
-                        AssignMinimalModel oldAssign = new AssignMinimalModel() { Project = TicketTarget.Project, Member = assignedMemberId };
-                        // Si parmi tous les tickets il n'y en a qu'un avec l'ancienne combinaison, on le supprime.
-                        if (_tickets.Count(ticket => ticket.AssignedMember == TicketTarget.AssignedMember && ticket.Project == TicketTarget.Project) == 1)
-                        {
-                            await Requester.Delete($"Assign/{oldAssign.Project}/{oldAssign.Member}", _token);
-                        }
-                    }
+                    //if (ticketModel.AssignedMember is not null)
+                    //{
+                    //    // On ajoute un Assign avec la nouvelle combinaison AssignedMember + Project si il n'y en a pas déjà un.
+                    //    int assignedMemberId = (int)ticketModel.AssignedMember;
+                    //    AssignMinimalModel newAssign = new AssignMinimalModel() { Project = ticketModel.Project, Member = assignedMemberId };
+                    //    await Requester.Post(newAssign, "Assign", _token);
+                    //}
+                    //if (TicketTarget.AssignedMember is not null)
+                    //{
+                    //    // On supprime l'Assign de l'ancienne combinaison AssignedMember + Project si aucun autre ticket n'a cette combinaison.
+                    //    int assignedMemberId = (int)TicketTarget.AssignedMember;
+                    //    AssignMinimalModel oldAssign = new AssignMinimalModel() { Project = TicketTarget.Project, Member = assignedMemberId };
+                    //    // Si parmi tous les tickets il n'y en a qu'un avec l'ancienne combinaison, on le supprime.
+                    //    if (_tickets.Count(ticket => ticket.AssignedMember == TicketTarget.AssignedMember && ticket.Project == TicketTarget.Project) == 1)
+                    //    {
+                    //        await Requester.Delete($"Assign/{oldAssign.Project}/{oldAssign.Member}", _token);
+                    //    }
+                    //}
                     await OnConfirm.InvokeAsync();
                 }
             }

@@ -43,6 +43,8 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
                 _isMemberConnected = true;
                 _displayNameTaken = false;
                 _isProjectAdded = false;
+
+                AddedProject.Disabled = false;
                 ProjectModel projectModel = AddedProject.ToModel();
 
                 using HttpResponseMessage response = await Requester.Post(projectModel, "Project", _token);

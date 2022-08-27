@@ -1,0 +1,29 @@
+﻿<h3 class="mt-4">Assign a Developer</h3>
+
+<p>Here i can edit a ticket to assign a member to a ticket and thus to a project.</p>
+
+<div class="mt-3">
+    <EditForm Model="@EditedTicket" OnValidSubmit="@SubmitAssign" class="p-4 p-md-5 border rounded-3 bg-light">
+    <DataAnnotationsValidator />
+
+    <label for="AssignedMember">Assigned Member:</label>
+    <InputSelect id="AssignedMember" @bind-Value="@EditedTicket.AssignedMember">
+        @if (_members.Count != 0)
+        {
+            <option value="" disabled>Select..</option>
+            @foreach (MemberModel member in _members)
+            {
+                @if (!member.Disabled && member.IdMember != TicketTarget.AssignedMember)
+                {
+                    <option value="@member.IdMember">@member.Pseudo</option>
+                }
+            }
+        }
+    </InputSelect>
+
+    <button type="submit" class="btn btn-warning mt-2 me-2" title="Assign">Confirm Assign</button>
+    <button @onclick="OnCancel" class="btn btn-primary mt-2" title="Close">Close</button>
+
+    <ValidationSummary />
+</EditForm>
+</div>

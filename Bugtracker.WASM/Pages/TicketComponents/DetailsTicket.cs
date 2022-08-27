@@ -33,8 +33,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _isMemberConnected = true;
                 Project = await Requester.Get<ProjectModel>($"Project/{TicketTarget.Project}", _token);
 
-                if (TicketTarget.SubmitMember is not null)
-                    SubmittingMember = await Requester.Get<MemberModel>($"Member/{TicketTarget.SubmitMember}", _token);
+                SubmittingMember = await Requester.Get<MemberModel>($"Member/{TicketTarget.SubmitMember}", _token);
 
                 if (TicketTarget.AssignedMember is not null)
                     MemberAssigned = await Requester.Get<MemberModel>($"Member/{TicketTarget.AssignedMember}", _token);

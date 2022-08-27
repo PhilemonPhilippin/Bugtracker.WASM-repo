@@ -20,32 +20,35 @@ else
         <tbody>
             @foreach (ProjectModel project in _projects)
             {
-                <tr>
-                    <td>@project.Name</td>
+                @if (!project.Disabled)
+                {
+                    <tr>
+                        <td>@project.Name</td>
 
-                    <td>
-                        @if (_members.Count != 0)
-                        {
-                            @_members.Where(member => member.IdMember == project.Manager).SingleOrDefault().Pseudo
-                        }
-                    </td>
+                        <td>
+                            @if (_members.Count != 0)
+                            {
+                                @_members.Where(member => member.IdMember == project.Manager).SingleOrDefault().Pseudo
+                            }
+                        </td>
 
-                    <td>
-                        <button class="btn @((project.IdProject == _projectTarget.IdProject && _displayDetailsDialog) ? "btn-secondary":"btn-primary")"
+                        <td>
+                            <button class="btn @((project.IdProject == _projectTarget.IdProject && _displayDetailsDialog) ? "btn-secondary":"btn-primary")"
                         @onclick="() => DisplayDetailsDialog(project)" title="Details">
-                            <img src="/custom-icons/arrows-angle-expand.svg" alt="Details" />
-                        </button>
+                                <img src="/custom-icons/arrows-angle-expand.svg" alt="Details" />
+                            </button>
 
-                        <button class="btn @((project.IdProject == _projectTarget.IdProject && _displayEditDialog) ? "btn-secondary":"btn-warning") ms-1"
+                            <button class="btn @((project.IdProject == _projectTarget.IdProject && _displayEditDialog) ? "btn-secondary":"btn-warning") ms-1"
                         @onclick="() => DisplayEditDialog(project)" title="Edit">
-                            <img src="/custom-icons/pen.svg" alt="Edit" />
-                        </button>
+                                <img src="/custom-icons/pen.svg" alt="Edit" />
+                            </button>
 
-                        <button class="btn btn-danger ms-1" @onclick="() => DeleteProject(project.IdProject)" title="Delete">
-                            <img src="/custom-icons/trash3.svg" alt="Delete" />
-                        </button>
-                    </td>
-                </tr>
+                            <button class="btn btn-danger ms-1" @onclick="() => DeleteProject(project.IdProject)" title="Delete">
+                                <img src="/custom-icons/trash3.svg" alt="Delete" />
+                            </button>
+                        </td>
+                    </tr>
+                }
             }
         </tbody>
     </table>

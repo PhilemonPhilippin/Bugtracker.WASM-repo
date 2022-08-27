@@ -17,7 +17,7 @@ namespace Bugtracker.WASM.Models
         public string Description { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime SubmitTime { get; set; }
-        public int? SubmitMember { get; set; }
+        public int SubmitMember { get; set; }
         public int? AssignedMember { get; set; }
         public int Project { get; set; }
     }
@@ -65,7 +65,7 @@ namespace Bugtracker.WASM.Models
         public string Description { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime SubmitTime { get; set; }
-        public int? SubmitMember { get; set; }
+        public int SubmitMember { get; set; }
         public int? AssignedMember { get; set; }
         [Required]
         public int Project { get; set; }

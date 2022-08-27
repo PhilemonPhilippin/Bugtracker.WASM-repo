@@ -40,7 +40,7 @@
             Description:
         </label>
         <InputText id="Description" @bind-Value="@EditedTicket.Description" class="form-control" />
-
+@*
         <label for="AssignedMember">
             Assigned member:
         </label>
@@ -51,13 +51,13 @@
                 <option value="">No Assigned yet</option>
                 @foreach (MemberModel member in _members)
                 {
-                    @if (member.Activated == true)
+                    @if (member.Disabled == false)
                     {
                         <option value="@member.IdMember">@member.Pseudo</option>
                     }
                 }
             }
-        </InputSelect>
+        </InputSelect>*@
 
         <label for="Project">
             Project:
@@ -68,7 +68,10 @@
                 <option value="" disabled>Select..</option>
                 @foreach (ProjectModel project in _projects)
                 {
-                    <option value="@project.IdProject">@project.Name</option>
+                    @if (!project.Disabled)
+                    {
+                        <option value="@project.IdProject">@project.Name</option>
+                    }
                 }
             }
         </InputSelect>

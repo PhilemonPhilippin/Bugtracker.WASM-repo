@@ -10,6 +10,7 @@ namespace Bugtracker.WASM.Models
         [MaxLength(750)]
         public string Description { get; set; }
         public int? Manager { get; set; }
+        public bool Disabled { get; set; }
     }
     public class ProjectFormModel
     {
@@ -22,5 +23,6 @@ namespace Bugtracker.WASM.Models
         public string Description { get; set; }
         [Required]
         public int? Manager { get; set; }
+        public bool Disabled { get; set; }
     }
 }

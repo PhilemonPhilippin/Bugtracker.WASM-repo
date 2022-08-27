@@ -24,7 +24,7 @@ else
         <tbody>
             @foreach (MemberModel member in _members)
             {
-                @if (member.Activated == true)
+                @if (member.Disabled == false)
                 {
 
                     <tr>

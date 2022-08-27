@@ -20,6 +20,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private bool _displayDetailsDialog;
         private bool _displayAddDialog;
         private bool _displayEditDialog;
+        private bool _displayAssignDialog;
         protected override async Task OnInitializedAsync()
         {
             _token = await LocalStorage.GetToken();
@@ -36,7 +37,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
             if (_token is not null)
             {
                 _isMemberConnected = true;
-                // Si il n'existe qu'un seul ticket pour lequel l'assign entre ticket et project existe, on le delete.
+                //Si ce ticket est le seul avec cette combinaison Project <=> AssignedMember on le delete.
                 if (ticket.AssignedMember is not null)
                 {
                     int assignedMemberId = (int)ticket.AssignedMember;
@@ -63,6 +64,11 @@ namespace Bugtracker.WASM.Pages.TicketComponents
             await RefreshTicketList();
             _displayEditDialog = false;
         }
+        private async Task ConfirmAssign()
+        {
+            await RefreshTicketList();
+            _displayAssignDialog = false;
+        }
         private void DisplayDetailsDialog(TicketModel ticket)
         {
             _displayDetailsDialog = !_displayDetailsDialog;
@@ -70,6 +76,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
             {
                 _displayAddDialog = false;
                 _displayEditDialog = false;
+                _displayAssignDialog = false;
                 _ticketTarget = ticket;
             }
         }
@@ -80,6 +87,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
             {
                 _displayEditDialog = false;
                 _displayDetailsDialog = false;
+                _displayAssignDialog = false;
             }
         }
         private void DisplayEditDialog(TicketModel ticket)
@@ -87,6 +95,19 @@ namespace Bugtracker.WASM.Pages.TicketComponents
             _displayEditDialog = !_displayEditDialog;
             if (_displayEditDialog)
             {
+                _displayAddDialog = false;
+                _displayDetailsDialog = false;
+                _displayAssignDialog = false;
+                _ticketTarget = ticket;
+            }
+        }
+
+        private void DisplayAssignDialog(TicketModel ticket)
+        {
+            _displayAssignDialog = !_displayAssignDialog;
+            if (_displayAssignDialog)
+            {
+                _displayEditDialog = false;
                 _displayAddDialog = false;
                 _displayDetailsDialog = false;
                 _ticketTarget = ticket;
@@ -103,6 +124,10 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private void CloseEditDialog()
         {
             _displayEditDialog = false;
+        }
+        private void CloseAssignDialog()
+        {
+            _displayAssignDialog = false;
         }
     }
 }
