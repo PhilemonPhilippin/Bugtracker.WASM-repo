@@ -15,6 +15,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
         private IApiRequester Requester { get; set; } = default!;
         private List<TicketModel> _tickets = new List<TicketModel>();
         private List<ProjectModel> _projects = new List<ProjectModel>();
+        private List<int> _disabledProjects = new List<int>();
         private List<TicketModel> _myTickets = new List<TicketModel>();
         private TicketModel _ticketTarget = new TicketModel() { IdTicket = 0 };
         private int _statusTarget;
@@ -34,6 +35,9 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _projects = await Requester.Get<List<ProjectModel>>("Project", _token);
                 _myMemberId = await Requester.Get<int>("Member/idfromjwt", _token);
                 _myTickets = _tickets.Where(t => t.AssignedMember == _myMemberId).ToList();
+                // Je veux filtrer les tickets dont les projets sont désactivés :
+                _disabledProjects = _projects.Where(p => p.Disabled).Select(p => p.IdProject).ToList();
+                _myTickets = _myTickets.Where(t => _disabledProjects.Contains(t.Project) == false).ToList();
             }
         }
 
@@ -45,6 +49,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _isMemberConnected = true;
                 _tickets = await Requester.Get<List<TicketModel>>("Ticket", _token);
                 _myTickets = _tickets.Where(t => t.AssignedMember == _myMemberId).ToList();
+                _myTickets = _myTickets.Where(t => _disabledProjects.Contains(t.Project) == false).ToList();
             }
         }
         private async Task ConfirmTicketEdit()

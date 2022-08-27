@@ -40,24 +40,6 @@
             Description:
         </label>
         <InputText id="Description" @bind-Value="@EditedTicket.Description" class="form-control" />
-@*
-        <label for="AssignedMember">
-            Assigned member:
-        </label>
-        <InputSelect id="AssignedMember" @bind-Value="@EditedTicket.AssignedMember" class="form-control">
-            @if (_members.Count != 0)
-            {
-                <option value="" disabled>Select..</option>
-                <option value="">No Assigned yet</option>
-                @foreach (MemberModel member in _members)
-                {
-                    @if (member.Disabled == false)
-                    {
-                        <option value="@member.IdMember">@member.Pseudo</option>
-                    }
-                }
-            }
-        </InputSelect>*@
 
         <label for="Project">
             Project:
