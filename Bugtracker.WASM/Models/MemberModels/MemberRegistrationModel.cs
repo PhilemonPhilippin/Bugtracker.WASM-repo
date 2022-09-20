@@ -11,6 +11,7 @@ namespace Bugtracker.WASM.Models.MemberModels
         [MaxLength(250)]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+        // TODO: Imposer une règle sur les mots de passe (RegEx)
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
