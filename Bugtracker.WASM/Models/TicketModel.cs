@@ -43,6 +43,8 @@ namespace Bugtracker.WASM.Models
         public DateTime SubmitTime { get; set; }
         public int? AssignedMember { get; set; }
         [Required]
+        // Accept every int except zero because my value is zero if I select the first option
+        [RegularExpression("^\\d*[1-9]\\d*$", ErrorMessage = "Please, choose a project.")]
         public int Project { get; set; }
     }
     public class TicketEditModel

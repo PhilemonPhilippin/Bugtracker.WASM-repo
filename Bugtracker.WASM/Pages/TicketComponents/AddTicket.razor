@@ -52,7 +52,7 @@
         <InputSelect id="Project" @bind-Value="@AddedTicket.Project" class="form-control">
             @if (_projects.Count != 0)
             {
-                <option value="" disabled>Select..</option>
+                <option value="">Select..</option>
                 @foreach (ProjectModel project in _projects)
                 {
                     @if (!project.Disabled)
