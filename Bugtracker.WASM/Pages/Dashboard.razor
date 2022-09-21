@@ -30,9 +30,9 @@
         {
             <p class="mt-4">Click below to either see your tickets or your projects.</p>
 
-            <button class="btn @((_displayMyProjectsComponent) ? "btn-outline-secondary": "btn-outline-primary") me-2" @onclick="DisplayMyProjectsComponent" title="My projects">My Projects</button>
+            <button class="btn btn-outline-primary me-2" @onclick="DisplayMyProjectsComponent" title="My projects">My Projects</button>
 
-            <button class="btn @((_displayMyTicketsComponent) ? "btn-outline-secondary": "btn-outline-primary")" @onclick="DisplayMyTicketsComponent" title="My tickets">My Tickets</button>
+            <button class="btn btn-outline-primary" @onclick="DisplayMyTicketsComponent" title="My tickets">My Tickets</button>
 
             @if (_displayMyProjectsComponent)
             {

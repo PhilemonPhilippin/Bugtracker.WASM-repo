@@ -15,8 +15,8 @@
                 In order to access the website, you first need to be logged in. <br />
                 Do you want to login with your existing account, or do you want to create a new one ?
             </p>
-            <button class="btn @((_displayLogin) ? "btn-outline-secondary" : "btn-outline-primary")" @onclick="DisplayLogin" title="Login">Login</button>
-            <button class="btn @((_displayRegistration) ? "btn-outline-secondary" : "btn-outline-primary")" @onclick="DisplayRegistration" title="New account">New account</button>
+            <button class="btn btn-outline-primary" @onclick="DisplayLogin" title="Login">Login</button>
+            <button class="btn btn-outline-primary" @onclick="DisplayRegistration" title="New account">New account</button>
 
             @if (_displayRegistration)
             {

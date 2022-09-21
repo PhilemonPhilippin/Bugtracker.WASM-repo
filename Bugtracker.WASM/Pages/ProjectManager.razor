@@ -22,9 +22,9 @@
         {
             <p class="mt-5">Do you want to see the list of all projects or the list of all tickets ?</p>
 
-            <button class="btn @((_displayProjectsComponent) ? "btn-outline-secondary" : "btn-outline-primary") mt-2 me-2" @onclick="DisplayProjectsComponent" title="All projects">All Projects</button>
+            <button class="btn btn-outline-primary mt-2 me-2" @onclick="DisplayProjectsComponent" title="All projects">All Projects</button>
 
-            <button class="btn @((_displayTicketsComponent) ? "btn-outline-secondary" : "btn-outline-primary") mt-2" @onclick="DisplayTicketsComponent" title="All tickets">All Tickets</button>
+            <button class="btn btn-outline-primary mt-2" @onclick="DisplayTicketsComponent" title="All tickets">All Tickets</button>
 
             @if (_displayProjectsComponent)
             {

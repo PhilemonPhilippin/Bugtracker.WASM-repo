@@ -47,12 +47,12 @@ else
                     </td>
 
                     <td>
-                        <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayDetailsDialog) ? "btn-secondary":"btn-primary")"
+                        <button class="btn btn-primary"
                         @onclick="() => DisplayDetailsDialog(ticket)" title="Details">
                             <img src="/custom-icons/arrows-angle-expand.svg" alt="Details" />
                         </button>
 
-                        <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayEditDialog) ? "btn-secondary":"btn-warning") ms-1"
+                        <button class="btn btn-warning ms-1"
                         @onclick="() => DisplayEditDialog(ticket)" title="Edit">
                             <img src="/custom-icons/pen.svg" alt="Edit" />
                         </button>

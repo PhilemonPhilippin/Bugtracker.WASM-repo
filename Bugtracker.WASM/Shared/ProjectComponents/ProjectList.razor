@@ -33,12 +33,12 @@ else
                         </td>
 
                         <td>
-                            <button class="btn @((project.IdProject == _projectTarget.IdProject && _displayDetailsDialog) ? "btn-secondary":"btn-primary")"
+                            <button class="btn btn-primary"
                         @onclick="() => DisplayDetailsDialog(project)" title="Details">
                                 <img src="/custom-icons/arrows-angle-expand.svg" alt="Details" />
                             </button>
 
-                            <button class="btn @((project.IdProject == _projectTarget.IdProject && _displayEditDialog) ? "btn-secondary":"btn-warning") ms-1"
+                            <button class="btn btn-warning ms-1"
                         @onclick="() => DisplayEditDialog(project)" title="Edit">
                                 <img src="/custom-icons/pen.svg" alt="Edit" />
                             </button>
