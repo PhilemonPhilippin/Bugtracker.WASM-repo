@@ -13,7 +13,6 @@
             {
                 @if (!member.Disabled && member.IdMember != TicketTarget.AssignedMember)
                 {
-                    // TODO: Impossible d'assigner un ticket à Corentintin(premier choix) sauf si je change dabord l'option
                     // TODO: Ne pas renvoyer une 404 si aucun assign à supprimer n'existe, quand j'assign un ticket
                     <option value="@member.IdMember">@member.Pseudo</option>
                 }

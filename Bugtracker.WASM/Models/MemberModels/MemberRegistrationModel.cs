@@ -11,9 +11,9 @@ namespace Bugtracker.WASM.Models.MemberModels
         [MaxLength(250)]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        // TODO: Imposer une règle sur les mots de passe (RegEx)
         [Required]
         [DataType(DataType.Password)]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$", ErrorMessage = "Minimum eight characters, at least one uppercase letter, one lowercase letter and one number.")]
         public string Password { get; set; }
         [Required]
         [DataType(DataType.Password)]
@@ -42,6 +42,7 @@ namespace Bugtracker.WASM.Models.MemberModels
         public string OldPassword { get; set; }
         [Required]
         [DataType(DataType.Password)]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$", ErrorMessage = "Minimum eight characters, at least one uppercase letter, one lowercase letter and one number.")]
         public string NewPassword { get; set; }
         [Required]
         [DataType(DataType.Password)]
