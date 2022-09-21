@@ -6,6 +6,7 @@ namespace Bugtracker.WASM.Models.MemberModels
     {
         [Required]
         [MaxLength(50)]
+        [MinLength(3)]
         public string Pseudo { get; set; }
         [Required]
         [MaxLength(250)]

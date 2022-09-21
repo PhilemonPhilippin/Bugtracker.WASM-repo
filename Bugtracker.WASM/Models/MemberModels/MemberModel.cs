@@ -8,6 +8,7 @@ namespace Bugtracker.WASM.Models.MemberModels
         // TODO: Imposer un nombre minimum de chars pour le Pseudo
         [Required]
         [MaxLength(50)]
+        [MinLength(3)]
         public string Pseudo { get; set; }
         // TODO: Imposer une adresse mail dans le formulaire (pas sans @gmail.com)
         [Required]
