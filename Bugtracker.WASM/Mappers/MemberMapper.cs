@@ -1,5 +1,6 @@
 ﻿using Bugtracker.WASM.Models.MemberModels;
 
+
 namespace Bugtracker.WASM.Mappers
 {
     internal static class MemberMapper
