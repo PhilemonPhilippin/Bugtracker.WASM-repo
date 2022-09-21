@@ -39,7 +39,7 @@ else
 }
 @if (_displayEditProfileDialog)
 {
-    <EditMember MemberTarget="@_member" OnCancel="CloseEditDialog" OnConfirm="ConfirmEdit" />
+    <MemberEdit MemberTarget="@_member" OnCancel="CloseEditDialog" OnConfirm="ConfirmEdit" />
 }
 else if (_displayChangePswdDialog)
 {

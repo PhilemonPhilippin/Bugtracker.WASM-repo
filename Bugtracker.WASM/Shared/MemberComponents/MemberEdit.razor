@@ -1,0 +1,35 @@
+﻿<h3 class="mt-4">Edit a member</h3>
+
+<div class="mt-3">
+    <EditForm Model="@MemberEdited" OnValidSubmit="@SubmitEdit" class="p-4 p-md-5 border rounded-3 bg-light">
+        <DataAnnotationsValidator />
+
+        <label for="Pseudo">
+            Pseudo: @if (_displayPseudoTaken)
+            {
+                <span class="text-danger"> Pseudo already taken!</span>
+            }
+        </label>
+        <InputText id="Pseudo" @bind-Value="@MemberEdited.Pseudo" class="form-control" />
+
+        <label for="Email">
+            Email: @if (_displayEmailTaken)
+            {
+                <span class="text-danger"> Email already taken!</span>
+            }
+        </label>
+        <InputText id="Email" @bind-Value="@MemberEdited.Email" class="form-control" />
+
+        <label for="Firstname">Firstname:</label>
+        <InputText id="Firstname" @bind-Value="@MemberEdited.Firstname" class="form-control" />
+
+        <label for="Lastname">Lastname:</label>
+        <InputText id="Lastname" @bind-Value="@MemberEdited.Lastname" class="form-control" />
+
+        <button type="submit" class="btn btn-warning mt-2 me-2" title="Edit">Edit</button>
+        <button @onclick="OnCancel" class="btn btn-primary mt-2" title="Close">Close</button>
+
+        <ValidationSummary />
+    </EditForm>
+</div>
+
