@@ -55,7 +55,7 @@ else
 
     @if (_displayAddDialog)
     {
-        <AddProject OnCancel="@CloseAddDialog" OnConfirm="@RefreshProjectList" />
+        <ProjectAdd OnCancel="@CloseAddDialog" OnConfirm="@RefreshProjectList" />
     }
     else if (_displayDetailsDialog)
     {
