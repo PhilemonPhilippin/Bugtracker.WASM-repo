@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Bugtracker.WASM.Tools;
 using System.Net.Http.Json;
 
-namespace Bugtracker.WASM.Shared
+namespace Bugtracker.WASM.Shared.TicketComponents
 {
     public partial class MyTicketList
     {

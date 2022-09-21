@@ -1,11 +1,11 @@
-﻿using Bugtracker.WASM.Models;
-using Bugtracker.WASM.Models.MemberModels;
+﻿using Bugtracker.WASM.Models.MemberModels;
+using Bugtracker.WASM.Models;
 using Bugtracker.WASM.Tools;
 using Microsoft.AspNetCore.Components;
 
-namespace Bugtracker.WASM.Pages.ProjectComponents
+namespace Bugtracker.WASM.Shared.ProjectComponents
 {
-    public partial class DisplayMyProjects
+    public partial class MyProjectList
     {
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; } = default!;
