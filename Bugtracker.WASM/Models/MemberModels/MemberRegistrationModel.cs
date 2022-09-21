@@ -11,6 +11,7 @@ namespace Bugtracker.WASM.Models.MemberModels
         [Required]
         [MaxLength(250)]
         [DataType(DataType.EmailAddress)]
+        [EmailAddress]
         public string Email { get; set; }
         [Required]
         [DataType(DataType.Password)]
