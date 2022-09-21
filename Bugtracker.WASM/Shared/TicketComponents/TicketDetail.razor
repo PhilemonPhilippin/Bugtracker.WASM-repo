@@ -1,0 +1,104 @@
+﻿<h3 class="mt-4">Ticket details</h3>
+
+@if (TicketTarget is null)
+{
+    <span>Loading ticket...</span>
+}
+else
+{
+    <table class="table table-striped mt-3">
+        <thead class="table-primary">
+            <tr>
+                <th>Information</th>
+                <th>Ticket</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Title</td>
+                <td>@TicketTarget.Title</td>
+            </tr>
+
+            <tr>
+                <td>Status</td>
+                <td>
+                    @switch (TicketTarget.Status)
+                    {
+                        case 1:
+                            @:To-do
+                            break;
+                        case 2:
+                            @:In progress
+                            break;
+                        case 3:
+                            @:Stuck
+                            break;
+                        case 4:
+                            @:Complete
+                            break;
+                    }
+                </td>
+            </tr>
+
+            <tr>
+                <td>Priority</td>
+                <td>
+                    @switch (TicketTarget.Priority)
+                    {
+                        case 1:
+                            @:High
+                            break;
+                        case 2:
+                            @:Medium
+                            break;
+                        case 3:
+                            @:Low
+                            break;
+                    }
+                </td>
+            </tr>
+
+            <tr>
+                <td>Type</td>
+                <td>@TicketTarget.Type</td>
+            </tr>
+
+            <tr>
+                <td>Description</td>
+                <td>@TicketTarget.Description</td>
+            </tr>
+
+            <tr>
+                <td>Submit time</td>
+                <td>@TicketTarget.SubmitTime</td>
+            </tr>
+
+            <tr>
+                <td>Submit member</td>
+                <td>
+                    @if (@SubmittingMember is not null)
+                    {
+                        @SubmittingMember.Pseudo
+                    }
+                </td>
+            </tr>
+
+            <tr>
+                <td>Assigned member</td>
+                <td>
+                    @if (TicketTarget.AssignedMember is not null)
+                    {
+                        @MemberAssigned.Pseudo
+                    }
+                </td>
+            </tr>
+
+            <tr>
+                <td>Project</td>
+                <td>@Project.Name</td>
+            </tr>
+        </tbody>
+    </table>
+    <button @onclick="OnCancel" class="btn btn-primary mt-2" title="Close">Close</button>
+}
