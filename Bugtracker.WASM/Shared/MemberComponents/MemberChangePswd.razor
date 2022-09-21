@@ -1,0 +1,32 @@
+﻿<h3 class="mt-4">Change Password</h3>
+
+@if (_displayPasswordChanged)
+{
+    <span class="text-success">Password Changed with success!</span>
+}
+
+<div class="mt-3">
+    <EditForm Model="@pswdModel" OnValidSubmit="Submit" class="p-4 p-md-5 border rounded-3 bg-light">
+        <DataAnnotationsValidator />
+
+        <label for="OldPassword">
+            Old Password:
+            @if (_displayIncorrectPassword)
+            {
+                <span class="text-danger"> /!\ Incorrect Password.</span>
+            }
+        </label>
+        <InputText type="password" id="OldPassword" @bind-Value="@pswdModel.OldPassword" class="form-control" />
+
+        <label for="NewPassword">New Password:</label>
+        <InputText type="password" id="NewPassword" @bind-Value="@pswdModel.NewPassword" class="form-control" />
+
+        <label for="ConfirmPassword">Confirm Password:</label>
+        <InputText type="password" id="ConfirmPassword" @bind-Value="@pswdModel.ConfirmPassword" class="form-control" />
+
+        <button type="submit" class="btn btn-warning mt-2" title="Confirm">Confirm changes</button>
+        <button @onclick="OnCancel" class="btn btn-primary mt-2" title="Close">Close</button>
+
+        <ValidationSummary />
+    </EditForm>
+</div>
