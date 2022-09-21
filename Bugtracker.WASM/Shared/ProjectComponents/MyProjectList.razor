@@ -50,7 +50,7 @@ else
 
 @if (_displayProjectDetailsDialog)
 {
-    <DetailsProject OnCancel="@CloseDetailsDialog" ProjectTarget="@_projectTarget" />
+    <ProjectDetail OnCancel="@CloseDetailsDialog" ProjectTarget="@_projectTarget" />
 }
 else if (_displayEditProjectDialog)
 {

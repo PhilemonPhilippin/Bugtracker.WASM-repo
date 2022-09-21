@@ -1,0 +1,39 @@
+﻿<h3 class="mt-4">Project details</h3>
+
+@if (ProjectTarget is null)
+{
+    <span>Loading project...</span>
+}
+else
+{
+    <table class="table table-striped mt-3">
+        <thead class="table-primary">
+            <tr>
+                <th>Information</th>
+                <th>Project</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Name</td>
+                <td>@ProjectTarget.Name</td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>@ProjectTarget.Description</td>
+            </tr>
+            <tr>
+                <td>Manager</td>
+                <td>
+                    @if (manager is not null)
+                    {
+                        @manager.Pseudo
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button @onclick="OnCancel" class="btn btn-primary mt-2">Close</button>
+}
