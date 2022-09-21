@@ -2,9 +2,6 @@
 using Bugtracker.WASM.Models;
 using Bugtracker.WASM.Tools;
 using Microsoft.AspNetCore.Components;
-using static System.Net.WebRequestMethods;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
 
 namespace Bugtracker.WASM.Pages.TicketComponents
 {

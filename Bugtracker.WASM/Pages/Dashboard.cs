@@ -1,9 +1,5 @@
 ﻿using Bugtracker.WASM.Tools;
 using Microsoft.AspNetCore.Components;
-using static System.Net.WebRequestMethods;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using Bugtracker.WASM.Models;
 
 namespace Bugtracker.WASM.Pages
 {

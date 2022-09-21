@@ -1,11 +1,7 @@
-﻿using Bugtracker.WASM.Tools;
-using Microsoft.AspNetCore.Components;
-using static System.Net.WebRequestMethods;
-using System.Net.Http.Headers;
-using Bugtracker.WASM.Models;
-using System.Net.Http.Json;
-using System.Diagnostics.Metrics;
+﻿using Bugtracker.WASM.Models;
 using Bugtracker.WASM.Models.MemberModels;
+using Bugtracker.WASM.Tools;
+using Microsoft.AspNetCore.Components;
 
 namespace Bugtracker.WASM.Pages.ProjectComponents
 {

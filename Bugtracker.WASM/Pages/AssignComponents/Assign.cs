@@ -44,7 +44,7 @@ namespace Bugtracker.WASM.Pages.AssignComponents
                 TicketModel ticketModel = EditedTicket.ToModel();
 
                 //I Get my list of tickets before editing the ticket so that i can use it later to check for old existing assign.
-               _tickets = await Requester.Get<List<TicketModel>>("Ticket", _token);
+                _tickets = await Requester.Get<List<TicketModel>>("Ticket", _token);
 
                 using HttpResponseMessage responseEdit = await Requester.Put(ticketModel, "Ticket", _token);
                 if (responseEdit.IsSuccessStatusCode)

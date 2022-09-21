@@ -1,13 +1,7 @@
-﻿using Bugtracker.WASM.Models;
-using Bugtracker.WASM.Pages.ProjectComponents;
-using static System.Net.WebRequestMethods;
-using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Components;
+﻿using Bugtracker.WASM.Mappers;
+using Bugtracker.WASM.Models;
 using Bugtracker.WASM.Tools;
-using Bugtracker.WASM.Mappers;
-using System.Net.Http.Json;
-using Bugtracker.WASM.Models.MemberModels;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Components;
 
 namespace Bugtracker.WASM.Pages.TicketComponents
 {
@@ -48,7 +42,7 @@ namespace Bugtracker.WASM.Pages.TicketComponents
                 _isMemberConnected = true;
                 _displayTitleTaken = false;
                 TicketModel ticketModel = EditedTicket.ToModel();
-                
+
                 using HttpResponseMessage response = await Requester.Put(ticketModel, "Ticket", _token);
                 if (!response.IsSuccessStatusCode)
                 {

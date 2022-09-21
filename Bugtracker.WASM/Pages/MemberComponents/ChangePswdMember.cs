@@ -1,9 +1,6 @@
 ﻿using Bugtracker.WASM.Models.MemberModels;
-using Microsoft.AspNetCore.Components;
-using static System.Net.WebRequestMethods;
-using System.Net.Http.Headers;
 using Bugtracker.WASM.Tools;
-using System.Net.Http.Json;
+using Microsoft.AspNetCore.Components;
 
 namespace Bugtracker.WASM.Pages.MemberComponents
 {

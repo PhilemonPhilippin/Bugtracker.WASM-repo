@@ -3,8 +3,6 @@ using Bugtracker.WASM.Models;
 using Bugtracker.WASM.Models.MemberModels;
 using Bugtracker.WASM.Tools;
 using Microsoft.AspNetCore.Components;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
 
 namespace Bugtracker.WASM.Pages.ProjectComponents
 {
