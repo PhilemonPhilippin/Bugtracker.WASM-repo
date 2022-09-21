@@ -70,7 +70,7 @@ else
 
 @if (_displayAddDialog)
 {
-    <AddTicket OnCancel="@CloseAddDialog" OnConfirm="@RefreshTicketList" />
+    <TicketAdd OnCancel="@CloseAddDialog" OnConfirm="@RefreshTicketList" />
 }
 else if (_displayDetailsDialog)
 {
