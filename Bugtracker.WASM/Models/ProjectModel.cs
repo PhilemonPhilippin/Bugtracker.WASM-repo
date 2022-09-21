@@ -21,7 +21,6 @@ namespace Bugtracker.WASM.Models
         [Required]
         [MaxLength(750)]
         public string Description { get; set; }
-        [Required]
         public int? Manager { get; set; }
         public bool Disabled { get; set; }
     }

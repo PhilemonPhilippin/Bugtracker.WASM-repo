@@ -25,7 +25,12 @@ else
             </tr>
             <tr>
                 <td>Manager</td>
-                <td>@manager.Pseudo</td>
+                <td>
+                    @if (manager is not null)
+                    {
+                        @manager.Pseudo
+                    }
+                </td>
             </tr>
         </tbody>
     </table>

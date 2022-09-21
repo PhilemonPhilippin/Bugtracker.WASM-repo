@@ -28,7 +28,7 @@ else
                         <td>
                             @if (_members.Count != 0)
                             {
-                                @_members.Where(member => member.IdMember == project.Manager).SingleOrDefault().Pseudo
+                                @_members.Where(member => member.IdMember == project.Manager).SingleOrDefault()?.Pseudo
                             }
                         </td>
 

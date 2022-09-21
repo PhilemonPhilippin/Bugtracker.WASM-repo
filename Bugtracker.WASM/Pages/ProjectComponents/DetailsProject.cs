@@ -27,7 +27,10 @@ namespace Bugtracker.WASM.Pages.ProjectComponents
             if (_token is not null)
             {
                 _isMemberConnected = true;
-                manager = await Requester.Get<MemberModel>($"Member/{ProjectTarget.Manager}", _token);
+                if (ProjectTarget.Manager is not null)
+                {
+                    manager = await Requester.Get<MemberModel>($"Member/{ProjectTarget.Manager}", _token);
+                }
             }
         }
     }
