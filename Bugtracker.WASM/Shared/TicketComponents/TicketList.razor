@@ -1,0 +1,86 @@
+﻿<h2 class="mt-4">Tickets</h2>
+
+<button @onclick="DisplayAddDialog" class="btn @((_displayAddDialog) ? "btn-secondary" : "btn-success") mt-4" title="Add">Add Ticket</button>
+
+@if (_tickets.Count == 0)
+{
+    <span class="mt-2">Loading tickets list...</span>
+}
+else
+{
+    <table class="table table-striped mt-3">
+        <thead class="table-primary">
+            <tr>
+                <th>Title</th>
+                <th>Priority</th>
+                <th>Project</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (TicketModel ticket in _tickets)
+            {
+                <tr>
+                    <td>@ticket.Title </td>
+
+                    <td>
+                        @switch (ticket.Priority)
+                        {
+                            case 1:
+                                @:High
+                                break;
+                            case 2:
+                                @:Medium
+                                break;
+                            case 3:
+                                @:Low
+                                break;
+                        }
+                    </td>
+
+                    <td>
+                        @if (_projects.Count != 0)
+                        {
+                            @_projects.Where(project => project.IdProject == ticket.Project).SingleOrDefault().Name
+                        }
+                    </td>
+
+                    <td>
+                        <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayDetailsDialog) ? "btn-secondary":"btn-primary")"
+                        @onclick="() => DisplayDetailsDialog(ticket)" title="Details">
+                            <img src="/custom-icons/arrows-angle-expand.svg" alt="Details" />
+                        </button>
+
+                        <button class="btn @((ticket.IdTicket == _ticketTarget.IdTicket && _displayEditDialog) ? "btn-secondary":"btn-warning") ms-1"
+                        @onclick="() => DisplayEditDialog(ticket)" title="Edit">
+                            <img src="/custom-icons/pen.svg" alt="Edit" />
+                        </button>
+
+                        <button class="btn btn-danger ms-1" @onclick="() => DeleteTicket(ticket)" title="Delete">
+                            <img src="/custom-icons/trash3.svg" alt="Delete" />
+                        </button>
+                        <button class="btn btn-primary" @onclick="() => DisplayAssignDialog(ticket)" title="Assign">Assign</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@if (_displayAddDialog)
+{
+    <AddTicket OnCancel="@CloseAddDialog" OnConfirm="@RefreshTicketList" />
+}
+else if (_displayDetailsDialog)
+{
+    <DetailsTicket OnCancel="@CloseDetailsDialog" TicketTarget="@_ticketTarget" />
+}
+else if (_displayEditDialog)
+{
+    <EditTicket OnCancel="@CloseEditDialog" OnConfirm="@ConfirmEdit" TicketTarget="@_ticketTarget" />
+}
+else if (_displayAssignDialog)
+{
+    <Assign TicketTarget="@_ticketTarget" OnCancel="@CloseAssignDialog" OnConfirm="@ConfirmAssign" />
+}
