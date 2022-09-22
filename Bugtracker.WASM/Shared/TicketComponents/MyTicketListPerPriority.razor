@@ -1,0 +1,85 @@
+﻿<p class="fs-3 fw-normal mt-4">@PriorityName(PriorityNumber) (@(_myTickets.Count(t => t.Status == PriorityNumber)))</p>
+
+@if (_myTickets.Count(t => t.Status == PriorityNumber) != 0)
+{
+    <table class="table table-@PriorityTableColor(PriorityNumber)">
+        @switch (PriorityNumber)
+        {
+            case 1:
+                <caption>To-do</caption>
+                break;
+            case 2:
+                <caption>In Progress</caption>
+                break;
+            case 3:
+                <caption>Stuck</caption>
+                break;
+            case 4:
+                <caption>Complete</caption>
+                break;
+        }
+
+        <thead class="table-@PriorityTableColor(PriorityNumber)">
+            <tr>
+                <th>Title</th>
+                <th>Priority</th>
+                <th>Project</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (TicketModel ticket in _myTickets)
+            {
+                @if (ticket.Status == PriorityNumber)
+                {
+                    <tr>
+                        <td>@ticket.Title </td>
+
+                        <td>
+                            @switch (ticket.Priority)
+                            {
+                                case 1:
+                                    @:High
+                                    break;
+                                case 2:
+                                    @:Medium
+                                    break;
+                                case 3:
+                                    @:Low
+                                    break;
+                            }
+                        </td>
+
+                        <td>
+                            @if (_projects.Count != 0)
+                            {
+                                @_projects.Where(project => project.IdProject == ticket.Project).SingleOrDefault().Name
+                            }
+                        </td>
+
+                        <td>
+                            <button class="btn btn-primary"
+                        @onclick="() => DisplayTicketDetailsDialog(ticket, PriorityNumber)" title="Details">
+                                <img src="/custom-icons/arrows-angle-expand.svg" alt="Details" />
+                            </button>
+
+                            <button class="btn btn-warning ms-1" @onclick="() => DisplayTicketEditDialog(ticket, PriorityNumber)" title="Edit">
+                                <img src="/custom-icons/pen.svg" alt="Edit" />
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    @if (_displayTicketDetailsDialog && _statusTarget == PriorityNumber)
+    {
+        <TicketDetail OnCancel="@CloseDetailsDialog" TicketTarget="@_ticketTarget" />
+    }
+    else if (_displayEditTicketDialog && _statusTarget == PriorityNumber)
+    {
+        <TicketEdit OnCancel="@CloseEditDialog" OnConfirm="@ConfirmTicketEdit" TicketTarget="@_ticketTarget" />
+    }
+}
