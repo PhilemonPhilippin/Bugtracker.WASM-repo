@@ -12,6 +12,8 @@ namespace Bugtracker.WASM.Shared.TicketComponents
         private IApiRequester Requester { get; set; } = default!;
         [Parameter]
         public int PriorityNumber { get; set; }
+        [Parameter]
+        public EventCallback RefreshOnEdit { get; set; }
         private List<TicketModel> _tickets = new List<TicketModel>();
         private List<ProjectModel> _projects = new List<ProjectModel>();
         private List<int> _disabledProjects = new List<int>();
@@ -39,7 +41,7 @@ namespace Bugtracker.WASM.Shared.TicketComponents
                 _myTickets = _myTickets.Where(t => _disabledProjects.Contains(t.Project) == false).ToList();
             }
         }
-
+        
         private async Task RefreshTicketsList()
         {
             _token = await LocalStorage.GetToken();
@@ -55,6 +57,7 @@ namespace Bugtracker.WASM.Shared.TicketComponents
         {
             await RefreshTicketsList();
             _displayEditTicketDialog = false;
+            await RefreshOnEdit.InvokeAsync();
         }
         private void DisplayTicketDetailsDialog(TicketModel ticket, int status)
         {

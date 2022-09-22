@@ -1,4 +1,7 @@
-﻿@for (int i = 1; i <= 4; i++)
+﻿@if (_refreshOnEdit)
 {
-    <MyTicketListPerPriority PriorityNumber="i" />
+    @for (int i = 1; i <= 4; i++)
+    {
+        <MyTicketListPerPriority PriorityNumber="i" RefreshOnEdit="@OnEdit" />
+    }
 }
