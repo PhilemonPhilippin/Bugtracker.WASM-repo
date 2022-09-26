@@ -17,6 +17,10 @@
             <p class="text-danger">You are not connected. Click below to go on Login page</p>
             <button class="btn btn-outline-primary" @onclick="ToAccount">Login page</button>
         }
+        else if (_myMemberModel.Role < 4)
+        {
+            <p class="text-danger">You don't have the rights to access this section. You need to be Administrator or more.</p>
+        }
         else
         {
             <MemberList />
