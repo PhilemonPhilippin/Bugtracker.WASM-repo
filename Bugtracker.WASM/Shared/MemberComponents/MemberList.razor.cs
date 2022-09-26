@@ -12,14 +12,19 @@ namespace Bugtracker.WASM.Shared.MemberComponents
         private IApiRequester Requester { get; set; } = default!;
         private List<MemberModel> _members = new List<MemberModel>();
         private MemberModel _memberTarget = new MemberModel() { IdMember = 0 };
+        private MemberModel _myMemberModel = new();
+        private int _myMemberId;
         private string _token;
         private bool _displayEditDialog;
+        private bool _displayEditRoleDialog;
         private bool _displayDetailsDialog;
         private bool _isMemberConnected;
 
         protected override async Task OnInitializedAsync()
         {
             await RefreshMemberList();
+            _myMemberId = await Requester.Get<int>("Member/idfromjwt", _token);
+            _myMemberModel = await Requester.Get<MemberModel>($"Member/{_myMemberId}", _token);
         }
         private async Task RefreshMemberList()
         {
@@ -47,6 +52,7 @@ namespace Bugtracker.WASM.Shared.MemberComponents
             if (_displayDetailsDialog)
             {
                 _displayEditDialog = false;
+                _displayEditRoleDialog = false;
                 _memberTarget = member;
             }
         }
@@ -57,12 +63,24 @@ namespace Bugtracker.WASM.Shared.MemberComponents
             if (_displayEditDialog)
             {
                 _displayDetailsDialog = false;
+                _displayEditRoleDialog = false;
+                _memberTarget = member;
+            }
+        }
+        private void DisplayEditRoleDialog(MemberModel member)
+        {
+            _displayEditRoleDialog = !_displayEditRoleDialog;
+            if (_displayEditRoleDialog)
+            {
+                _displayDetailsDialog = false;
+                _displayEditDialog = false;
                 _memberTarget = member;
             }
         }
         private async Task ConfirmEdit()
         {
             _displayEditDialog = false;
+            _displayEditRoleDialog = false;
             await RefreshMemberList();
         }
         private void CloseDetailsDialog()
@@ -72,6 +90,10 @@ namespace Bugtracker.WASM.Shared.MemberComponents
         private void CloseEditDialog()
         {
             _displayEditDialog = false;
+        }
+        private void CloseEditRoleDialog()
+        {
+            _displayEditRoleDialog = false;
         }
     }
 }

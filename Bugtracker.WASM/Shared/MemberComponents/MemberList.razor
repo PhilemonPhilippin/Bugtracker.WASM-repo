@@ -45,6 +45,13 @@ else
                         @onclick="() => DisplayEditDialog(member)" title="Edit">
                                 <img src="/custom-icons/pen.svg" alt="Edit" />
                             </button>
+                            @if (member.Role < _myMemberModel.Role)
+                            {
+                                <button class="btn btn-warning ms-1" @onclick="() => DisplayEditRoleDialog(member)" title="Edit Role">
+                                    Edit Role
+                                </button>
+                            }
+                           
                             <button class="btn btn-danger ms-1" @onclick="() => DeleteMember(member.IdMember)" title="Delete">
                                 <img src="/custom-icons/trash3.svg" alt="Delete" />
                             </button>
@@ -63,5 +70,9 @@ else
     else if (_displayEditDialog)
     {
         <MemberEdit MemberTarget="@_memberTarget" OnCancel="CloseEditDialog" OnConfirm="ConfirmEdit" />
+    }
+    else if (_displayEditRoleDialog)
+    {
+        <MemberRole MemberTarget="@_memberTarget" OnCancel="CloseEditRoleDialog" OnConfirm="ConfirmEdit"/>
     }
 }
