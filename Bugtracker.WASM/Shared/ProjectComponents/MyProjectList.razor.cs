@@ -101,5 +101,10 @@ namespace Bugtracker.WASM.Shared.ProjectComponents
         {
             _displayEditProjectDialog = false;
         }
+
+        private int GetMyRole()
+        {
+            return _members.Where(m => m.IdMember == _myMemberId).Select(m => m.Role).First();
+        }
     }
 }

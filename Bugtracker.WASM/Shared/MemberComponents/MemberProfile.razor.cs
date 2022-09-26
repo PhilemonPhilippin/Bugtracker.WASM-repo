@@ -61,5 +61,22 @@ namespace Bugtracker.WASM.Shared.MemberComponents
         {
             _displayEditProfileDialog = false;
         }
+
+        private string RoleName(int role)
+        {
+            switch (role)
+            {
+                case 2:
+                    return "Developer";
+                case 3:
+                    return "Project Manager";
+                case 4:
+                    return "Administrator";
+                case 5:
+                    return "Web Master";
+                default:
+                    return "Tester";
+            }
+        }
     }
 }

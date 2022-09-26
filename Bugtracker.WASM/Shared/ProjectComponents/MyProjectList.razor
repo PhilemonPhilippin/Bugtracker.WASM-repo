@@ -35,11 +35,13 @@ else
                         @onclick="() => DisplayProjectDetailsDialog(project)" title="Details">
                                 <img src="/custom-icons/arrows-angle-expand.svg" alt="Details" />
                             </button>
-
-                            <button class="btn btn-warning ms-1"
+                            @if (GetMyRole() >= 3)
+                            {
+                                <button class="btn btn-warning ms-1"
                         @onclick="() => DisplayProjectEditDialog(project)" title="Edit">
-                                <img src="/custom-icons/pen.svg" alt="Edit" />
-                            </button>
+                                    <img src="/custom-icons/pen.svg" alt="Edit" />
+                                </button>
+                            }
                         </td>
                     </tr>
                 }
@@ -52,7 +54,7 @@ else
 {
     <ProjectDetail OnCancel="@CloseDetailsDialog" ProjectTarget="@_projectTarget" />
 }
-else if (_displayEditProjectDialog)
+else if (_displayEditProjectDialog && GetMyRole() >= 3)
 {
     <ProjectEdit OnCancel="@CloseEditDialog" OnConfirm="@ConfirmProjectEdit" ProjectTarget="@_projectTarget" />
 }
