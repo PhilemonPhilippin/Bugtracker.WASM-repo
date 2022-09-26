@@ -18,6 +18,7 @@ namespace Bugtracker.WASM.Models.MemberModels
         public string? Firstname { get; set; }
         [MaxLength(50)]
         public string? Lastname { get; set; }
+        public int Role { get; set; }
         public bool Disabled { get; set; }
     }
     public class MemberLoginModel

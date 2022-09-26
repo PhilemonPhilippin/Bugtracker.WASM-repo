@@ -29,6 +29,7 @@ namespace Bugtracker.WASM.Shared.MemberComponents
             MemberEdited.Email = MemberTarget.Email;
             MemberEdited.Firstname = MemberTarget.Firstname;
             MemberEdited.Lastname = MemberTarget.Lastname;
+            MemberEdited.Role = MemberTarget.Role;
         }
         private async Task SubmitEdit()
         {
