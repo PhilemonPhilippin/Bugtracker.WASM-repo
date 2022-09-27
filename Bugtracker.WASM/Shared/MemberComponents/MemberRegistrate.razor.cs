@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bugtracker.WASM.Shared.MemberComponents
 {
-    public partial class MemberRegistrate
+    public partial class MemberRegistrate : ComponentBase
     {
         [Inject]
         private IApiRequester Requester { get; set; } = default!;

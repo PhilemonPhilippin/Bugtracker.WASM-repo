@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bugtracker.WASM.Shared.TicketComponents
 {
-    public partial class MyTicketList
+    public partial class MyTicketList : ComponentBase
     {
         private bool _refreshOnEdit = true;
         public void OnEdit()

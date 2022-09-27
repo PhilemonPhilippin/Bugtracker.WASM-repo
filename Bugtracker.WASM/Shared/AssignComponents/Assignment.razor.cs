@@ -7,7 +7,7 @@ using Microsoft.JSInterop;
 
 namespace Bugtracker.WASM.Shared.AssignComponents
 {
-    public partial class Assignment
+    public partial class Assignment : ComponentBase
     {
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; } = default!;

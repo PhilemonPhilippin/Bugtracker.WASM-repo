@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bugtracker.WASM.Shared.ProjectComponents
 {
-    public partial class ProjectList
+    public partial class ProjectList : ComponentBase
     {
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; } = default!;

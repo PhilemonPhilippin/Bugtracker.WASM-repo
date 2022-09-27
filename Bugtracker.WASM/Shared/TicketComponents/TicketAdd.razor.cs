@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bugtracker.WASM.Shared.TicketComponents
 {
-    public partial class TicketAdd
+    public partial class TicketAdd : ComponentBase
     {
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; } = default!;

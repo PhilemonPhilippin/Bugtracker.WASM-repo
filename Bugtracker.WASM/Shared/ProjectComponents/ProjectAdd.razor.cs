@@ -6,7 +6,7 @@ using Bugtracker.WASM.Mappers;
 
 namespace Bugtracker.WASM.Shared.ProjectComponents
 {
-    public partial  class ProjectAdd
+    public partial  class ProjectAdd : ComponentBase
     {
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; } = default!;

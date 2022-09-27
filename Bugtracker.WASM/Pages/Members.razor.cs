@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bugtracker.WASM.Pages
 {
-    public partial class Members
+    public partial class Members : ComponentBase
     {
         [Inject]
         private NavigationManager NavManager { get; set; } = default!;

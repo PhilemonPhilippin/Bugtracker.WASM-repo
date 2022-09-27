@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bugtracker.WASM.Pages
 {
-    public partial class MyAccount
+    public partial class MyAccount : ComponentBase
     {
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; } = default!;

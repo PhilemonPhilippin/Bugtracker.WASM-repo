@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bugtracker.WASM.Shared.MemberComponents
 {
-    public partial class MemberLogin
+    public partial class MemberLogin : ComponentBase
     {
         [Inject]
         private NavigationManager NavManager { get; set; } = default!;

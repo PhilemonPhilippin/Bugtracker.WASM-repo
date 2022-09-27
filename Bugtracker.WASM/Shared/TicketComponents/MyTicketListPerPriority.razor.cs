@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Bugtracker.WASM.Shared.TicketComponents
 {
-    public partial class MyTicketListPerPriority
+    public partial class MyTicketListPerPriority : ComponentBase
     {
         [Inject]
         private IMemberLocalStorage LocalStorage { get; set; } = default!;
