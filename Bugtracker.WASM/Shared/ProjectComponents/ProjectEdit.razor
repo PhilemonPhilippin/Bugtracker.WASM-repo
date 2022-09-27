@@ -1,6 +1,6 @@
-﻿<h3 class="mt-4">Edit a project</h3>
+﻿<h3 class="mt-4" @ref="focusRef">Edit a project</h3>
 
-<div class="mt-3" @ref="focusRef">
+<div class="mt-3">
     <EditForm Model="@EditedProject" OnValidSubmit="@SubmitEdit" class="p-4 p-md-5 border rounded-3 bg-light">
         <DataAnnotationsValidator />
 

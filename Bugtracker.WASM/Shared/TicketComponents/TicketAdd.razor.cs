@@ -2,6 +2,7 @@
 using Bugtracker.WASM.Models;
 using Bugtracker.WASM.Tools;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Bugtracker.WASM.Shared.TicketComponents
 {
@@ -11,12 +12,16 @@ namespace Bugtracker.WASM.Shared.TicketComponents
         private IMemberLocalStorage LocalStorage { get; set; } = default!;
         [Inject]
         private IApiRequester Requester { get; set; } = default!;
+        [Inject]
+        private IJSRuntime JS { get; set; } = default!;
         [Parameter]
         public EventCallback OnCancel { get; set; }
         [Parameter]
         public EventCallback OnConfirm { get; set; }
         private TicketFormModel AddedTicket { get; set; } = new TicketFormModel() { IdTicket = default, SubmitTime = DateTime.Now };
         private List<ProjectModel> _projects = new List<ProjectModel>();
+        private ElementReference focusRef;
+        private IJSObjectReference? module;
         private string _token;
         private bool _isMemberConnected;
         private bool _displayTitleTaken;
@@ -31,6 +36,16 @@ namespace Bugtracker.WASM.Shared.TicketComponents
                 _projects = await Requester.Get<List<ProjectModel>>("Project", _token);
             }
         }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/mainscript.js");
+                await module.InvokeVoidAsync("ScrollToRef", focusRef);
+            }
+        }
+
         private async Task SubmitAdd()
         {
             _token = await LocalStorage.GetToken();

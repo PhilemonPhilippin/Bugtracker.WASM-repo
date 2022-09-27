@@ -8,9 +8,7 @@
     <div class="col align-self-center">
         <h1 class="oi oi-home"> Dashboard</h1>
         <p class="mt-3">
-            Welcome on your Dashboard. <br />
-            Here, you can see the tickets you have been assigned to. <br />
-            You can also see the projects you are working on.
+            Welcome on your Dashboard.
         </p>
 
         @if (!_isMemberConnected)
@@ -25,6 +23,10 @@
 
             <div class="col-2">
             </div>
+        }
+        else if (_myMemberModel.Role == 1)
+        {
+            <LimitedTicketList />
         }
         else
         {

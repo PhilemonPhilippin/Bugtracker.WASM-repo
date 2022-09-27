@@ -3,6 +3,7 @@ using Bugtracker.WASM.Models;
 using Bugtracker.WASM.Tools;
 using Microsoft.AspNetCore.Components;
 using Bugtracker.WASM.Mappers;
+using Microsoft.JSInterop;
 
 namespace Bugtracker.WASM.Shared.ProjectComponents
 {
@@ -12,6 +13,8 @@ namespace Bugtracker.WASM.Shared.ProjectComponents
         private IMemberLocalStorage LocalStorage { get; set; } = default!;
         [Inject]
         private IApiRequester Requester { get; set; } = default!;
+        [Inject]
+        private IJSRuntime JS { get; set; } = default!;
         [Parameter]
         public EventCallback OnCancel { get; set; }
         [Parameter]
@@ -19,6 +22,8 @@ namespace Bugtracker.WASM.Shared.ProjectComponents
         private List<MemberModel> _members = new List<MemberModel>();
         private ProjectFormModel AddedProject { get; set; } = new ProjectFormModel() { IdProject = default };
 
+        private ElementReference focusRef;
+        private IJSObjectReference? module;
         private bool _displayNameTaken;
         private bool _isMemberConnected;
         private bool _isProjectAdded;
@@ -33,6 +38,16 @@ namespace Bugtracker.WASM.Shared.ProjectComponents
                 _members = await Requester.Get<List<MemberModel>>("Member", _token);
             }
         }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/mainscript.js");
+                await module.InvokeVoidAsync("ScrollToRef", focusRef);
+            }
+        }
+
         private async Task SubmitAdd()
         {
             _token = await LocalStorage.GetToken();

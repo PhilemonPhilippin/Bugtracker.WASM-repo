@@ -1,4 +1,4 @@
-﻿<h3 class="mt-4">Ticket details</h3>
+﻿<h3 class="mt-4" @ref="focusRef">Ticket details</h3>
 
 @if (TicketTarget is null)
 {
@@ -6,7 +6,7 @@
 }
 else
 {
-    <table class="table table-striped mt-3" @ref="focusRef">
+    <table class="table table-striped mt-3">
         <thead class="table-primary">
             <tr>
                 <th>Information</th>

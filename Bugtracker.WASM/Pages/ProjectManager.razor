@@ -9,8 +9,6 @@
         <h1 class="oi oi-clipboard"> Project Manager</h1>
         <p class="mt-3">
             You can find here the Project Manager module. <br />
-            You are able to manage every project of the website. <br />
-            Also, you can display all the tickets registered in the application and assign them to the developers.
         </p>
 
         @if (!_isMemberConnected)
@@ -18,10 +16,14 @@
             <p class="text-danger">You are not connected. Click below to go to login page</p>
             <button class="btn btn-primary" @onclick="ToAccount">Login page</button>
         }
-        else if (_myMemberModel.Role < 3)
+        else if (_myMemberModel.Role == 1)
         {
             <p class="text-danger">You don't have the rights to access this section. You must be Project Manager or higher.</p>
             <button class="btn btn-primary" @onclick="ToDashboard">Dashboard</button>
+        }
+        else if (_myMemberModel.Role == 2)
+        {
+            <LimitedTicketList />
         }
         else
         {
