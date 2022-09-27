@@ -1,7 +1,7 @@
 ﻿<h3 class="mt-4">Edit a ticket</h3>
 
-<div class="mt-3">
-    <EditForm Model="@EditedTicket" OnValidSubmit="@SubmitEdit" class="p-4 p-md-5 border rounded-3 bg-light">
+<div class="mt-3" @ref="focusRef">
+    <EditForm Model="@EditedTicket" OnValidSubmit="@SubmitEdit" class="p-4 p-md-5 border rounded-3 bg-light" >
         <DataAnnotationsValidator />
 
         <label for="Title">

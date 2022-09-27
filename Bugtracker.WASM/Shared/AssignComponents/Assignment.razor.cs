@@ -3,6 +3,7 @@ using Bugtracker.WASM.Models;
 using Bugtracker.WASM.Tools;
 using Microsoft.AspNetCore.Components;
 using Bugtracker.WASM.Mappers;
+using Microsoft.JSInterop;
 
 namespace Bugtracker.WASM.Shared.AssignComponents
 {
@@ -12,6 +13,8 @@ namespace Bugtracker.WASM.Shared.AssignComponents
         private IMemberLocalStorage LocalStorage { get; set; } = default!;
         [Inject]
         private IApiRequester Requester { get; set; } = default!;
+        [Inject]
+        private IJSRuntime JS { get; set; } = default!;
         [Parameter]
         public TicketModel TicketTarget { get; set; }
         [Parameter]
@@ -21,6 +24,8 @@ namespace Bugtracker.WASM.Shared.AssignComponents
         private List<MemberModel> _members = new List<MemberModel>();
         private List<TicketModel> _tickets = new List<TicketModel>();
         private TicketEditModel EditedTicket { get; set; } = new TicketEditModel();
+        private ElementReference focusRef;
+        private IJSObjectReference? module;
         private string _token;
         private bool _isMemberConnected;
 
@@ -32,6 +37,15 @@ namespace Bugtracker.WASM.Shared.AssignComponents
             {
                 _isMemberConnected = true;
                 _members = await Requester.Get<List<MemberModel>>("Member", _token);
+            }
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/mainscript.js");
+                await module.InvokeVoidAsync("ScrollToRef", focusRef);
             }
         }
 

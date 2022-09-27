@@ -1,6 +1,6 @@
 ﻿<h3 class="mt-4">Change the role of a User</h3>
 
-<div class="mt-3">
+<div class="mt-3" @ref="focusRef">
     <EditForm Model="@EditedMember" OnValidSubmit="@SubmitEdit" class="p-4 p-md-5 border rounded-3 bg-light">
         <DataAnnotationsValidator />
         <p>Member : @EditedMember.Pseudo</p>
