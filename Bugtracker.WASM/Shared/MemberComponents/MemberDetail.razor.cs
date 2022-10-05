@@ -30,7 +30,7 @@ namespace Bugtracker.WASM.Shared.MemberComponents
             switch (role)
             {
                 case 2:
-                    return "Developer";
+                    return "Tester";
                 case 3:
                     return "Project Manager";
                 case 4:
@@ -38,7 +38,7 @@ namespace Bugtracker.WASM.Shared.MemberComponents
                 case 5:
                     return "Web Master";
                 default:
-                    return "Tester";
+                    return "Developer";
             }
         }
     }

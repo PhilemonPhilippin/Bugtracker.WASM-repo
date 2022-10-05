@@ -1,6 +1,9 @@
 ﻿<h2 class="mt-4">Tickets</h2>
 
-<button @onclick="DisplayAddDialog" class="btn @((_displayAddDialog) ? "btn-secondary" : "btn-success") mt-4" title="Add">Add Ticket</button>
+@if (_myMemberModel.Role > 1)
+{
+    <button @onclick="DisplayAddDialog" class="btn @((_displayAddDialog) ? "btn-secondary" : "btn-success") mt-4" title="Add">Add Ticket</button>
+}
 
 @if (_tickets.Count == 0)
 {
@@ -52,16 +55,10 @@ else
                             <img src="/custom-icons/arrows-angle-expand.svg" alt="Details" />
                         </button>
 
-                        @if (_myMemberModel.Role == 2)
-                        {
-                            <button class="btn btn-warning ms-1"
+                        <button class="btn btn-warning ms-1"
                         @onclick="() => DisplayEditDialog(ticket)" title="Edit">
-                                <img src="/custom-icons/pen.svg" alt="Edit" />
-                            </button>
-
-                            <button class="btn btn-primary" @onclick="() => DisplayAssignDialog(ticket)" title="Assign">Assign</button>
-                        }
-                        
+                            <img src="/custom-icons/pen.svg" alt="Edit" />
+                        </button>
                     </td>
                 </tr>
             }
@@ -80,9 +77,4 @@ else if (_displayDetailsDialog)
 else if (_displayEditDialog)
 {
     <TicketEdit OnCancel="@CloseEditDialog" OnConfirm="@ConfirmEdit" TicketTarget="@_ticketTarget" />
-}
-
-else if (_displayAssignDialog)
-{
-    <Assignment TicketTarget="@_ticketTarget" OnCancel="@CloseAssignDialog" OnConfirm="@ConfirmAssign" />
 }

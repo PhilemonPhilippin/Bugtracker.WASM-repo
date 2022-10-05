@@ -22,7 +22,6 @@ namespace Bugtracker.WASM.Shared.TicketComponents
         private int _myMemberId;
         private MemberModel _myMemberModel = new();
         private bool _displayEditDialog;
-        private bool _displayAssignDialog;
         protected override async Task OnInitializedAsync()
         {
             _token = await LocalStorage.GetToken();
@@ -54,11 +53,6 @@ namespace Bugtracker.WASM.Shared.TicketComponents
             await RefreshTicketList();
             _displayEditDialog = false;
         }
-        private async Task ConfirmAssign()
-        {
-            await RefreshTicketList();
-            _displayAssignDialog = false;
-        }
         private void DisplayDetailsDialog(TicketModel ticket)
         {
             _displayDetailsDialog = !_displayDetailsDialog;
@@ -66,7 +60,6 @@ namespace Bugtracker.WASM.Shared.TicketComponents
             {
                 _displayAddDialog = false;
                 _displayEditDialog = false;
-                _displayAssignDialog = false;
                 _ticketTarget = ticket;
             }
         }
@@ -77,7 +70,6 @@ namespace Bugtracker.WASM.Shared.TicketComponents
             {
                 _displayEditDialog = false;
                 _displayDetailsDialog = false;
-                _displayAssignDialog = false;
             }
         }
         private void DisplayEditDialog(TicketModel ticket)
@@ -87,22 +79,10 @@ namespace Bugtracker.WASM.Shared.TicketComponents
             {
                 _displayAddDialog = false;
                 _displayDetailsDialog = false;
-                _displayAssignDialog = false;
                 _ticketTarget = ticket;
             }
         }
 
-        private void DisplayAssignDialog(TicketModel ticket)
-        {
-            _displayAssignDialog = !_displayAssignDialog;
-            if (_displayAssignDialog)
-            {
-                _displayEditDialog = false;
-                _displayAddDialog = false;
-                _displayDetailsDialog = false;
-                _ticketTarget = ticket;
-            }
-        }
         private void CloseDetailsDialog()
         {
             _displayDetailsDialog = false;
@@ -114,10 +94,6 @@ namespace Bugtracker.WASM.Shared.TicketComponents
         private void CloseEditDialog()
         {
             _displayEditDialog = false;
-        }
-        private void CloseAssignDialog()
-        {
-            _displayAssignDialog = false;
         }
     }
 }
