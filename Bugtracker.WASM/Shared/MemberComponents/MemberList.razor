@@ -45,7 +45,7 @@ else
                         @onclick="() => DisplayEditDialog(member)" title="Edit">
                                 <img src="/custom-icons/pen.svg" alt="Edit" />
                             </button>
-                            @if (member.Role < _myMemberModel.Role)
+                            @if (_myMemberModel.Role >= 4 && member.Role <= _myMemberModel.Role && member.IdMember != _myMemberModel.IdMember)
                             {
                                 <button class="btn btn-warning ms-1" @onclick="() => DisplayEditRoleDialog(member)" title="Edit Role">
                                     Edit Role

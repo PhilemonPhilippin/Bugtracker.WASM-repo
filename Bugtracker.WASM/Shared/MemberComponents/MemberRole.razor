@@ -7,13 +7,10 @@
         <label for="Role">Role:</label>
         <InputSelect id="Role" @bind-Value="@EditedMember.Role" class="form-control">
             <option value="" disabled>Select..</option>
-            <option value="1">Tester</option>
-            <option value="2">Developer</option>
+            <option value="1">Developer</option>
+            <option value="2">Tester</option>
             <option value="3">Project Manager</option>
-            @if (_myMemberModel.Role == 5)
-            {
-                <option value="4">Administrator</option>
-            }
+            <option value="4">Administrator</option>
         </InputSelect>
        
         <button type="submit" class="btn btn-warning mt-2 me-2" title="Edit">Confirm Edit</button>
