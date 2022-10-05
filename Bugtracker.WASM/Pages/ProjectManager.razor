@@ -16,12 +16,12 @@
             <p class="text-danger">You are not connected. Click below to go to login page</p>
             <button class="btn btn-primary" @onclick="ToAccount">Login page</button>
         }
-        else if (_myMemberModel.Role == 1)
+        else if (_myMemberModel.Role == 2)
         {
-            <p class="text-danger">You don't have the rights to access this section. You must be Project Manager or higher.</p>
+            <p class="text-danger">You are a tester, you don't have access to this section. Please, click below to go back to the Dashboard</p>
             <button class="btn btn-primary" @onclick="ToDashboard">Dashboard</button>
         }
-        else if (_myMemberModel.Role == 2)
+        else if (_myMemberModel.Role == 1)
         {
             <LimitedTicketList />
         }
